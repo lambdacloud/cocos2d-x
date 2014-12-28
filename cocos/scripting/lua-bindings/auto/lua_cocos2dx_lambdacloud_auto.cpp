@@ -1,6 +1,6 @@
 #include "lua_cocos2dx_lambdacloud_auto.hpp"
-#include "LambdaClient.h"
-#include "LambdaDevice.h"
+#include "lambdacloud/LambdaClient.h"
+#include "lambdacloud/LambdaDevice.h"
 #include "tolua_fix.h"
 #include "LuaBasicConversions.h"
 
