@@ -5,6 +5,7 @@
 #include "lua_assetsmanager_test_sample.h"
 #include "lua_module_register.h"
 #include "lua_test_bindings.h"
+#include "lua_cocos2dx_lambdacloud_auto.hpp"
 
 using namespace CocosDenshion;
 
@@ -49,6 +50,15 @@ bool AppDelegate::applicationDidFinishLaunching()
         register_test_binding(L);
     }
     lua_pop(L, 1);
+    
+    LuaStack *customStack = pEngine->getLuaStack();
+    auto customState = customStack->getLuaState();
+    if (customState)
+    {
+        lua_getglobal(customState, "_G");
+        register_all_cocos2dx_lambdacloud(customState);
+        lua_settop(customState, 0);
+    }
 
 
     pEngine->executeScriptFile("src/controller.lua");
