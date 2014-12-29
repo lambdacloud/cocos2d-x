@@ -150,7 +150,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                     $(LOCAL_PATH)/../../../../external/xxtea \
                     $(LOCAL_PATH)/../../../.. \
                     $(LOCAL_PATH)/../../../../external/lua \
-                    $(LOCAL_PATH)/../../../../external/lua/quick
+                    $(LOCAL_PATH)/../../../../external/lua/quick \
+                    $(LOCAL_PATH)/../../../lambdacloud
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                            $(LOCAL_PATH)/../../../../external/lua/luajit/include \
@@ -167,7 +168,9 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                            $(LOCAL_PATH)/../manual/extension \
                            $(LOCAL_PATH)/../manual/ui \
                            $(LOCAL_PATH)/../../../../external/lua/quick \
-                           $(LOCAL_PATH)/../../../..
+                           $(LOCAL_PATH)/../../../.. \
+                           $(LOCAL_PATH)/../../../lambdacloud
+
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2d_lua_android_static
 

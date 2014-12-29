@@ -25,7 +25,6 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 #include "LambdaDevice.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
@@ -45,30 +44,22 @@ std::string LambdaDevice::getCarrierName(void)
 int LambdaDevice::getNetworkStatus(void)
 {
     NetworkStatus status = [[ReachabilityIOSMac reachabilityForInternetConnection] currentReachabilityStatus];
-    if (status == ReachableViaWiFi) return lambdaNetworkStatusReachableViaWiFi;
-    if (status == ReachableViaWWAN) return lambdaNetworkStatusReachableViaWWAN;
-    return lambdaNetworkStatusNotReachable;
+    if (status == ReachableViaWiFi) return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI;
+    if (status == ReachableViaWWAN) return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN;
+    return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
 }
 
 int LambdaDevice::getApplicationPlatform(void)
 {
     auto app = cocos2d::Application::getInstance();
     auto platform = app->getTargetPlatform();
-    if (platform == cocos2d::ApplicationProtocol::Platform::OS_ANDROID)
-        return lambdaPlatformAndroid;
-    else if (platform == cocos2d::ApplicationProtocol::Platform::OS_IPHONE)
-        return lambdaPlatformIPhone;
+    if (platform == cocos2d::ApplicationProtocol::Platform::OS_IPHONE)
+        return LAMBDA_PLATFORM_IPHONE;
     else if (platform == cocos2d::ApplicationProtocol::Platform::OS_IPAD)
-        return lambdaPlatformIPad;
-    else if (platform == cocos2d::ApplicationProtocol::Platform::OS_WP8)
-        return lambdaPlatformWp;
-    else if (platform == cocos2d::ApplicationProtocol::Platform::OS_WINDOWS)
-        return lambdaPlatformWin;
-    else if (platform == cocos2d::ApplicationProtocol::Platform::OS_WINRT)
-        return lambdaPlatformWinRT;
+        return LAMBDA_PLATFORM_IPAD;
     else if (platform == cocos2d::ApplicationProtocol::Platform::OS_MAC)
-        return lambdaPlatformMac;
-    return lambdaPlatformOthers;
+        return LAMBDA_PLATFORM_MAC;
+    return LAMBDA_PLATFORM_OTHERS;
 }
 
 std::string LambdaDevice::getDeviceName(void)

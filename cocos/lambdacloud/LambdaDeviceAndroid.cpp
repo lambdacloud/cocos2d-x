@@ -31,7 +31,7 @@ std::string LambdaDevice::getCarrierName(void)
         return JniHelper::jstring2string(jstr);
     }
     
-    return lambdaUnknown;
+    return LAMBDA_DEVICE_STATUS_UNKNOWN;
 
 }
 
@@ -46,12 +46,12 @@ int LambdaDevice::getNetworkStatus(void)
         return ret;
     }
  
-    return lambdaNetworkStatusNotReachable;
+    return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
 }
 
 int LambdaDevice::getApplicationPlatform(void)
 {
-    return lambdaPlatformAndroid;
+    return LAMBDA_PLATFORM_ANDROID;
 }
 
 std::string LambdaDevice::getDeviceName(void)
@@ -64,14 +64,14 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     if ((nullptr == className) || (nullptr == fieldName))
     {
         CCLOG("className and fieldName should not be null");
-        return lambdaUnknown;
+        return LAMBDA_DEVICE_STATUS_UNKNOWN;
     }
     
     JNIEnv *env = JniHelper::getEnv();
     if (!env)
     {
         CCLOG("Failed to get the environment using GetEnv()");
-        return lambdaUnknown;
+        return LAMBDA_DEVICE_STATUS_UNKNOWN;
     }
     
     jclass classID = env->FindClass(className);
@@ -79,7 +79,7 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     {
         CCLOG("Failed to find class %s", className);
         env->ExceptionClear();
-        return lambdaUnknown;
+        return LAMBDA_DEVICE_STATUS_UNKNOWN;
     }
     
     jfieldID fieldID = env->GetStaticFieldID(classID, fieldName, "Ljava/lang/String;");
@@ -87,7 +87,7 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     {
         CCLOG("Failed to find field of %s", fieldName);
         env->ExceptionClear();
-        return lambdaUnknown;
+        return LAMBDA_DEVICE_STATUS_UNKNOWN;
     }
     
     jstring jstr = (jstring)env->GetStaticObjectField(classID, fieldID);
