@@ -2,6 +2,7 @@ require "helper"
 require "testResource"
 require "VisibleRect"
 
+require "LambdaSDKTest/LambdaClientTest"
 require "AccelerometerTest/AccelerometerTest"
 require "ActionManagerTest/ActionManagerTest"
 require "ActionsEaseTest/ActionsEaseTest"
@@ -68,6 +69,7 @@ if (cc.PLATFORM_OS_WINDOWS == currPlatform or cc.PLATFORM_OS_MAC == currPlatform
 end
 
 local _allTests = {
+    { isSupported = true,  name = "LambdaSDKTest"          , create_func=             LambdaClientTestMain  },
     { isSupported = true,  name = "Accelerometer"          , create_func=             AccelerometerMain  },
     { isSupported = true,  name = "ActionManagerTest"      , create_func   =         ActionManagerTestMain  },
     { isSupported = true,  name = "ActionsEaseTest"        , create_func   =           EaseActionsTest      },

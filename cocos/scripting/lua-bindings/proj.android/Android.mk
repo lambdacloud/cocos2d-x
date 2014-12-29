@@ -57,6 +57,9 @@ LOCAL_SRC_FILES := ../manual/CCLuaBridge.cpp \
           ../auto/lua_cocos2dx_audioengine_auto.cpp \
           ../manual/audioengine/lua_cocos2dx_audioengine_manual.cpp
 
+#lambdacloud
+LOCAL_SRC_FILES += ../auto/lua_cocos2dx_lambdacloud_auto.cpp \
+
 #3d
 LOCAL_SRC_FILES += ../manual/3d/lua_cocos2dx_3d_manual.cpp \
                    ../auto/lua_cocos2dx_3d_auto.cpp
@@ -147,7 +150,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                     $(LOCAL_PATH)/../../../../external/xxtea \
                     $(LOCAL_PATH)/../../../.. \
                     $(LOCAL_PATH)/../../../../external/lua \
-                    $(LOCAL_PATH)/../../../../external/lua/quick
+                    $(LOCAL_PATH)/../../../../external/lua/quick \
+                    $(LOCAL_PATH)/../../../lambdacloud
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                            $(LOCAL_PATH)/../../../../external/lua/luajit/include \
@@ -164,7 +168,9 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../../../external/lua/tolua \
                            $(LOCAL_PATH)/../manual/extension \
                            $(LOCAL_PATH)/../manual/ui \
                            $(LOCAL_PATH)/../../../../external/lua/quick \
-                           $(LOCAL_PATH)/../../../..
+                           $(LOCAL_PATH)/../../../.. \
+                           $(LOCAL_PATH)/../../../lambdacloud
+
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2d_lua_android_static
 
