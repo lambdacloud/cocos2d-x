@@ -1,0 +1,27 @@
+
+	#define LAMBDA_NETWORK_STATUS_NOT_REACHABLE     0
+	#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI 1
+	#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN 2
+	    
+	#define LAMBDA_PLATFORM_IPHONE 0
+	#define LAMBDA_PLATFORM_IPAD 1
+	#define LAMBDA_PLATFORM_ANDROID 2
+	#define LAMBDA_PLATFORM_WP 3
+	#define LAMBDA_PLATFORM_WIN 4
+	#define LAMBDA_PLATFORM_WINRT 5
+	#define LAMBDA_PLATFORM_MAC 6
+	#define LAMBDA_PLATFORM_OTHERS 7
+	    
+	#define LAMBDA_DEVICE_STATUS_UNKNOWN "unknown"
+
+namespace lambdacloud {
+
+	class LambdaDevice
+	{
+		static std::string getCarrierName(void);
+	    static int getNetworkStatus(void);
+	    static std::string getDeviceName(void);
+	    static int getApplicationPlatform(void);
+	};
+
+}
