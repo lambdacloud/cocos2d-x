@@ -30,6 +30,7 @@
 using namespace lambdacloud;
 
 const char* c_url = "http://api.lambdacloud.com/log";
+const int c_successReponseCode = 204;
 const std::string c_jsonHeader = "Content-Type: application/json";
 static LambdaClient* s_lambdaClient = NULL;
 std::string m_token;
@@ -113,7 +114,7 @@ void LambdaClient::onHttpRequestCompleted(cocos2d::extension::CCHttpClient *send
     }
     
     // Check if completed
-    if (!response->isSucceed())
+    if (response->getResponseCode() != c_successReponseCode)
     {
         CCLOG("request failed with message %s", response->getErrorBuffer());
         return;
