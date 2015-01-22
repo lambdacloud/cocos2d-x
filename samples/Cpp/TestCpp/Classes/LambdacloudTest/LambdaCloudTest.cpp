@@ -53,19 +53,23 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
     CCLOG("LambdaCloudTest getApplicationPlatform %d", lambdacloud::LambdaDevice::getApplicationPlatform());
     CCLog("LambdaCloudTest getNetworkStatus %d", lambdacloud::LambdaDevice::getNetworkStatus());
     
-    // waiting
-    m_labelStatusCode->setString("waiting...");
+    // give a hit
+    m_labelStatusCode->setString("sent...please check log to verify");
     
 }
 
 void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 {
-    std::vector<std::string> tags;
+    CCArray* tags = CCArray::create();
+    tags->addObject(CCString::create("test"));
+    tags->addObject(CCString::create("cpp"));
     lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
     client->debugLog();
     client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
     client->writeLog("this is a test log from cpp test project on cocos v2", tags);
     
+    // give a hit
+    m_labelStatusCode->setString("sent...please check log to verify");
 }
 
 ////////////////////////////////////////////////////////
