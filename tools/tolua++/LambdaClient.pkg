@@ -4,7 +4,7 @@ namespace lambdacloud {
     {
         static LambdaClient* getInstance();
         void setToken(const std::string& token);
-        void writeLog(const std::string& log, std::vector<std::string> tags);
+        void writeLog(const std::string& log, CCArray *tags);
         void debugLog();
     };
 

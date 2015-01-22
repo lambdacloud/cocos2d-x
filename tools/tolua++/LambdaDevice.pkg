@@ -11,8 +11,6 @@
 	#define LAMBDA_PLATFORM_WINRT 5
 	#define LAMBDA_PLATFORM_MAC 6
 	#define LAMBDA_PLATFORM_OTHERS 7
-	    
-	#define LAMBDA_DEVICE_STATUS_UNKNOWN "unknown"
 
 namespace lambdacloud {
 

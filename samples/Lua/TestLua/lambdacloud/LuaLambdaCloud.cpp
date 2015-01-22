@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LambdaCloud
-** Generated automatically by tolua++-1.0.92 on Tue Jan 20 23:23:31 2015.
+** Generated automatically by tolua++-1.0.92 on Thu Jan 22 16:10:17 2015.
 */
 
 /****************************************************************************
@@ -52,10 +52,10 @@ TOLUA_API int  tolua_LambdaCloud_open (lua_State* tolua_S);
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"std::vector<std::string>");
+ tolua_usertype(tolua_S,"lambdacloud::LambdaDevice");
  tolua_usertype(tolua_S,"CCObject");
  tolua_usertype(tolua_S,"lambdacloud::LambdaClient");
- tolua_usertype(tolua_S,"lambdacloud::LambdaDevice");
+ tolua_usertype(tolua_S,"CCArray");
 }
 
 /* method: getInstance of class  lambdacloud::LambdaClient */
@@ -129,7 +129,7 @@ static int tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00(lua_State* tolu
  if (
      !tolua_isusertype(tolua_S,1,"lambdacloud::LambdaClient",0,&tolua_err) ||
      !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"std::vector<std::string>",0,&tolua_err)) ||
+     !tolua_isusertype(tolua_S,3,"CCArray",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -138,7 +138,7 @@ static int tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00(lua_State* tolu
  {
   lambdacloud::LambdaClient* self = (lambdacloud::LambdaClient*)  tolua_tousertype(tolua_S,1,0);
   const std::string log = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
-  std::vector<std::string> tags = *((std::vector<std::string>*)  tolua_tousertype(tolua_S,3,0));
+  CCArray* tags = ((CCArray*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'writeLog'", NULL);
 #endif

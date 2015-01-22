@@ -48,14 +48,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_web_socket_open(tolua_s);
 #endif
     
-    CCLuaStack *customStack = pEngine->getLuaStack();
-    auto customState = customStack->getLuaState();
-    if (customState)
-    {
-        lua_getglobal(customState, "_G");
-        tolua_LambdaCloud_open(customState);
-        lua_settop(customState, 0);
-    }
+    pStack = pEngine->getLuaStack();
+    tolua_s = pStack->getLuaState();
+    tolua_LambdaCloud_open(tolua_s);
     
     CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     CCSize designSize = CCSizeMake(480, 320);
