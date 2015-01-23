@@ -35,9 +35,9 @@
 #include "network/HttpRequest.h"
 #include "network/HttpResponse.h"
 #include "network/HttpClient.h"
-#include "document.h"
-#include "writer.h"
-#include "stringbuffer.h"
+#include "CocoStudio/Json/rapidjson/document.h"
+#include "CocoStudio/Json/rapidjson/writer.h"
+#include "CocoStudio/Json/rapidjson/stringbuffer.h"
 
 namespace lambdacloud {
     
@@ -50,14 +50,14 @@ namespace lambdacloud {
     public:
         static LambdaClient* getInstance();
         void setToken(const std::string& token);
-        void writeLog(const std::string& log, std::vector<std::string> tags);
+        void writeLog(const std::string& log, cocos2d::CCArray *tags);
         void debugLog();
         
     private:
         LambdaClient();
         virtual ~LambdaClient();
         bool init(void);
-        std::string generateJsonData(const std::string& log, std::vector<std::string> tags);
+        std::string generateJsonData(const std::string& log, cocos2d::CCArray *tags);
         void onHttpRequestCompleted(cocos2d::extension::CCHttpClient *sender, cocos2d::extension::CCHttpResponse *response);
     };
 }

@@ -83,14 +83,14 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     if ((nullptr == className) || (nullptr == fieldName))
     {
         CCLOG("className and fieldName should not be null");
-        return LAMBDA_DEVICE_STATUS_UNKNOWN;
+        return "";
     }
     
-    JNIEnv *env = JniHelper::getEnv();
-    if (!env)
+    JNIEnv *env;
+    if (! JniHelper::getEnv(&env))
     {
         CCLOG("Failed to get the environment using GetEnv()");
-        return LAMBDA_DEVICE_STATUS_UNKNOWN;
+        return "";
     }
     
     jclass classID = env->FindClass(className);
@@ -98,7 +98,7 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     {
         CCLOG("Failed to find class %s", className);
         env->ExceptionClear();
-        return LAMBDA_DEVICE_STATUS_UNKNOWN;
+        return "";
     }
     
     jfieldID fieldID = env->GetStaticFieldID(classID, fieldName, "Ljava/lang/String;");
@@ -106,7 +106,7 @@ std::string LambdaDevice::getStaticStringField(const char* className, const char
     {
         CCLOG("Failed to find field of %s", fieldName);
         env->ExceptionClear();
-        return LAMBDA_DEVICE_STATUS_UNKNOWN;
+        return "";
     }
     
     jstring jstr = (jstring)env->GetStaticObjectField(classID, fieldID);
