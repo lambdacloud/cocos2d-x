@@ -127,10 +127,10 @@
 			<type>2</type>
 			<locationURI>COCOS2DX/extensions</locationURI>
 		</link>
-        <link>
-            <name>lambdacloud</name>
-            <type>2</type>
-            <locationURI>COCOS2DX/lambdacloud</locationURI>
-        </link>
+		<link>
+			<name>lambda</name>
+			<type>2</type>
+			<location>/Users/sky4star/Github/cocos2d-x-lambdacloud/lambdacloud/android/src</location>
+		</link>
 	</linkedResources>
 </projectDescription>
