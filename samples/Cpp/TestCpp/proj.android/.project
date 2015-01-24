@@ -26,7 +26,7 @@
 			<arguments>
 				<dictionary>
 					<key>?children?</key>
-					<value>?name?=outputEntries\|?children?=?name?=entry\\\\\\\|\\\|\||</value>
+					<value>?children?=?name?=entry\\\\\\\|\\\|\|?name?=outputEntries\||</value>
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
@@ -127,5 +127,10 @@
 			<type>2</type>
 			<locationURI>COCOS2DX/extensions</locationURI>
 		</link>
+        <link>
+            <name>lambdacloud</name>
+            <type>2</type>
+            <locationURI>COCOS2DX/lambdacloud</locationURI>
+        </link>
 	</linkedResources>
 </projectDescription>

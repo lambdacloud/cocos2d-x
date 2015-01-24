@@ -40,76 +40,52 @@ using namespace lambdacloud;
 
 std::string LambdaDevice::getCarrierName(void)
 {
-    JniMethodInfo methodInfo;
-    if (JniHelper::getStaticMethodInfo(methodInfo, "android/telephony/TelephonyManager", "getNetworkOperatorName",
-                                       "()L"))
-    {
-        jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
-        methodInfo.env->DeleteLocalRef(methodInfo.classID);
-        
-        return JniHelper::jstring2string(jstr);
-    }
-    
-    return "";
+	JniMethodInfo methodInfo;
+	if (JniHelper::getStaticMethodInfo(methodInfo, "android/telephony/TelephonyManager", "getNetworkOperatorName",
+					"()L"))
+	{
+		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+		methodInfo.env->DeleteLocalRef(methodInfo.classID);
+
+		return JniHelper::jstring2string(jstr);
+	}
+
+	return "unknown";
 
 }
 
 int LambdaDevice::getNetworkStatus(void)
 {
-    JniMethodInfo methodInfo;
-    if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaNetworkUtil", "getInternetConnectionStatus",
-                                       "()I"))
-    {
-        jint ret = methodInfo.env->CallStaticIntMethod(methodInfo.classID, methodInfo.methodID);
-        methodInfo.env->DeleteLocalRef(methodInfo.classID);
-        return ret;
-    }
- 
-    return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
+	JniMethodInfo methodInfo;
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getInternetConnectionStatus",
+					"()I"))
+	{
+		jint ret = methodInfo.env->CallStaticIntMethod(methodInfo.classID, methodInfo.methodID);
+		methodInfo.env->DeleteLocalRef(methodInfo.classID);
+		return ret;
+	}
+
+	return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
 }
 
 int LambdaDevice::getApplicationPlatform(void)
 {
-    return LAMBDA_PLATFORM_ANDROID;
+	return LAMBDA_PLATFORM_ANDROID;
 }
 
 std::string LambdaDevice::getDeviceName(void)
 {
-    return getStaticStringField("android/os/Build", "MODEL");
+	JniMethodInfo methodInfo;
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getDeviceName",
+						"()L"))
+	{
+		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+		methodInfo.env->DeleteLocalRef(methodInfo.classID);
+
+		return JniHelper::jstring2string(jstr);
+	}
+
+	return "unknown";
 }
 
-std::string LambdaDevice::getStaticStringField(const char* className, const char* fieldName)
-{
-    if ((nullptr == className) || (nullptr == fieldName))
-    {
-        CCLOG("className and fieldName should not be null");
-        return "";
-    }
-    
-    JNIEnv *env;
-    if (! JniHelper::getEnv(&env))
-    {
-        CCLOG("Failed to get the environment using GetEnv()");
-        return "";
-    }
-    
-    jclass classID = env->FindClass(className);
-    if (!classID)
-    {
-        CCLOG("Failed to find class %s", className);
-        env->ExceptionClear();
-        return "";
-    }
-    
-    jfieldID fieldID = env->GetStaticFieldID(classID, fieldName, "Ljava/lang/String;");
-    if(!fieldID)
-    {
-        CCLOG("Failed to find field of %s", fieldName);
-        env->ExceptionClear();
-        return "";
-    }
-    
-    jstring jstr = (jstring)env->GetStaticObjectField(classID, fieldID);
-    return JniHelper::jstring2string(jstr);
-}
 #endif
