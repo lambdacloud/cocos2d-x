@@ -6,24 +6,27 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 public class LambdaDeviceUtil {
 	static ConnectivityManager mConnManager = null;
+	static TelephonyManager mTeleManager = null;
 	static String LAMBDACLOUD_SDK = "LAMBDACLOUD_SDK";
 	static String UNKNOWN = "unknown";
 
-	private static void initConnManager() {
+	private static void init() {
 	    try {
     		Context context = Cocos2dxActivity.getContext();
     		if (context != null)
     		{
     			mConnManager = (ConnectivityManager) context
     					.getSystemService(Context.CONNECTIVITY_SERVICE);
+    			mTeleManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE); 
     		}
 	    } catch (Exception e)
 	    {
-	        Log.e(LAMBDACLOUD_SDK, "get exception while calling initConnManager, detail is " + e.toString());
+	        Log.e(LAMBDACLOUD_SDK, "get exception while initization manager, detail is " + e.toString());
 	    }
 	}
 	
@@ -42,7 +45,7 @@ public class LambdaDeviceUtil {
 	public static int getInternetConnectionStatus() {
 		if (mConnManager == null)
 		{
-			initConnManager();
+			init();
 		}
 		
 		if (mConnManager != null)
@@ -83,5 +86,25 @@ public class LambdaDeviceUtil {
 	        Log.e(LAMBDACLOUD_SDK, "get exception while reading device name, detail is " + e.toString());
 	        return UNKNOWN;
 	    }
+	}
+	
+	public static String getOperationInfo()
+	{
+	    if (mTeleManager == null)
+        {
+            init();
+        }
+        
+        if (mTeleManager != null)
+        {
+            try
+            {
+                return mTeleManager.getNetworkOperatorName();
+            } catch (Exception e) { 
+                Log.e(LAMBDACLOUD_SDK, "get exception while getting operation name, detail is " + e.toString());
+            }
+        }
+        
+        return UNKNOWN;
 	}
 }

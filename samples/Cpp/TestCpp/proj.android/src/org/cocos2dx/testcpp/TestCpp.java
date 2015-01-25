@@ -37,8 +37,15 @@ public class TestCpp extends Cocos2dxActivity{
     public Cocos2dxGLSurfaceView onCreateView() {
     	Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
     	// TestCpp should create stencil buffer
-    	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-    	
+    	//glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+        
+        /* When running the test with GenyMotion, it failed to lauch test app 
+           with a message "unforturately APP has stopped". 
+           LogCat shows the detailed exception is "java.lang.IllegalArgumentException: No config chosen".
+           The fix is simple this line
+         */
+        glSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+
     	return glSurfaceView;
     }
 

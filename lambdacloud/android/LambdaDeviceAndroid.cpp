@@ -41,7 +41,7 @@ using namespace lambdacloud;
 std::string LambdaDevice::getCarrierName(void)
 {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "android/telephony/TelephonyManager", "getNetworkOperatorName",
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getOperationInfo",
 					"()Ljava/lang/String;"))
 	{
 		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
