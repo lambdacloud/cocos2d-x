@@ -42,7 +42,7 @@ std::string LambdaDevice::getCarrierName(void)
 {
 	JniMethodInfo methodInfo;
 	if (JniHelper::getStaticMethodInfo(methodInfo, "android/telephony/TelephonyManager", "getNetworkOperatorName",
-					"()L"))
+					"()Ljava/lang/String;"))
 	{
 		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
 		methodInfo.env->DeleteLocalRef(methodInfo.classID);
@@ -76,8 +76,7 @@ int LambdaDevice::getApplicationPlatform(void)
 std::string LambdaDevice::getDeviceName(void)
 {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getDeviceName",
-						"()L"))
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getDeviceName", "()Ljava/lang/String;"))
 	{
 		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
 		methodInfo.env->DeleteLocalRef(methodInfo.classID);
