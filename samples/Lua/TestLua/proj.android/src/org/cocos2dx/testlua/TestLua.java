@@ -36,7 +36,15 @@ public class TestLua extends Cocos2dxActivity{
 	
 	public Cocos2dxGLSurfaceView onCreateView() {
         LuaGLSurfaceView glSurfaceView = new LuaGLSurfaceView(this);
-        glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+        //glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+        
+        /* When running the test with GenyMotion, it failed to lauch test app 
+        with a message "unforturately APP has stopped". 
+        LogCat shows the detailed exception is "java.lang.IllegalArgumentException: No config chosen".
+        The fix is simple this line
+        */
+        glSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+        
     	return glSurfaceView;
     }
 
