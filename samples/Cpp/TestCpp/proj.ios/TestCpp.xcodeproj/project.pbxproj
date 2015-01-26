@@ -421,7 +421,6 @@
 		B3731D731A7254AB00B764E4 /* LambdaClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */; };
 		B3731D741A7254AB00B764E4 /* LambdaDeviceIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */; };
 		B3731D751A7254AB00B764E4 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */; };
-		B3731D771A725FD600B764E4 /* LambdaDeviceAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3731D761A725FD600B764E4 /* LambdaDeviceAndroid.cpp */; };
 		B3E9F8B21A6E3DB000066711 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */; };
 		B3E9F8B41A6E3DBA00066711 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */; };
 		B3E9F8B81A6E3FFF00066711 /* LambdaCloudTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */; };
@@ -1338,7 +1337,6 @@
 		B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LambdaDeviceIOSMac.mm; sourceTree = "<group>"; };
 		B3731D711A7254AB00B764E4 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
 		B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
-		B3731D761A725FD600B764E4 /* LambdaDeviceAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LambdaDeviceAndroid.cpp; path = ../../../../lambdacloud/android/LambdaDeviceAndroid.cpp; sourceTree = "<group>"; };
 		B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaCloudTest.cpp; sourceTree = "<group>"; };
@@ -2797,7 +2795,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				B3731D761A725FD600B764E4 /* LambdaDeviceAndroid.cpp */,
 				B3731D6B1A7254AB00B764E4 /* include */,
 				B3731D6E1A7254AB00B764E4 /* ios */,
 				15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */,
@@ -4028,7 +4025,6 @@
 				50FCEB5818C6D695004AD434 /* UIRichText.cpp in Sources */,
 				15A3D9B21682F7F9002FB0C5 /* cpVect.c in Sources */,
 				15A3DA311682F826002FB0C5 /* CCBAnimationManager.cpp in Sources */,
-				B3731D771A725FD600B764E4 /* LambdaDeviceAndroid.cpp in Sources */,
 				15A3DA321682F826002FB0C5 /* CCBFileLoader.cpp in Sources */,
 				50F8546D18C581FB0019FBFB /* UILabelAtlasTest_Editor.cpp in Sources */,
 				15A3DA331682F826002FB0C5 /* CCBKeyframe.cpp in Sources */,
