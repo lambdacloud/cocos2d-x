@@ -223,11 +223,11 @@
 		46C1009316BF786A00F74D54 /* tolua_fix.c in Sources */ = {isa = PBXBuildFile; fileRef = 46C1008A16BF786A00F74D54 /* tolua_fix.c */; };
 		B347237A1A6EAB900057BE76 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34723791A6EAB900057BE76 /* CoreTelephony.framework */; };
 		B347237C1A6EAB970057BE76 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B347237B1A6EAB970057BE76 /* SystemConfiguration.framework */; };
-		B3D544D71A7147270075ADB2 /* LambdaClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3D544CE1A7147270075ADB2 /* LambdaClient.cpp */; };
-		B3D544D81A7147270075ADB2 /* LambdaDeviceAndroid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3D544D11A7147270075ADB2 /* LambdaDeviceAndroid.cpp */; };
-		B3D544D91A7147270075ADB2 /* LambdaDeviceIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3D544D21A7147270075ADB2 /* LambdaDeviceIOSMac.mm */; };
-		B3D544DA1A7147270075ADB2 /* LuaLambdaCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3D544D31A7147270075ADB2 /* LuaLambdaCloud.cpp */; };
-		B3D544DB1A7147270075ADB2 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D544D61A7147270075ADB2 /* ReachabilityIOSMac.m */; };
+		B3FCD33F1A76031A00578C61 /* LambdaClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3FCD33B1A76031A00578C61 /* LambdaClient.cpp */; };
+		B3FCD3401A76031A00578C61 /* LambdaDeviceIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3FCD33C1A76031A00578C61 /* LambdaDeviceIOSMac.mm */; };
+		B3FCD3411A76031A00578C61 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FCD33E1A76031A00578C61 /* ReachabilityIOSMac.m */; };
+		B3FCD3461A76032A00578C61 /* Android.mk in Resources */ = {isa = PBXBuildFile; fileRef = B3FCD3431A76032A00578C61 /* Android.mk */; };
+		B3FCD3471A76032A00578C61 /* LuaLambdaCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3FCD3441A76032A00578C61 /* LuaLambdaCloud.cpp */; };
 		ED53150218331445008CD8A5 /* CCActionFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED53146C18331444008CD8A5 /* CCActionFrame.cpp */; };
 		ED53150318331445008CD8A5 /* CCActionFrameEasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED53146E18331444008CD8A5 /* CCActionFrameEasing.cpp */; };
 		ED53150418331445008CD8A5 /* CCActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED53147018331444008CD8A5 /* CCActionManager.cpp */; };
@@ -726,15 +726,15 @@
 		46C1008B16BF786A00F74D54 /* tolua_fix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_fix.h; sourceTree = "<group>"; };
 		B34723791A6EAB900057BE76 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B347237B1A6EAB970057BE76 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B3D544CE1A7147270075ADB2 /* LambdaClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaClient.cpp; sourceTree = "<group>"; };
-		B3D544CF1A7147270075ADB2 /* LambdaClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaClient.h; sourceTree = "<group>"; };
-		B3D544D01A7147270075ADB2 /* LambdaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaDevice.h; sourceTree = "<group>"; };
-		B3D544D11A7147270075ADB2 /* LambdaDeviceAndroid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaDeviceAndroid.cpp; sourceTree = "<group>"; };
-		B3D544D21A7147270075ADB2 /* LambdaDeviceIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LambdaDeviceIOSMac.mm; sourceTree = "<group>"; };
-		B3D544D31A7147270075ADB2 /* LuaLambdaCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaLambdaCloud.cpp; sourceTree = "<group>"; };
-		B3D544D41A7147270075ADB2 /* LuaLambdaCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaLambdaCloud.h; sourceTree = "<group>"; };
-		B3D544D51A7147270075ADB2 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
-		B3D544D61A7147270075ADB2 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
+		B3FCD3381A76030400578C61 /* LambdaClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaClient.h; sourceTree = "<group>"; };
+		B3FCD3391A76030400578C61 /* LambdaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaDevice.h; sourceTree = "<group>"; };
+		B3FCD33B1A76031A00578C61 /* LambdaClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaClient.cpp; sourceTree = "<group>"; };
+		B3FCD33C1A76031A00578C61 /* LambdaDeviceIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LambdaDeviceIOSMac.mm; sourceTree = "<group>"; };
+		B3FCD33D1A76031A00578C61 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
+		B3FCD33E1A76031A00578C61 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
+		B3FCD3431A76032A00578C61 /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
+		B3FCD3441A76032A00578C61 /* LuaLambdaCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaLambdaCloud.cpp; sourceTree = "<group>"; };
+		B3FCD3451A76032A00578C61 /* LuaLambdaCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaLambdaCloud.h; sourceTree = "<group>"; };
 		ED53146C18331444008CD8A5 /* CCActionFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionFrame.cpp; sourceTree = "<group>"; };
 		ED53146D18331444008CD8A5 /* CCActionFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionFrame.h; sourceTree = "<group>"; };
 		ED53146E18331444008CD8A5 /* CCActionFrameEasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionFrameEasing.cpp; sourceTree = "<group>"; };
@@ -1715,21 +1715,37 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
-		B3D544CD1A7147270075ADB2 /* lambdacloud */ = {
+		B3FCD3371A76030300578C61 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				B3D544CE1A7147270075ADB2 /* LambdaClient.cpp */,
-				B3D544CF1A7147270075ADB2 /* LambdaClient.h */,
-				B3D544D01A7147270075ADB2 /* LambdaDevice.h */,
-				B3D544D11A7147270075ADB2 /* LambdaDeviceAndroid.cpp */,
-				B3D544D21A7147270075ADB2 /* LambdaDeviceIOSMac.mm */,
-				B3D544D31A7147270075ADB2 /* LuaLambdaCloud.cpp */,
-				B3D544D41A7147270075ADB2 /* LuaLambdaCloud.h */,
-				B3D544D51A7147270075ADB2 /* ReachabilityIOSMac.h */,
-				B3D544D61A7147270075ADB2 /* ReachabilityIOSMac.m */,
+				B3FCD3381A76030400578C61 /* LambdaClient.h */,
+				B3FCD3391A76030400578C61 /* LambdaDevice.h */,
 			);
-			name = lambdacloud;
-			path = ../../../../lambdacloud;
+			name = include;
+			path = ../../../../lambdacloud/include;
+			sourceTree = "<group>";
+		};
+		B3FCD33A1A76031A00578C61 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				B3FCD33B1A76031A00578C61 /* LambdaClient.cpp */,
+				B3FCD33C1A76031A00578C61 /* LambdaDeviceIOSMac.mm */,
+				B3FCD33D1A76031A00578C61 /* ReachabilityIOSMac.h */,
+				B3FCD33E1A76031A00578C61 /* ReachabilityIOSMac.m */,
+			);
+			name = ios;
+			path = ../../../../lambdacloud/ios;
+			sourceTree = "<group>";
+		};
+		B3FCD3421A76032A00578C61 /* lua */ = {
+			isa = PBXGroup;
+			children = (
+				B3FCD3431A76032A00578C61 /* Android.mk */,
+				B3FCD3441A76032A00578C61 /* LuaLambdaCloud.cpp */,
+				B3FCD3451A76032A00578C61 /* LuaLambdaCloud.h */,
+			);
+			name = lua;
+			path = ../../../../lambdacloud/lua;
 			sourceTree = "<group>";
 		};
 		ED53146A18331444008CD8A5 /* CocoStudio */ = {
@@ -2002,7 +2018,9 @@
 		F293B3BD15EB7BE500256477 = {
 			isa = PBXGroup;
 			children = (
-				B3D544CD1A7147270075ADB2 /* lambdacloud */,
+				B3FCD3421A76032A00578C61 /* lua */,
+				B3FCD33A1A76031A00578C61 /* ios */,
+				B3FCD3371A76030300578C61 /* include */,
 				15C1533E168310C700D239F2 /* cocos2dx.xcodeproj */,
 				15C154A71683118600D239F2 /* Box2D */,
 				15C1542E1683116B00D239F2 /* chipmunk */,
@@ -2179,6 +2197,7 @@
 				15C1569C1683138E00D239F2 /* Icon-72.png in Resources */,
 				15C1569D1683138E00D239F2 /* Icon-114.png in Resources */,
 				15C1569E1683138E00D239F2 /* Icon-144.png in Resources */,
+				B3FCD3461A76032A00578C61 /* Android.mk in Resources */,
 				15C5C70018716EE100670379 /* json.lua in Resources */,
 				1AD263A2168350490089000C /* luaScript in Resources */,
 				1AD263BB1683506D0089000C /* animations in Resources */,
@@ -2239,7 +2258,6 @@
 				15C154001683112E00D239F2 /* CCData.cpp in Sources */,
 				15C154011683112E00D239F2 /* CCLabelBMFontLoader.cpp in Sources */,
 				15C154021683112E00D239F2 /* CCLabelTTFLoader.cpp in Sources */,
-				B3D544DB1A7147270075ADB2 /* ReachabilityIOSMac.m in Sources */,
 				15C154031683112E00D239F2 /* CCLayerColorLoader.cpp in Sources */,
 				2961DE2118C970B30017F5DB /* ImageViewReader.cpp in Sources */,
 				15C154041683112E00D239F2 /* CCLayerGradientLoader.cpp in Sources */,
@@ -2266,7 +2284,6 @@
 				ED53150D18331445008CD8A5 /* CCBatchNode.cpp in Sources */,
 				ED53150218331445008CD8A5 /* CCActionFrame.cpp in Sources */,
 				151AC18F194F48BC00B65DF8 /* CCFrame.cpp in Sources */,
-				B3D544D91A7147270075ADB2 /* LambdaDeviceIOSMac.mm in Sources */,
 				15C154151683112E00D239F2 /* CCControlSlider.cpp in Sources */,
 				15C154161683112E00D239F2 /* CCControlStepper.cpp in Sources */,
 				15C154171683112E00D239F2 /* CCControlSwitch.cpp in Sources */,
@@ -2282,6 +2299,7 @@
 				15C1541F1683112E00D239F2 /* CCScrollView.cpp in Sources */,
 				15C154201683112E00D239F2 /* CCSorting.cpp in Sources */,
 				15C154211683112E00D239F2 /* CCTableView.cpp in Sources */,
+				B3FCD3401A76031A00578C61 /* LambdaDeviceIOSMac.mm in Sources */,
 				15C154221683112E00D239F2 /* CCTableViewCell.cpp in Sources */,
 				ED53152818331445008CD8A5 /* UIListView.cpp in Sources */,
 				15C154231683112E00D239F2 /* HttpClient.cpp in Sources */,
@@ -2306,7 +2324,6 @@
 				15C154961683116B00D239F2 /* cpArbiter.c in Sources */,
 				15C154971683116B00D239F2 /* cpArray.c in Sources */,
 				ED53151618331445008CD8A5 /* CCSpriteFrameCacheHelper.cpp in Sources */,
-				B3D544D81A7147270075ADB2 /* LambdaDeviceAndroid.cpp in Sources */,
 				ED53151018331445008CD8A5 /* CCDisplayManager.cpp in Sources */,
 				15CA8CE918695D34000032AB /* lua_cocos2dx_manual.cpp in Sources */,
 				15C154981683116B00D239F2 /* cpBB.c in Sources */,
@@ -2315,8 +2332,8 @@
 				15C1549B1683116B00D239F2 /* cpCollision.c in Sources */,
 				15C1549C1683116B00D239F2 /* cpHashSet.c in Sources */,
 				15C1549D1683116B00D239F2 /* cpPolyShape.c in Sources */,
-				B3D544DA1A7147270075ADB2 /* LuaLambdaCloud.cpp in Sources */,
 				15C1549E1683116B00D239F2 /* cpShape.c in Sources */,
+				B3FCD3471A76032A00578C61 /* LuaLambdaCloud.cpp in Sources */,
 				ED53151318331445008CD8A5 /* CCArmatureDataManager.cpp in Sources */,
 				15C1549F1683116B00D239F2 /* cpSpace.c in Sources */,
 				2961DE1F18C970B30017F5DB /* ButtonReader.cpp in Sources */,
@@ -2404,7 +2421,7 @@
 				15C155471683118600D239F2 /* b2RevoluteJoint.cpp in Sources */,
 				15C155481683118600D239F2 /* b2RopeJoint.cpp in Sources */,
 				15C155491683118600D239F2 /* b2WeldJoint.cpp in Sources */,
-				B3D544D71A7147270075ADB2 /* LambdaClient.cpp in Sources */,
+				B3FCD33F1A76031A00578C61 /* LambdaClient.cpp in Sources */,
 				15C1554A1683118600D239F2 /* b2WheelJoint.cpp in Sources */,
 				150CD38D1872B3FF007F1964 /* UITouchGroup.cpp in Sources */,
 				ED53152118331445008CD8A5 /* UILayout.cpp in Sources */,
@@ -2440,6 +2457,7 @@
 				46C1009216BF786A00F74D54 /* CCLuaObjcBridge.mm in Sources */,
 				46C1009316BF786A00F74D54 /* tolua_fix.c in Sources */,
 				2961DE2718C970B30017F5DB /* LoadingBarReader.cpp in Sources */,
+				B3FCD3411A76031A00578C61 /* ReachabilityIOSMac.m in Sources */,
 				ED53152B18331445008CD8A5 /* UIScrollView.cpp in Sources */,
 				2961DE2A18C970B30017F5DB /* SliderReader.cpp in Sources */,
 				159B8972175B97D30005B47D /* CCBProxy.cpp in Sources */,
