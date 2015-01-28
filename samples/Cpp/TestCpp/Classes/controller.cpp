@@ -38,6 +38,8 @@ static TestScene* CreateTestScene(int nIdx)
 
     switch (nIdx)
     {
+    case TEST_LAMBDACLOUD:
+        pScene = new LambdaCloudTestScene(); break;
     case TEST_ACTIONS:
         pScene = new ActionsTestScene(); break;
     case TEST_TRANSITIONS:

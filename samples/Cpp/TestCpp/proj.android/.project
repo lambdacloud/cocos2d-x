@@ -26,7 +26,7 @@
 			<arguments>
 				<dictionary>
 					<key>?children?</key>
-					<value>?name?=outputEntries\|?children?=?name?=entry\\\\\\\|\\\|\||</value>
+					<value>?children?=?name?=entry\\\\\\\|\\\|\|?name?=outputEntries\||</value>
 				</dictionary>
 				<dictionary>
 					<key>?name?</key>
@@ -126,6 +126,11 @@
 			<name>extensions</name>
 			<type>2</type>
 			<locationURI>COCOS2DX/extensions</locationURI>
+		</link>
+		<link>
+			<name>lambda</name>
+			<type>2</type>
+			<location>/Users/sky4star/Github/cocos2d-x-lambdacloud/lambdacloud/android/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -1,6 +1,7 @@
 #ifndef _TESTS_H_
 #define _TESTS_H_
 
+#include "LambdacloudTest/LambdaCloudTest.h"
 #include "ActionsTest/ActionsTest.h"
 #include "TransitionsTest/TransitionsTest.h"
 #include "ActionsProgressTest/ActionsProgressTest.h"
@@ -61,7 +62,8 @@
 #include "ConfigurationTest/ConfigurationTest.h"
 enum
 {
-    TEST_ACTIONS = 0,
+    TEST_LAMBDACLOUD = 0,
+    TEST_ACTIONS,
     TEST_TRANSITIONS,
     TEST_PROGRESS_ACTIONS,
     TEST_EFFECTS,
@@ -124,6 +126,7 @@ enum
 };
 
 const std::string g_aTestNames[TESTS_COUNT] = {
+    "LambdaCloudTest",
     "ActionsTest",
     "TransitionsTest",
     "ActionsProgressTest",

@@ -6,6 +6,7 @@
 #include "Lua_extensions_CCB.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "Lua_web_socket.h"
+#include "LuaLambdaCloud.h"
 #endif
 
 using namespace CocosDenshion;
@@ -46,6 +47,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_s = pStack->getLuaState();
     tolua_web_socket_open(tolua_s);
 #endif
+    
+    pStack = pEngine->getLuaStack();
+    tolua_s = pStack->getLuaState();
+    tolua_LambdaCloud_open(tolua_s);
     
     CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     CCSize designSize = CCSizeMake(480, 320);

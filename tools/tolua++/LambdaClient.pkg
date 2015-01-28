@@ -1,0 +1,11 @@
+namespace lambdacloud {
+
+    class LambdaClient : public CCObject
+    {
+        static LambdaClient* getInstance();
+        void setToken(const std::string& token);
+        void writeLog(const std::string& log, CCArray *tags);
+        void debugLog();
+    };
+
+}

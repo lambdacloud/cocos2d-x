@@ -119,6 +119,7 @@ Classes/IntervalTest/IntervalTest.cpp \
 Classes/KeypadTest/KeypadTest.cpp \
 Classes/LabelTest/LabelTest.cpp \
 Classes/LayerTest/LayerTest.cpp \
+Classes/LambdacloudTest/LambdaCloudTest.cpp \
 Classes/NodeTest/NodeTest.cpp \
 Classes/TextInputTest/TextInputTest.cpp \
 Classes/MenuTest/MenuTest.cpp \
@@ -156,13 +157,14 @@ Classes/ConfigurationTest/ConfigurationTest.cpp \
 Classes/controller.cpp \
 Classes/testBasic.cpp \
 Classes/AppDelegate.cpp \
-Classes/VisibleRect.cpp
+Classes/VisibleRect.cpp \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
 LOCAL_WHOLE_STATIC_LIBRARIES += chipmunk_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
+LOCAL_WHOLE_STATIC_LIBRARIES += lambdacloud
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
             
@@ -173,3 +175,4 @@ $(call import-module,external/Box2D)
 $(call import-module,external/chipmunk)
 $(call import-module,cocos2dx)
 $(call import-module,extensions)
+$(call import-module,lambdacloud/android)

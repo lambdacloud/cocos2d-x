@@ -2,6 +2,7 @@ require "Cocos2d"
 require "luaScript/helper"
 require "luaScript/testResource"
 
+require "luaScript/LambdaCloudTest/LambdaCloudTest"
 require "luaScript/BytecodeAndEncryptTest/BytecodeAndEncryptTest"
 require "luaScript/ActionsTest/ActionsTest"
 require "luaScript/TransitionsTest/TransitionsTest"
@@ -47,6 +48,7 @@ local BeginPos = {x = 0, y = 0}
 
 
 local _allTests = {
+    { isSupported = true,  name = "LambdaCloudTest" , create_func   =   LambdaCloudTestMain      },
     { isSupported = true,  name = "BytecodeAndEncryptTest" , create_func   =   ByteCodeEncryptTestMain      },
     { isSupported = true,  name = "CocoStudioTest"         , create_func   =            CocoStudioTest      },
     { isSupported = true,  name = "ActionsTest"            , create_func   =               ActionsTest      },

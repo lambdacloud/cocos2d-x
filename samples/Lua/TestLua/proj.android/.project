@@ -29,11 +29,11 @@
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
 					<value>${ProjDirPath}</value>
 				</dictionary>
-				<dictionary>
-					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
-					<value>clean</value>
-				</dictionary>
-				<dictionary>
+                <dictionary>
+                    <key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
+                    <value>clean</value>
+                </dictionary>
+                <dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>
 					<value>org.eclipse.cdt.make.core.activeConfigSettings</value>
 				</dictionary>
@@ -99,6 +99,11 @@
 			<name>Resources</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Resources</locationURI>
+		</link>
+		<link>
+			<name>lambdacloud</name>
+			<type>2</type>
+			<location>/Users/sky4star/Github/cocos2d-x-lambdacloud/lambdacloud/android/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
