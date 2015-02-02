@@ -81,6 +81,7 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     CCArray* tags = CCArray::create();
     tags->addObject(CCString::create("test"));
     tags->addObject(CCString::create("cpp"));
+    tags->addObject(CCString::create("debug"));
     lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
     client->debugLog();
     client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
@@ -108,7 +109,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         CCArray* tags = CCArray::create();
         lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
         client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
-        client->writeLog(message, tags);
+        client->writeLog(message);
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
     }

@@ -55,11 +55,16 @@ void LambdaClient::debugLog()
     CCLOG("This is a debug log");
 }
 
+void LambdaClient::writeLog(const std::string& log)
+{
+    writeLog(log, NULL);
+}
+
 void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
 {
     cocos2d::extension::CCHttpRequest* request = new cocos2d::extension::CCHttpRequest();
     
-    CCLOG("Lambda client will write log:%s to server", log.c_str());
+    CCLOG("Lambdaclient will write log:%s to server", log.c_str());
     
     // Set headers
     std::vector<std::string> pHeaders;
@@ -88,19 +93,21 @@ std::string LambdaClient::generateJsonData(const std::string& log, cocos2d::CCAr
 {
     rapidjson::Document document;
     document.SetObject();
-    document.AddMember("Message", log.c_str(), document.GetAllocator());
-    rapidjson::Value tagObjs;
-    tagObjs.SetArray();
+    document.AddMember("message", log.c_str(), document.GetAllocator());
+    rapidjson::Value tagObjs(rapidjson::kArrayType);
     
     if (tags != NULL) {
-        cocos2d::CCObject* cctagObj;
+        cocos2d::CCObject* cctagObj = NULL;
         CCARRAY_FOREACH(tags, cctagObj)
         {
             cocos2d::CCString* ccstring = (cocos2d::CCString*)cctagObj;
-            std::string tag = ccstring->getCString();
-            tagObjs.PushBack(tag.c_str(), document.GetAllocator());
+            if (ccstring != NULL)
+            {
+                std::string tag = ccstring->m_sString;
+                tagObjs.PushBack(tag.c_str(), document.GetAllocator());
+            }
         }
-        document.AddMember("Tags", tagObjs, document.GetAllocator());
+        document.AddMember("tags", tagObjs, document.GetAllocator());
     }
     
     rapidjson::StringBuffer buffer;
