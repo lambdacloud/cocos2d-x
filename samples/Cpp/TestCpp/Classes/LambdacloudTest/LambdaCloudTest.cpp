@@ -83,7 +83,6 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     tags->addObject(CCString::create("cpp"));
     tags->addObject(CCString::create("debug"));
     lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
-    client->debugLog();
     client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
     client->writeLog("this is a test log from cpp test project on cocos v2", tags);
     
@@ -105,8 +104,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
          << platform << "],网络状态[" << networkStatus << "],手机品牌[" << deviceName << "],运营商信息[" << carrierName << "]";
         std::string message(ss.str());
         
-        // Send msg
-        CCArray* tags = CCArray::create();
+        // Send msg without tag
         lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
         client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
         client->writeLog(message);
@@ -114,7 +112,6 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
     }
 }
-
 
 ////////////////////////////////////////////////////////
 //
