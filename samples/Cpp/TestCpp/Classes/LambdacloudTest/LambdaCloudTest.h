@@ -21,6 +21,7 @@ public:
     //Menu Callbacks
     void onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender);
     void onMenuSendBasicMessageClicked(cocos2d::CCObject *sender);
+    void onMenuSendLoginMessageClicked(cocos2d::CCObject *sender);
 private:
     cocos2d::CCLabelTTF* m_labelStatusCode;
 };
