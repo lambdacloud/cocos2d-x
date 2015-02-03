@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LambdaCloud
-** Generated automatically by tolua++-1.0.92 on Mon Feb  2 23:28:34 2015.
+** Generated automatically by tolua++-1.0.92 on Tue Feb  3 15:27:47 2015.
 */
 
 /****************************************************************************
@@ -185,6 +185,34 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getApplicationPlatform of class  lambdacloud::LambdaDevice */
+#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00
+static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"lambdacloud::LambdaDevice",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   std::string tolua_ret = (std::string)  lambdacloud::LambdaDevice::getApplicationPlatform();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getApplicationPlatform'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getCarrierName of class  lambdacloud::LambdaDevice */
 #ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaDevice_getCarrierName00
 static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getCarrierName00(lua_State* tolua_S)
@@ -208,34 +236,6 @@ static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getCarrierName00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getCarrierName'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getNetworkStatus of class  lambdacloud::LambdaDevice */
-#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00
-static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"lambdacloud::LambdaDevice",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   int tolua_ret = (int)  lambdacloud::LambdaDevice::getNetworkStatus();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getNetworkStatus'.",&tolua_err);
  return 0;
 #endif
 }
@@ -269,9 +269,9 @@ static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getDeviceName00(lua_State*
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getApplicationPlatform of class  lambdacloud::LambdaDevice */
-#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00
-static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00(lua_State* tolua_S)
+/* method: getNetworkStatus of class  lambdacloud::LambdaDevice */
+#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00
+static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -284,14 +284,14 @@ static int tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00(l
 #endif
  {
   {
-   int tolua_ret = (int)  lambdacloud::LambdaDevice::getApplicationPlatform();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+   std::string tolua_ret = (std::string)  lambdacloud::LambdaDevice::getNetworkStatus();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getApplicationPlatform'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getNetworkStatus'.",&tolua_err);
  return 0;
 #endif
 }
@@ -314,25 +314,14 @@ TOLUA_API int tolua_LambdaCloud_open (lua_State* tolua_S)
     tolua_function(tolua_S,"writeLog",tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog01);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"LAMBDA_NETWORK_STATUS_NOT_REACHABLE",LAMBDA_NETWORK_STATUS_NOT_REACHABLE);
-  tolua_constant(tolua_S,"LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI",LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI);
-  tolua_constant(tolua_S,"LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN",LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_IPHONE",LAMBDA_PLATFORM_IPHONE);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_IPAD",LAMBDA_PLATFORM_IPAD);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_ANDROID",LAMBDA_PLATFORM_ANDROID);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_WP",LAMBDA_PLATFORM_WP);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_WIN",LAMBDA_PLATFORM_WIN);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_WINRT",LAMBDA_PLATFORM_WINRT);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_MAC",LAMBDA_PLATFORM_MAC);
-  tolua_constant(tolua_S,"LAMBDA_PLATFORM_OTHERS",LAMBDA_PLATFORM_OTHERS);
   tolua_module(tolua_S,"lambdacloud",0);
   tolua_beginmodule(tolua_S,"lambdacloud");
    tolua_cclass(tolua_S,"LambdaDevice","lambdacloud::LambdaDevice","",NULL);
    tolua_beginmodule(tolua_S,"LambdaDevice");
-    tolua_function(tolua_S,"getCarrierName",tolua_LambdaCloud_lambdacloud_LambdaDevice_getCarrierName00);
-    tolua_function(tolua_S,"getNetworkStatus",tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00);
-    tolua_function(tolua_S,"getDeviceName",tolua_LambdaCloud_lambdacloud_LambdaDevice_getDeviceName00);
     tolua_function(tolua_S,"getApplicationPlatform",tolua_LambdaCloud_lambdacloud_LambdaDevice_getApplicationPlatform00);
+    tolua_function(tolua_S,"getCarrierName",tolua_LambdaCloud_lambdacloud_LambdaDevice_getCarrierName00);
+    tolua_function(tolua_S,"getDeviceName",tolua_LambdaCloud_lambdacloud_LambdaDevice_getDeviceName00);
+    tolua_function(tolua_S,"getNetworkStatus",tolua_LambdaCloud_lambdacloud_LambdaDevice_getNetworkStatus00);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);

@@ -40,51 +40,75 @@ using namespace lambdacloud;
 
 std::string LambdaDevice::getCarrierName(void)
 {
-	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getOperationInfo",
-					"()Ljava/lang/String;"))
-	{
-		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
-		methodInfo.env->DeleteLocalRef(methodInfo.classID);
+    try
+    {
+        JniMethodInfo methodInfo;
+        if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getOperationInfo",
+                        "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
 
-		return JniHelper::jstring2string(jstr);
-	}
-
-	return "unknown";
+            return JniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while reading carrier name for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading carrier name for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading carrier name for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 
 }
 
-int LambdaDevice::getNetworkStatus(void)
+std::string LambdaDevice::getNetworkStatus(void)
 {
-	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getInternetConnectionStatus",
-					"()I"))
-	{
-		jint ret = methodInfo.env->CallStaticIntMethod(methodInfo.classID, methodInfo.methodID);
-		methodInfo.env->DeleteLocalRef(methodInfo.classID);
-		return ret;
-	}
-
-	return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
+    try
+    {
+        JniMethodInfo methodInfo;
+        if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getInternetConnectionStatus",
+                        "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return JniHelper::jstring2string(jstr);
+        }
+        return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while getting network status for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading network status for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading network status for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
-int LambdaDevice::getApplicationPlatform(void)
+std::string LambdaDevice::getApplicationPlatform(void)
 {
 	return LAMBDA_PLATFORM_ANDROID;
 }
 
 std::string LambdaDevice::getDeviceName(void)
 {
-	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getDeviceName", "()Ljava/lang/String;"))
-	{
-		jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
-		methodInfo.env->DeleteLocalRef(methodInfo.classID);
-
-		return JniHelper::jstring2string(jstr);
-	}
-
-	return "unknown";
+    try
+    {
+        JniMethodInfo methodInfo;
+        if (JniHelper::getStaticMethodInfo(methodInfo, "org/lambdacloud/sdk/LambdaDeviceUtil", "getDeviceName", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return JniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while reading device name for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading device name for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading device name for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
 #endif

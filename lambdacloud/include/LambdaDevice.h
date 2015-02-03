@@ -33,31 +33,28 @@
 
 namespace lambdacloud {
     
-#define LAMBDA_NETWORK_STATUS_NOT_REACHABLE     0
-#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI 1
-#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN 2
+#define LAMBDA_NETWORK_STATUS_NOT_REACHABLE         "NOT_REACHABLE"
+#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI    "WIFI"
+#define LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN    "WWAN"
     
-#define LAMBDA_PLATFORM_IPHONE 0
-#define LAMBDA_PLATFORM_IPAD 1
-#define LAMBDA_PLATFORM_ANDROID 2
-#define LAMBDA_PLATFORM_WP 3
-#define LAMBDA_PLATFORM_WIN 4
-#define LAMBDA_PLATFORM_WINRT 5
-#define LAMBDA_PLATFORM_MAC 6
-#define LAMBDA_PLATFORM_OTHERS 7
+#define LAMBDA_PLATFORM_IPHONE      "IPHONE"
+#define LAMBDA_PLATFORM_IPAD        "IPAD"
+#define LAMBDA_PLATFORM_ANDROID     "ANDROID"
+#define LAMBDA_PLATFORM_WP          "WP"
+#define LAMBDA_PLATFORM_WIN         "WIN"
+#define LAMBDA_PLATFORM_WINRT       "WINRT"
+#define LAMBDA_PLATFORM_MAC         "MAC"
+#define LAMBDA_PLATFORM_OTHERS      "OTHERS"
+    
+#define LAMBDA_DEVICE_INFO_UNKNOWN  "UNKNOWN"
     
     class LambdaDevice
     {
     public:
+        static std::string getApplicationPlatform(void);
         static std::string getCarrierName(void);
-        static int getNetworkStatus(void);
         static std::string getDeviceName(void);
-        static int getApplicationPlatform(void);
-        
-    private:
-        #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        static std::string getStaticStringField(const char* className, const char* fieldName);
-        #endif
+        static std::string getNetworkStatus(void);
     };
 }
 

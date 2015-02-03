@@ -13,8 +13,11 @@ public class LambdaDeviceUtil {
 	static ConnectivityManager mConnManager = null;
 	static TelephonyManager mTeleManager = null;
 	static String LAMBDACLOUD_SDK = "LAMBDACLOUD_SDK";
-	static String UNKNOWN = "unknown";
-
+	static String LAMBDA_NETWORK_STATUS_NOT_REACHABLE = "NOT_REACHABLE";
+	static String LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI = "WIFI";
+	static String LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN = "WWAN";
+	static String LAMBDA_DEVICE_INFO_UNKNOWN = "UNKNOWN";
+	
 	private static void init() {
 	    try {
     		Context context = Cocos2dxActivity.getContext();
@@ -42,7 +45,7 @@ public class LambdaDeviceUtil {
 	    }
 	} 
 
-	public static int getInternetConnectionStatus() {
+	public static String getInternetConnectionStatus() {
 		if (mConnManager == null)
 		{
 			init();
@@ -55,21 +58,21 @@ public class LambdaDeviceUtil {
 				State state = mConnManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
 				if (State.CONNECTED == state || State.CONNECTING == state)
 				{
-					return 1;
+					return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI;
 				}
 				
 				state = mConnManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
 				if (State.CONNECTED == state || State.CONNECTING == state)
 				{
-					return 2;
+					return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN;
 				}
 			} catch (Exception e) { 
 				Log.e(LAMBDACLOUD_SDK, "get exception while getting connection status, detail is " + e.toString());
-				return 0;
+				return LAMBDA_DEVICE_INFO_UNKNOWN;
 			}
 		}
 		
-		return 0;
+		return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
 	}
 	
 	public static String getDeviceName() {
@@ -84,7 +87,7 @@ public class LambdaDeviceUtil {
     	    }
 	    } catch (Exception e){
 	        Log.e(LAMBDACLOUD_SDK, "get exception while reading device name, detail is " + e.toString());
-	        return UNKNOWN;
+	        return LAMBDA_DEVICE_INFO_UNKNOWN;
 	    }
 	}
 	
@@ -105,6 +108,6 @@ public class LambdaDeviceUtil {
             }
         }
         
-        return UNKNOWN;
+        return LAMBDA_DEVICE_INFO_UNKNOWN;
 	}
 }

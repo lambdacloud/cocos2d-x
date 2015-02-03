@@ -56,8 +56,6 @@ namespace lambdacloud {
     private:
         LambdaClient();
         virtual ~LambdaClient();
-        bool init(void);
-        std::string generateJsonData(const std::string& log, cocos2d::CCArray *tags);
         void onHttpRequestCompleted(cocos2d::extension::CCHttpClient *sender, cocos2d::extension::CCHttpResponse *response);
     };
 }
