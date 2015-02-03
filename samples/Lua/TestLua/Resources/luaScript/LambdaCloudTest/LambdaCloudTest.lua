@@ -46,14 +46,7 @@ local function LambdaCloudMainLayer()
 
     --Send Login Message Test
     local function onMenuSendLoginMessageClicked()
-        function parseDateTime(str)
-            local Y,M,D =   parseDate(str)
-            local h,m,s =   parseTime(str)
-            local oh,om =   parseOffset(str)
-            local loh,lom = getLocalUTCOffset()
-            return os.time({year=Y, month=M, day=D, hour=(h+oh-loh), min=(m+om-lom), sec=s})
-        end
-        local dt = parseDateTime(
+        local isoDate = os.date("%Y-%m-%dT%X", os.time())
 
         -- Compute the difference in seconds between local time and UTC.
         local function getTimezone()
@@ -74,7 +67,7 @@ local function LambdaCloudMainLayer()
         local carrierName = lambdacloud.LambdaDevice:getCarrierName()
         local platform = lambdacloud.LambdaDevice:getApplicationPlatform()
         local networkStatus = lambdacloud.LambdaDevice:getNetworkStatus()
-        local message = "日志类型[LambdaCloud设备信息],时间["..timezone..tzoffset.."],用户["..userid.."],操作系统["..platform.."],网络状态["..networkStatus.."],手机品牌["..deviceName.."],运营商信息[".. carrierName.."]"
+        local message = "日志类型[LambdaCloud设备信息],时间["..isoDate..tzoffset.."],用户["..userid.."],操作系统["..platform.."],网络状态["..networkStatus.."],手机品牌["..deviceName.."],运营商信息[".. carrierName.."]"
 
         -- Write log without tags
         lambdacloud.LambdaClient:getInstance():setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671")
