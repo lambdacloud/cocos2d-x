@@ -50,8 +50,8 @@ namespace lambdacloud {
     public:
         static LambdaClient* getInstance();
         void setToken(const std::string& token);
+        void writeLog(const std::string& log);
         void writeLog(const std::string& log, cocos2d::CCArray *tags);
-        void debugLog();
         
     private:
         LambdaClient();

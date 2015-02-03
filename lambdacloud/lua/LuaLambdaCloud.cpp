@@ -1,6 +1,6 @@
 /*
 ** Lua binding: LambdaCloud
-** Generated automatically by tolua++-1.0.92 on Thu Jan 22 16:10:17 2015.
+** Generated automatically by tolua++-1.0.92 on Mon Feb  2 23:28:34 2015.
 */
 
 /****************************************************************************
@@ -129,12 +129,44 @@ static int tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00(lua_State* tolu
  if (
      !tolua_isusertype(tolua_S,1,"lambdacloud::LambdaClient",0,&tolua_err) ||
      !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  lambdacloud::LambdaClient* self = (lambdacloud::LambdaClient*)  tolua_tousertype(tolua_S,1,0);
+  const std::string log = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'writeLog'", NULL);
+#endif
+  {
+   self->writeLog(log);
+   tolua_pushcppstring(tolua_S,(const char*)log);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'writeLog'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: writeLog of class  lambdacloud::LambdaClient */
+#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog01
+static int tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"lambdacloud::LambdaClient",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isusertype(tolua_S,3,"CCArray",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
-#endif
  {
   lambdacloud::LambdaClient* self = (lambdacloud::LambdaClient*)  tolua_tousertype(tolua_S,1,0);
   const std::string log = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
@@ -148,42 +180,8 @@ static int tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00(lua_State* tolu
   }
  }
  return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'writeLog'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: debugLog of class  lambdacloud::LambdaClient */
-#ifndef TOLUA_DISABLE_tolua_LambdaCloud_lambdacloud_LambdaClient_debugLog00
-static int tolua_LambdaCloud_lambdacloud_LambdaClient_debugLog00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"lambdacloud::LambdaClient",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  lambdacloud::LambdaClient* self = (lambdacloud::LambdaClient*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'debugLog'", NULL);
-#endif
-  {
-   self->debugLog();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'debugLog'.",&tolua_err);
- return 0;
-#endif
+tolua_lerror:
+ return tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -313,7 +311,7 @@ TOLUA_API int tolua_LambdaCloud_open (lua_State* tolua_S)
     tolua_function(tolua_S,"getInstance",tolua_LambdaCloud_lambdacloud_LambdaClient_getInstance00);
     tolua_function(tolua_S,"setToken",tolua_LambdaCloud_lambdacloud_LambdaClient_setToken00);
     tolua_function(tolua_S,"writeLog",tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog00);
-    tolua_function(tolua_S,"debugLog",tolua_LambdaCloud_lambdacloud_LambdaClient_debugLog00);
+    tolua_function(tolua_S,"writeLog",tolua_LambdaCloud_lambdacloud_LambdaClient_writeLog01);
    tolua_endmodule(tolua_S);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"LAMBDA_NETWORK_STATUS_NOT_REACHABLE",LAMBDA_NETWORK_STATUS_NOT_REACHABLE);

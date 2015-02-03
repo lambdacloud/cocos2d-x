@@ -38,7 +38,7 @@ std::string m_token;
 LambdaClient* LambdaClient::getInstance()
 {
     if (s_lambdaClient == NULL) {
-        s_lambdaClient = new (std::nothrow) LambdaClient();
+        s_lambdaClient = new LambdaClient();
     }
         
     return s_lambdaClient;
@@ -50,37 +50,51 @@ void LambdaClient::setToken(const std::string& token)
     CCLOG("set token %s", token.c_str());
 }
 
-void LambdaClient::debugLog()
+void LambdaClient::writeLog(const std::string& log)
 {
-    CCLOG("This is a debug log");
+    writeLog(log, NULL);
 }
 
 void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
 {
-    cocos2d::extension::CCHttpRequest* request = new cocos2d::extension::CCHttpRequest();
+    if (log.empty())
+    {
+        CCLOG("log should not be empty");
+        return;
+    }
     
-    CCLOG("Lambda client will write log:%s to server", log.c_str());
+    try {
+        cocos2d::extension::CCHttpRequest* request = new cocos2d::extension::CCHttpRequest();
     
-    // Set headers
-    std::vector<std::string> pHeaders;
-    pHeaders.push_back("Token: " + m_token);
-    pHeaders.push_back(c_jsonHeader);
-    request->setHeaders(pHeaders);
+        CCLOG("Lambdaclient will write log:%s to server", log.c_str());
     
-    // Set url and request type
-    request->setUrl(c_url);
-    request->setRequestType(cocos2d::extension::CCHttpRequest::kHttpPost);
+        // Set headers
+        std::vector<std::string> pHeaders;
+        pHeaders.push_back("Token: " + m_token);
+        pHeaders.push_back(c_jsonHeader);
+        request->setHeaders(pHeaders);
     
-    // Set data
-    std::string jsonContent = generateJsonData(log, tags);
-    request->setRequestData(jsonContent.c_str(), jsonContent.length());
+        // Set url and request type
+        request->setUrl(c_url);
+        request->setRequestType(cocos2d::extension::CCHttpRequest::kHttpPost);
     
-    // Set callback and send out
-    request->setResponseCallback(this, httpresponse_selector(LambdaClient::onHttpRequestCompleted));
-    cocos2d::extension::CCHttpClient::getInstance()->send(request);
+        // Set data
+        std::string jsonContent = generateJsonData(log, tags);
+        request->setRequestData(jsonContent.c_str(), jsonContent.length());
     
-    // Release request
-    request->release();
+        // Set callback and send out
+        request->setResponseCallback(this, httpresponse_selector(LambdaClient::onHttpRequestCompleted));
+        cocos2d::extension::CCHttpClient::getInstance()->send(request);
+    
+        // Release request
+        request->release();
+    } catch (const std::exception& ex) {
+        CCLOGERROR("Lambdacloud client got an exception while sending log, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("Lambdacloud client got a string exception while sending log, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("Lambdacloud client got an unknown exception while sending log");
+    }
     return;
 }
 
@@ -88,19 +102,21 @@ std::string LambdaClient::generateJsonData(const std::string& log, cocos2d::CCAr
 {
     rapidjson::Document document;
     document.SetObject();
-    document.AddMember("Message", log.c_str(), document.GetAllocator());
-    rapidjson::Value tagObjs;
-    tagObjs.SetArray();
+    document.AddMember("message", log.c_str(), document.GetAllocator());
+    rapidjson::Value tagObjs(rapidjson::kArrayType);
     
     if (tags != NULL) {
-        cocos2d::CCObject* cctagObj;
+        cocos2d::CCObject* cctagObj = NULL;
         CCARRAY_FOREACH(tags, cctagObj)
         {
             cocos2d::CCString* ccstring = (cocos2d::CCString*)cctagObj;
-            std::string tag = ccstring->getCString();
-            tagObjs.PushBack(tag.c_str(), document.GetAllocator());
+            if (ccstring != NULL)
+            {
+                std::string tag = ccstring->m_sString;
+                tagObjs.PushBack(tag.c_str(), document.GetAllocator());
+            }
         }
-        document.AddMember("Tags", tagObjs, document.GetAllocator());
+        document.AddMember("tags", tagObjs, document.GetAllocator());
     }
     
     rapidjson::StringBuffer buffer;
@@ -127,12 +143,10 @@ void LambdaClient::onHttpRequestCompleted(cocos2d::extension::CCHttpClient *send
     }
     else
     {
-        CCLOG("response status code:%ld", response->getResponseCode());
+        CCLOG("response status code:%d", response->getResponseCode());
         CCLOG("response data:%s", response->getResponseData()->data());
         return;
     }
-
-    
 }
 
 LambdaClient::LambdaClient()

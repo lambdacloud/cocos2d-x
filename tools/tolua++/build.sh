@@ -14,4 +14,4 @@ if [ -z "${TOLUA}" ]; then
 fi
 
 cd ${SCRIPT_DIR}
-${TOLUA} -L basic.lua -o ../../lambdacloud/LuaLambdaCloud.cpp LambdaCloud.pkg
+${TOLUA} -L basic.lua -o ../../lambdacloud/lua/LuaLambdaCloud.cpp LambdaCloud.pkg
