@@ -36,45 +36,87 @@ using namespace lambdacloud;
 
 std::string LambdaDevice::getCarrierName(void)
 {
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    if (carrier != nil)
+    try
     {
-        std::string carrierName = [[carrier carrierName] UTF8String];
-        [netinfo release];
-        return carrierName;
+        CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+        CTCarrier *carrier = [netinfo subscriberCellularProvider];
+        if (carrier != nil)
+        {
+            std::string carrierName = [[carrier carrierName] UTF8String];
+            [netinfo release];
+            return carrierName;
+        }
+        else
+        {
+            [netinfo release];
+            return LAMBDA_DEVICE_INFO_UNKNOWN;
+        }
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while reading carrier name, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading carrier name, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading carrier name");
     }
-    else
-    {
-        [netinfo release];
-        return "";
-    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
-int LambdaDevice::getNetworkStatus(void)
+std::string LambdaDevice::getNetworkStatus(void)
 {
-    NetworkStatus status = [[ReachabilityIOSMac reachabilityForInternetConnection] currentReachabilityStatus];
-    if (status == ReachableViaWiFi) return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI;
-    if (status == ReachableViaWWAN) return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN;
-    return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
+    try
+    {
+        NetworkStatus status = [[ReachabilityIOSMac reachabilityForInternetConnection] currentReachabilityStatus];
+        if (status == ReachableViaWiFi)
+            return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WIFI;
+        if (status == ReachableViaWWAN)
+            return LAMBDA_NETWORK_STATUS_REACHABLE_VIA_WWAN;
+        return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while getting network status, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading network status, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading network status");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
-int LambdaDevice::getApplicationPlatform(void)
+std::string LambdaDevice::getApplicationPlatform(void)
 {
-    auto platform = cocos2d::CCApplication::sharedApplication()->getTargetPlatform();
-    if (platform == cocos2d::kTargetIphone)
-        return LAMBDA_PLATFORM_IPHONE;
-    else if (platform == cocos2d::kTargetIpad)
-        return LAMBDA_PLATFORM_IPAD;
-    else if (platform == cocos2d::kTargetMacOS)
-        return LAMBDA_PLATFORM_MAC;
-    return LAMBDA_PLATFORM_OTHERS;
+    try
+    {
+        auto platform = cocos2d::CCApplication::sharedApplication()->getTargetPlatform();
+        if (platform == cocos2d::kTargetIphone)
+            return LAMBDA_PLATFORM_IPHONE;
+        else if (platform == cocos2d::kTargetIpad)
+            return LAMBDA_PLATFORM_IPAD;
+        else if (platform == cocos2d::kTargetMacOS)
+            return LAMBDA_PLATFORM_MAC;
+        return LAMBDA_PLATFORM_OTHERS;
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while getting platform info, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while getting platform info, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while getting platform info");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
 std::string LambdaDevice::getDeviceName(void)
 {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    return [deviceString UTF8String];
+    try
+    {
+        struct utsname systemInfo;
+        uname(&systemInfo);
+        NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+        return [deviceString UTF8String];
+    } catch (const std::exception& ex) {
+        CCLOGERROR("LambdaDevice got an exception while reading device name, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        CCLOGERROR("LambdaDevice got a string exception while reading device name, detail is %s", ex.c_str());
+    } catch (...) {
+        CCLOGERROR("LambdaDevice got an unknown exception while reading device name");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
 }

@@ -68,8 +68,8 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
 {
     CCLog("LambdaCloudTest getDeviceName %s", lambdacloud::LambdaDevice::getDeviceName().c_str());
     CCLog("LambdaCloudTest getCarrierName %s", lambdacloud::LambdaDevice::getCarrierName().c_str());
-    CCLOG("LambdaCloudTest getApplicationPlatform %d", lambdacloud::LambdaDevice::getApplicationPlatform());
-    CCLog("LambdaCloudTest getNetworkStatus %d", lambdacloud::LambdaDevice::getNetworkStatus());
+    CCLOG("LambdaCloudTest getApplicationPlatform %s", lambdacloud::LambdaDevice::getApplicationPlatform().c_str());
+    CCLog("LambdaCloudTest getNetworkStatus %s", lambdacloud::LambdaDevice::getNetworkStatus().c_str());
     
     // give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -96,8 +96,8 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
     try {
         std::string userid = "userid";
         std::stringstream ss;
-        int platform = lambdacloud::LambdaDevice::getApplicationPlatform();
-        int networkStatus = lambdacloud::LambdaDevice::getNetworkStatus();
+        std::string platform = lambdacloud::LambdaDevice::getApplicationPlatform();
+        std::string networkStatus = lambdacloud::LambdaDevice::getNetworkStatus();
         std::string deviceName = lambdacloud::LambdaDevice::getDeviceName();
         std::string carrierName = lambdacloud::LambdaDevice::getCarrierName();
         ss << "日志类型[LambdaCloud设备信息],时间[" << getISOTime() << "],用户[" << userid << "],操作系统["

@@ -28,12 +28,41 @@
 #include "LambdaClient.h"
 
 using namespace lambdacloud;
+using namespace cocos2d;
+using namespace cocos2d::extension;
 
 const char* c_url = "http://api.lambdacloud.com/log";
 const int c_successReponseCode = 204;
 const std::string c_jsonHeader = "Content-Type: application/json";
 static LambdaClient* s_lambdaClient = NULL;
 std::string m_token;
+
+std::string generateJsonData(const std::string& log, CCArray *tags)
+{
+    rapidjson::Document document;
+    document.SetObject();
+    document.AddMember("message", log.c_str(), document.GetAllocator());
+    rapidjson::Value tagObjs(rapidjson::kArrayType);
+    
+    if (tags != NULL) {
+        CCObject* cctagObj = NULL;
+        CCARRAY_FOREACH(tags, cctagObj)
+        {
+            CCString* ccstring = (CCString*)cctagObj;
+            if (ccstring != NULL)
+            {
+                std::string tag = ccstring->m_sString;
+                tagObjs.PushBack(tag.c_str(), document.GetAllocator());
+            }
+        }
+        document.AddMember("tags", tagObjs, document.GetAllocator());
+    }
+    
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+    return buffer.GetString();
+}
 
 LambdaClient* LambdaClient::getInstance()
 {
@@ -55,7 +84,7 @@ void LambdaClient::writeLog(const std::string& log)
     writeLog(log, NULL);
 }
 
-void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
+void LambdaClient::writeLog(const std::string& log, CCArray *tags)
 {
     if (log.empty())
     {
@@ -64,8 +93,7 @@ void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
     }
     
     try {
-        cocos2d::extension::CCHttpRequest* request = new cocos2d::extension::CCHttpRequest();
-    
+        CCHttpRequest* request = new CCHttpRequest();
         CCLOG("Lambdaclient will write log:%s to server", log.c_str());
     
         // Set headers
@@ -76,7 +104,7 @@ void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
     
         // Set url and request type
         request->setUrl(c_url);
-        request->setRequestType(cocos2d::extension::CCHttpRequest::kHttpPost);
+        request->setRequestType(CCHttpRequest::kHttpPost);
     
         // Set data
         std::string jsonContent = generateJsonData(log, tags);
@@ -84,7 +112,7 @@ void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
     
         // Set callback and send out
         request->setResponseCallback(this, httpresponse_selector(LambdaClient::onHttpRequestCompleted));
-        cocos2d::extension::CCHttpClient::getInstance()->send(request);
+        CCHttpClient::getInstance()->send(request);
     
         // Release request
         request->release();
@@ -98,34 +126,7 @@ void LambdaClient::writeLog(const std::string& log, cocos2d::CCArray *tags)
     return;
 }
 
-std::string LambdaClient::generateJsonData(const std::string& log, cocos2d::CCArray *tags)
-{
-    rapidjson::Document document;
-    document.SetObject();
-    document.AddMember("message", log.c_str(), document.GetAllocator());
-    rapidjson::Value tagObjs(rapidjson::kArrayType);
-    
-    if (tags != NULL) {
-        cocos2d::CCObject* cctagObj = NULL;
-        CCARRAY_FOREACH(tags, cctagObj)
-        {
-            cocos2d::CCString* ccstring = (cocos2d::CCString*)cctagObj;
-            if (ccstring != NULL)
-            {
-                std::string tag = ccstring->m_sString;
-                tagObjs.PushBack(tag.c_str(), document.GetAllocator());
-            }
-        }
-        document.AddMember("tags", tagObjs, document.GetAllocator());
-    }
-    
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    document.Accept(writer);
-    return buffer.GetString();
-}
-
-void LambdaClient::onHttpRequestCompleted(cocos2d::extension::CCHttpClient *sender, cocos2d::extension::CCHttpResponse *response)
+void LambdaClient::onHttpRequestCompleted(CCHttpClient *sender, CCHttpResponse *response)
 {
     //TODO shall we record some logs for lambda request callback
     // Check not null
