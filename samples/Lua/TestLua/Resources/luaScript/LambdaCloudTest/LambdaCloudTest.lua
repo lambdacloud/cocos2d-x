@@ -58,7 +58,7 @@ local function LambdaCloudMainLayer()
         -- Return a timezone string in ISO 8601:2000 standard form (+hhmm or -hhmm)
         local function getTimezoneOffset(timezone)
             local h, m = math.modf(timezone / 3600)
-        return string.format("%+.2d\:%.2d", h, 60 * m)
+        return string.format("%+.2d", h)..":"..string.format("%.2d", 60*m)
         end
         local tzoffset = getTimezoneOffset(timezone)
 
