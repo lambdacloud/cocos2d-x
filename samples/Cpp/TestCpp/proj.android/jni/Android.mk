@@ -6,9 +6,10 @@ LOCAL_MODULE := testcpp_shared
 
 LOCAL_MODULE_FILENAME := libtestcpp
 
-LOCAL_SRC_FILES := testcpp/main.cpp
+LOCAL_SRC_FILES := testcpp/main.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../../logsdk/android/include \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_testcpp_common
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
@@ -16,7 +17,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
 LOCAL_WHOLE_STATIC_LIBRARIES += chipmunk_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
-LOCAL_WHOLE_STATIC_LIBRARIES += lambdacloud
+# LOCAL_WHOLE_STATIC_LIBRARIES += lambdacloud
 
 include $(BUILD_SHARED_LIBRARY)
 
@@ -27,4 +28,4 @@ $(call import-module,CocosDenshion/android)
 $(call import-module,extensions)
 $(call import-module,external/Box2D)
 $(call import-module,external/chipmunk)
-$(call import-module,lambdacloud/android)
+# $(call import-module,lambdacloud/android)

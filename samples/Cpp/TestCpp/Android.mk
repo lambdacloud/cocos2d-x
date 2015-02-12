@@ -7,6 +7,10 @@ LOCAL_MODULE := cocos_testcpp_common
 LOCAL_MODULE_FILENAME := libtestcppcommon
 
 LOCAL_SRC_FILES := \
+$(LOCAL_PATH)/../../../logsdk/android/source/LambdaClient.cpp \
+$(LOCAL_PATH)/../../../logsdk/android/source/LambdaDevice.cpp \
+$(LOCAL_PATH)/../../../logsdk/android/source/LogSdkJniHelper.cpp \
+Classes/LambdacloudTest/LambdaCloudTest.cpp \
 Classes/AccelerometerTest/AccelerometerTest.cpp \
 Classes/ActionManagerTest/ActionManagerTest.cpp \
 Classes/ActionsTest/ActionsTest.cpp \
@@ -119,7 +123,6 @@ Classes/IntervalTest/IntervalTest.cpp \
 Classes/KeypadTest/KeypadTest.cpp \
 Classes/LabelTest/LabelTest.cpp \
 Classes/LayerTest/LayerTest.cpp \
-Classes/LambdacloudTest/LambdaCloudTest.cpp \
 Classes/NodeTest/NodeTest.cpp \
 Classes/TextInputTest/TextInputTest.cpp \
 Classes/MenuTest/MenuTest.cpp \
@@ -164,7 +167,9 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
 LOCAL_WHOLE_STATIC_LIBRARIES += chipmunk_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
-LOCAL_WHOLE_STATIC_LIBRARIES += lambdacloud
+# LOCAL_WHOLE_STATIC_LIBRARIES += lambdacloud
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../logsdk/android/include
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
             
@@ -175,4 +180,4 @@ $(call import-module,external/Box2D)
 $(call import-module,external/chipmunk)
 $(call import-module,cocos2dx)
 $(call import-module,extensions)
-$(call import-module,lambdacloud/android)
+# $(call import-module,lambdacloud/android)
