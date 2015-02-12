@@ -67,23 +67,24 @@ void LambdaClient::setToken(const char* token)
     }
 }
 
-void LambdaClient::writeLog(const char* log)
+bool LambdaClient::writeLog(const char* log)
 {
     if (NULL == log)
     {
         LOGE("parameter log should not be null while calling writeLog method");
-        return;
+        return false;
     }
 
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;)V"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;)Z"))
         {
             jstring jLog = methodInfo.env->NewStringUTF(log);
             LOGD("writeLog with log: %s", log);
-            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jLog);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog);
             methodInfo.env->DeleteLocalRef(jLog);
+            return (bool)added;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while writing log, detail is %s", ex.what());
@@ -94,12 +95,12 @@ void LambdaClient::writeLog(const char* log)
     }
 }
 
-void LambdaClient::writeLog(const char* log, std::vector<std::string> *tags)
+bool LambdaClient::writeLog(const char* log, std::vector<std::string> *tags)
 {
     if (NULL == log)
     {
         LOGE("parameter log should not be null while calling writeLog method");
-        return;
+        return false;
     }
 
     if (NULL == tags)
@@ -110,14 +111,15 @@ void LambdaClient::writeLog(const char* log, std::vector<std::string> *tags)
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;[Ljava/lang/String;)V"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;[Ljava/lang/String;)Z"))
         {
             LOGD("writeLog with log: %s with tags", log);
             jstring jLog = methodInfo.env->NewStringUTF(log);
             jstring jTags = (jstring)LogSdkJniHelper::cStringArrayToJArray(tags);
-            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jLog, jTags);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog, jTags);
             methodInfo.env->DeleteLocalRef(jLog);
             methodInfo.env->DeleteLocalRef(jTags);
+            return (bool)added;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while writing log, detail is %s", ex.what());

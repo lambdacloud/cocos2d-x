@@ -43,8 +43,8 @@ namespace lambdacloud {
     {
     public:
         static void setToken(const char* token);
-        static void writeLog(const char* log);
-        static void writeLog(const char* log, std::vector<std::string> *tags);
+        static bool writeLog(const char* log);
+        static bool writeLog(const char* log, std::vector<std::string> *tags);
     };
 }
 
