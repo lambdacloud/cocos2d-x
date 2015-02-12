@@ -125,3 +125,13 @@ tags
 /tools/tolua++/tolua++.rar
 /v*-deps-*.zip
 /external/version.json
+
+tools/tolua++/tolua++
+
+samples/Cpp/TestCpp/proj.android/.idea/*
+
+*.class
+
+samples/Cpp/TestCpp/proj.android/out/*
+
+*.iml

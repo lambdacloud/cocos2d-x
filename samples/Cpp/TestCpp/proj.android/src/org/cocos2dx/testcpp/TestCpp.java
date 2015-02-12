@@ -23,15 +23,19 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.testcpp;
 
+import android.content.Context;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import com.lambdacloud.sdk.android.DeviceInfo;
 
 import android.os.Bundle;
 
 public class TestCpp extends Cocos2dxActivity{
 	
     protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);	
+		super.onCreate(savedInstanceState);
+        Context context = getApplicationContext();
+        DeviceInfo.init(context);
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {

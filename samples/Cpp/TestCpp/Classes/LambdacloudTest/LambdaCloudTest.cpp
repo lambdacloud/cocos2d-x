@@ -3,6 +3,7 @@
 #include "LambdaClient.h"
 #include "LambdaDevice.h"
 #include <string>
+#include <vector>
 #include <ctime>
 #include <iostream>
 
@@ -61,7 +62,6 @@ LambdaCloudTest::LambdaCloudTest()
 
 LambdaCloudTest::~LambdaCloudTest()
 {
-    CCHttpClient::getInstance()->destroyInstance();
 }
 
 void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
@@ -78,13 +78,12 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
 
 void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 {
-    CCArray* tags = CCArray::create();
-    tags->addObject(CCString::create("test"));
-    tags->addObject(CCString::create("cpp"));
-    tags->addObject(CCString::create("debug"));
-    lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
-    client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
-    client->writeLog("this is a test log from cpp test project on cocos v2", tags);
+    std::vector<std::string> tags;
+    tags.push_back("test");
+    tags.push_back("cpp");
+    tags.push_back("debug");
+    lambdacloud::LambdaClient::setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
+    lambdacloud::LambdaClient::writeLog("this is a test log from cpp test project on cocos v2", &tags);
     
     // give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -105,9 +104,8 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         std::string message(ss.str());
         
         // Send msg without tag
-        lambdacloud::LambdaClient* client = lambdacloud::LambdaClient::getInstance();
-        client->setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
-        client->writeLog(message);
+        lambdacloud::LambdaClient::setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
+        lambdacloud::LambdaClient::writeLog(message.c_str());
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
     }
