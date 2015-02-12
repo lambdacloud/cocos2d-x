@@ -6,7 +6,7 @@ LOCAL_MODULE := testcpp_shared
 
 LOCAL_MODULE_FILENAME := libtestcpp
 
-LOCAL_SRC_FILES := testcpp/main.cpp \
+LOCAL_SRC_FILES := testcpp/main.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../../logsdk/android/include \
