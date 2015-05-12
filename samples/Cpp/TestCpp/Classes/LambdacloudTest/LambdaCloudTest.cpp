@@ -36,6 +36,12 @@ LambdaCloudTest::LambdaCloudTest()
     menuRequest->setPosition(CCPointZero);
     addChild(menuRequest);
     
+    // Set logsdk debug flag true
+    lambdacloud::LambdaClient::debugLogSdk(true);
+
+    // Set log interval 10 seconds
+    lambdacloud::LambdaClient::setSendInterval(10);
+
     // Get Device Info
     CCLabelTTF *labelGet = CCLabelTTF::create("Test Get Device Info", "Arial", 22);
     CCMenuItemLabel *itemGet = CCMenuItemLabel::create(labelGet, this, menu_selector(LambdaCloudTest::onMenuGetDeviceInfoClicked));
@@ -78,12 +84,9 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
 
 void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 {
-    std::vector<std::string> tags;
-    tags.push_back("test");
-    tags.push_back("cpp");
-    tags.push_back("debug");
+    std::string tags = "test, cpp, debug";
     lambdacloud::LambdaClient::setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
-    lambdacloud::LambdaClient::writeLog("this is a test log from cpp test project on cocos v2", &tags);
+    lambdacloud::LambdaClient::writeLog("this is a test log from cpp test project on cocos v2", tags.c_str());
     
     // give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -104,7 +107,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         std::string message(ss.str());
         
         // Send msg without tag
-        lambdacloud::LambdaClient::setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
+        lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
         lambdacloud::LambdaClient::writeLog(message.c_str());
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());

@@ -34,11 +34,48 @@
 #include <android/log.h>
 
 #define  LOG_TAG    "LambdaClient"
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
  
 USING_NS_CC;
 using namespace lambdacloud;
+
+void LambdaClient::setSendInterval(int intervalInMs)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "setSendInteval", "(I)V"))
+        {
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, intervalInMs);
+            return;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while setting send interval, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while setting send interval, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while setting send interval");
+    }
+}
+
+void LambdaClient::debugLogSdk(bool debug)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "debugLogSdk", "(Z)V"))
+        {
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, debug);
+            return;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while setting debug flag, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while setting debug flag, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while setting debug flag");
+    }
+}
 
 void LambdaClient::setToken(const char* token)
 {
@@ -59,11 +96,11 @@ void LambdaClient::setToken(const char* token)
             return;
         }
     } catch (const std::exception& ex) {
-        LOGE("LambdaDevice got an exception while setting token, detail is %s", ex.what());
+        LOGE("LambdaClient got an exception while setting token, detail is %s", ex.what());
     } catch (const std::string& ex) {
-        LOGE("LambdaDevice got a string exception while setting token, detail is %s", ex.c_str());
+        LOGE("LambdaClient got a string exception while setting token, detail is %s", ex.c_str());
     } catch (...) {
-        LOGE("LambdaDevice got an unknown exception while setting token");
+        LOGE("LambdaClient got an unknown exception while setting token");
     }
 }
 
@@ -81,21 +118,20 @@ bool LambdaClient::writeLog(const char* log)
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;)Z"))
         {
             jstring jLog = methodInfo.env->NewStringUTF(log);
-            LOGD("writeLog with log: %s", log);
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog);
             methodInfo.env->DeleteLocalRef(jLog);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
-        LOGE("LambdaDevice got an exception while writing log, detail is %s", ex.what());
+        LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
     } catch (const std::string& ex) {
-        LOGE("LambdaDevice got a string exception while writing log, detail is %s", ex.c_str());
+        LOGE("LambdaClient got a string exception while writing log, detail is %s", ex.c_str());
     } catch (...) {
-        LOGE("LambdaDevice got an unknown exception while writing log");
+        LOGE("LambdaClient got an unknown exception while writing log");
     }
 }
 
-bool LambdaClient::writeLog(const char* log, std::vector<std::string> *tags)
+bool LambdaClient::writeLog(const char* log, const char* tags)
 {
     if (NULL == log)
     {
@@ -111,22 +147,21 @@ bool LambdaClient::writeLog(const char* log, std::vector<std::string> *tags)
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;[Ljava/lang/String;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLog", "(Ljava/lang/String;Ljava/lang/String;)Z"))
         {
-            LOGD("writeLog with log: %s with tags", log);
             jstring jLog = methodInfo.env->NewStringUTF(log);
-            jstring jTags = (jstring)LogSdkJniHelper::cStringArrayToJArray(tags);
+            jstring jTags = methodInfo.env->NewStringUTF(tags);
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog, jTags);
             methodInfo.env->DeleteLocalRef(jLog);
             methodInfo.env->DeleteLocalRef(jTags);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
-        LOGE("LambdaDevice got an exception while writing log, detail is %s", ex.what());
+        LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
     } catch (const std::string& ex) {
-        LOGE("LambdaDevice got a string exception while writing log, detail is %s", ex.c_str());
+        LOGE("LambdaClient got a string exception while writing log, detail is %s", ex.c_str());
     } catch (...) {
-        LOGE("LambdaDevice got an unknown exception while writing log");
+        LOGE("LambdaClient got an unknown exception while writing log");
     }
 }
 
