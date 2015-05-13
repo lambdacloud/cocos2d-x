@@ -42,9 +42,13 @@ namespace lambdacloud {
     class LambdaClient
     {
     public:
+        static void setSendInterval(int intervalInMs);
+        static void debugLogSdk(bool debug);
         static void setToken(const char* token);
         static bool writeLog(const char* log);
-        static bool writeLog(const char* log, std::vector<std::string> *tags);
+        
+        // Tags are seperated with comma
+        static bool writeLog(const char* log, const char* tags);
     };
 }
 
