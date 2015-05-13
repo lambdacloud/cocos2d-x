@@ -107,7 +107,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         std::string message(ss.str());
         
         // Send msg without tag
-        lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+        lambdacloud::LambdaClient::setToken("56a32e77-8ff8-4a89-8b20-1b5da28698b3");
         lambdacloud::LambdaClient::writeLog(message.c_str());
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
