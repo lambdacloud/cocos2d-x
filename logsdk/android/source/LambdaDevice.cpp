@@ -115,4 +115,67 @@ std::string LambdaDevice::getDeviceName(void)
     return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
+std::string LambdaDevice::getOsVersion(void)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getOsVersion", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return LogSdkJniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading os version for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading os version for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading os version for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+}
+
+std::string LambdaDevice::getScreenDimension(void)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getScreenDimension", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return LogSdkJniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading screen dimension for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading screen dimension for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading screen dimension for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+}
+
+std::string LambdaDevice::getEmei(void)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getEmei", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return LogSdkJniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading EMEI info for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading EMEI info for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading EMEI info for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+}
+
 #endif

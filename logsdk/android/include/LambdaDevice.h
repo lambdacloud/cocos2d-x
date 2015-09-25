@@ -56,6 +56,9 @@ namespace lambdacloud {
         static std::string getCarrierName(void);
         static std::string getDeviceName(void);
         static std::string getNetworkStatus(void);
+        static std::string getOsVersion(void);
+        static std::string getScreenDimension(void);
+        static std::string getEmei(void);
     };
 }
 
