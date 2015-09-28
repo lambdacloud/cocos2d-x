@@ -166,3 +166,35 @@ bool LambdaClient::writeLog(const char* log, const char* tags)
 }
 
 
+
+bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, std::map<std::string, std::string>* props)
+{
+    if (NULL == userID)
+    {
+        LOGE("parameter userID should not be null while calling sendChannelInfo method");
+        return false;
+    }
+    
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendChannelInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        {
+            jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jstring jChannelID = methodInfo.env->NewStringUTF(channelID);
+            jobject jProps = LogSdkJniHelper::cMapToJMap(props);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jChannelID, jProps);
+            methodInfo.env->DeleteLocalRef(jUserID);
+            methodInfo.env->DeleteLocalRef(jChannelID);
+            methodInfo.env->DeleteLocalRef(jProps);
+            return (bool)added;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while calling sendChannelInfo, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while calling sendChannelInfo, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while calling sendChannelInfo");
+    }
+}
+

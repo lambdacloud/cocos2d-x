@@ -29,6 +29,7 @@
 #ifndef __cocos2d_libs__LambdaClient__
 #define __cocos2d_libs__LambdaClient__
 
+#include <map>
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -49,6 +50,8 @@ namespace lambdacloud {
         
         // Tags are seperated with comma
         static bool writeLog(const char* log, const char* tags);
+        
+        static bool sendChannelInfo(const char* userID, const char* channelID, std::map<std::string, std::string>* props);
     };
 }
 

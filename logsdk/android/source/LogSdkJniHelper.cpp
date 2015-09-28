@@ -206,3 +206,27 @@ std::string LogSdkJniHelper::jstring2string(jstring jstr)
     env->ReleaseStringUTFChars(jstr, chars);
     return ret;
 }
+
+jobject LogSdkJniHelper::cMapToJMap(std::map<std::string, std::string>* map)
+{
+    if (NULL == map)
+    {
+        return NULL;
+    }
+    
+    LogSdkJniMethodInfo methodInfo;
+    getMethodInfo(methodInfo, "java/util/HashMap", "<init>", "()V");
+    jobject obj = methodInfo.env->NewObject(methodInfo.classID, methodInfo.methodID);
+    
+    getMethodInfo(methodInfo, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+    std::map<std::string, std::string>::iterator it;
+    for(it = map->begin(); it != map->end(); ++it)
+    {
+        jstring key = methodInfo.env->NewStringUTF(it->first.c_str());
+        jstring value = methodInfo.env->NewStringUTF(it->second.c_str());
+        methodInfo.env->CallObjectMethod(obj, methodInfo.methodID, key, value);
+        methodInfo.env->DeleteLocalRef(key);
+        methodInfo.env->DeleteLocalRef(value);
+    }
+    return obj;
+}
