@@ -52,6 +52,23 @@ namespace lambdacloud {
         static bool writeLog(const char* log, const char* tags);
         
         static bool sendChannelInfo(const char* userID, const char* channelID, std::map<std::string, std::string>* props);
+        static bool sendLoginInfo(const char* userID, const char* serverID, std::map<std::string, std::string>* props);
+        static bool sendLogoutInfo(const char* userID, std::map<std::string, std::string>* props);
+        static bool sendUserTag(const char* userID, const char* tag, const char* subtag);
+        static bool sendLevelBeginInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendLevelCompleteInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendLevelFailInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendTaskBeginInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendTaskCompleteInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendTaskFailInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendGetItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendBuyItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendConsumeItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendGainCoinInfo(const char* userID, const char* coinType, long gain, long total, const char* reason, std::map<std::string, std::string>* props);
+        static bool sendConsumeCoinInfo(const char* userID, const char* coinType, long use, long total, const char* reason, std::map<std::string, std::string>* props);
+        static bool sendDeviceInfo(const char* userID, std::map<std::string, std::string>* props);
+        static bool sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, std::map<std::string, std::string>* props);
+        static bool sendCustomizedInfo(const char* userID, const char* logtype, std::map<std::string, std::string>* props);
     };
 }
 

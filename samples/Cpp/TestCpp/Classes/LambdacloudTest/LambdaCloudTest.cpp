@@ -81,14 +81,14 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
     CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
     CCLog("LambdaCloudTest getEmei %s", lambdacloud::LambdaDevice::getEmei().c_str());
 
-    // give a hit
+    // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
     
 }
 
 void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 {
-	// send a channel info log with customized properties
+	// Send a test log with each API
     std::map<std::string, std::string> props;
     props.insert(std::pair<std::string, std::string>("prop_1", "value_1"));
     props.insert(std::pair<std::string, std::string>("prop_2", "value_2"));
@@ -96,8 +96,26 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     std::string userId = "test_user";
     std::string channelId = "test_channel";
     lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), &props);
-    
-    // give a hit
+    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", &props);
+    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), &props);
+    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", "test_sub_tag");
+    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", &props);
+    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", &props);
+    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", &props);
+    CCLog("LambdaCloudTest sendConsumeItemInfo done");
+    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", &props);
+    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", &props);
+    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
+    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
+    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
+
+    // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
 }
 
