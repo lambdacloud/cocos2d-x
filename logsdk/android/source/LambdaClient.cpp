@@ -39,14 +39,14 @@
 USING_NS_CC;
 using namespace lambdacloud;
 
-void LambdaClient::setSendInterval(int intervalInMs)
+void LambdaClient::setSendInterval(int intervalInSecond)
 {
     try
     {
         LogSdkJniMethodInfo methodInfo;
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "setSendInteval", "(I)V"))
         {
-            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, intervalInMs);
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, intervalInSecond);
             return;
         }
     } catch (const std::exception& ex) {
@@ -735,5 +735,10 @@ bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, s
         LOGE("LambdaClient got an unknown exception while calling sendCustomizedInfo");
     }
 
+}
+
+static std::string getVersion()
+{
+    return "0.1.0";
 }
 
