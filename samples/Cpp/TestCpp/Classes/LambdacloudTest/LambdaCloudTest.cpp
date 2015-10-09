@@ -2,6 +2,7 @@
 #include "../testResource.h"
 #include "LambdaClient.h"
 #include "LambdaDevice.h"
+#include <map>
 #include <string>
 #include <vector>
 #include <ctime>
@@ -80,18 +81,41 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
     CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
     CCLog("LambdaCloudTest getEmei %s", lambdacloud::LambdaDevice::getEmei().c_str());
 
-    // give a hit
+    // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
     
 }
 
 void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 {
-    std::string tags = "test, cpp, debug";
-    lambdacloud::LambdaClient::setToken("C2D56BC4-D336-4248-9A9F-B0CC8F906671");
-    lambdacloud::LambdaClient::writeLog("this is a test log from cpp test project on cocos v2", tags.c_str());
-    
-    // give a hit
+	// Send a test log with each API
+    std::map<std::string, std::string> props;
+    props.insert(std::pair<std::string, std::string>("prop_1", "value_1"));
+    props.insert(std::pair<std::string, std::string>("prop_2", "value_2"));
+    lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+    std::string userId = "test_user";
+    std::string channelId = "test_channel";
+    lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), &props);
+    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", &props);
+    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), &props);
+    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", "test_sub_tag");
+    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", &props);
+    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", &props);
+    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", &props);
+    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", &props);
+    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", &props);
+    CCLog("LambdaCloudTest sendConsumeItemInfo done");
+    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", &props);
+    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", &props);
+    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
+    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
+    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
+
+    // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
 }
 
@@ -115,7 +139,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         std::string message(ss.str());
         
         // Send msg without tag
-        lambdacloud::LambdaClient::setToken("56a32e77-8ff8-4a89-8b20-1b5da28698b3");
+        lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
         lambdacloud::LambdaClient::writeLog(message.c_str());
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());

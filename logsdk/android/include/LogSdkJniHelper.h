@@ -29,6 +29,7 @@
 #define cocos2d_logsdkjnihelper_h
 
 #include <jni.h>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -59,6 +60,8 @@ namespace lambdacloud
 	    static jobject cStringArrayToJArray(std::vector<std::string> *array);
 
 	    static std::string jstring2string(jstring jstr);
+        
+        static jobject cMapToJMap(std::map<std::string, std::string>* map);
 	};
 }
 #endif
