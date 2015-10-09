@@ -157,23 +157,23 @@ std::string LambdaDevice::getScreenDimension(void)
     return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
-std::string LambdaDevice::getEmei(void)
+std::string LambdaDevice::getImei(void)
 {
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getEmei", "()Ljava/lang/String;"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getImei", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return LogSdkJniHelper::jstring2string(jstr);
         }
     } catch (const std::exception& ex) {
-        LOGE("LambdaDevice got an exception while reading EMEI info for android device, detail is %s", ex.what());
+        LOGE("LambdaDevice got an exception while reading IMEI info for android device, detail is %s", ex.what());
     } catch (const std::string& ex) {
-        LOGE("LambdaDevice got a string exception while reading EMEI info for android device, detail is %s", ex.c_str());
+        LOGE("LambdaDevice got a string exception while reading IMEI info for android device, detail is %s", ex.c_str());
     } catch (...) {
-        LOGE("LambdaDevice got an unknown exception while reading EMEI info for android device");
+        LOGE("LambdaDevice got an unknown exception while reading IMEI info for android device");
     }
     return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
