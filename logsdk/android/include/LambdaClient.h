@@ -383,9 +383,36 @@ namespace lambdacloud {
          @param logtype
          Please specify different log types for different events. Both english and chinese name is accepable. This is a necessary parameter.
          
+         @param props
+         Send any customized info through this map, null is also acceptable.
+         
          @return true, if everything is ok. Else false.
         */
         static bool sendCustomizedInfo(const char* userID, const char* logtype, std::map<std::string, std::string>* props);
+        
+        /** This is to send any customized funnel info for further analyze.
+         
+         @param userID
+         Unique id to identify user. This is a necessary parameter.
+         
+         @param funnelType
+         Please specify different funnel types for different funnel analyze. Both english and chinese name is accepable. This is a necessary parameter.
+         
+         @param stepName
+         Specify an unique name for each step in a funnel. This is a necessary parameter.
+         
+         @param stepStatus
+         Status of current step, null is also acceptable.
+         
+         @param description
+         Additional description for current step, null is also acceptable.
+         
+         @param props
+         Send any customized info through this map, null is also acceptable.
+         
+         @return true, if everything is ok. Else false.
+         */
+        static bool sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, std::map<std::string, std::string>* props);
         
         /** This is to get current version of lambdacloud sdk.
          
