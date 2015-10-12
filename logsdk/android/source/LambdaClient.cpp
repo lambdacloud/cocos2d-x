@@ -737,7 +737,44 @@ bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, s
 
 }
 
-static std::string getVersion()
+bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, std::map<std::string, std::string>* props)
+{
+    if (NULL == userID)
+    {
+        LOGE("parameter userID should not be null while calling sendCustomizedInfo method");
+        return false;
+    }
+    
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCustomizedFunnel", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        {
+            jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jstring jFunnelType = methodInfo.env->NewStringUTF(funnelType);
+            jstring jStepName = methodInfo.env->NewStringUTF(stepName);
+            jstring jStepStatus = methodInfo.env->NewStringUTF(stepStatus);
+            jstring jDescription = methodInfo.env->NewStringUTF(description);
+            jobject jProps = LogSdkJniHelper::cMapToJMap(props);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jFunnelType, jStepName, jStepStatus, jDescription, jProps);
+            methodInfo.env->DeleteLocalRef(jUserID);
+            methodInfo.env->DeleteLocalRef(jFunnelType);
+            methodInfo.env->DeleteLocalRef(jStepName);
+            methodInfo.env->DeleteLocalRef(jStepStatus);
+            methodInfo.env->DeleteLocalRef(jDescription);
+            methodInfo.env->DeleteLocalRef(jProps);
+            return (bool)added;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while calling sendCustomizedInfo, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while calling sendCustomizedInfo, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while calling sendCustomizedInfo");
+    }
+}
+
+std::string LambdaClient::getVersion()
 {
     return "0.1.0";
 }

@@ -79,7 +79,7 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
     CCLog("LambdaCloudTest getNetworkStatus %s", lambdacloud::LambdaDevice::getNetworkStatus().c_str());
     CCLog("LambdaCloudTest getOsVersion %s", lambdacloud::LambdaDevice::getOsVersion().c_str());
     CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
-    CCLog("LambdaCloudTest getEmei %s", lambdacloud::LambdaDevice::getEmei().c_str());
+    CCLog("LambdaCloudTest getImei %s", lambdacloud::LambdaDevice::getImei().c_str());
 
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -114,6 +114,9 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
     lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
     lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
+    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
+    std::string version = lambdacloud::LambdaClient::getVersion();
+    CCLog("lambdacloud sdk version %s", version.c_str());
 
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -131,11 +134,11 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         std::string carrierName = lambdacloud::LambdaDevice::getCarrierName();
         std::string osVersion = lambdacloud::LambdaDevice::getOsVersion();
         std::string screenDimension = lambdacloud::LambdaDevice::getScreenDimension();
-        std::string emei = lambdacloud::LambdaDevice::getEmei();
+        std::string imei = lambdacloud::LambdaDevice::getImei();
 
         ss << "日志类型[LambdaCloud设备信息],时间[" << getISOTime() << "],用户[" << userid << "],操作系统["
          << platform << "],网络状态[" << networkStatus << "],手机品牌[" << deviceName << "],运营商信息[" << carrierName << "],操作系统版本[" << osVersion << "],分辨率["
-         << screenDimension << "],emei[" << emei << "]";
+         << screenDimension << "],imei[" << imei << "]";
         std::string message(ss.str());
         
         // Send msg without tag
