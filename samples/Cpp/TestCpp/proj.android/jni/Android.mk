@@ -9,6 +9,7 @@ LOCAL_MODULE_FILENAME := libtestcpp
 LOCAL_SRC_FILES := testcpp/main.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+#LOCAL_C_INCLUDES := $(LOCAL_PATH)/Classes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../../logsdk/android/include \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_testcpp_common

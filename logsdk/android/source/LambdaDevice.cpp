@@ -42,6 +42,28 @@
 USING_NS_CC;
 using namespace lambdacloud;
 
+std::string LambdaDevice::getOthersAppName(void)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getOthersAppName", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return LogSdkJniHelper::jstring2string(jstr);
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading othersAppName info for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading othersAppName info for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading othersAppName info for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+}
+
+
 std::string LambdaDevice::getCarrierName(void)
 {
     try
@@ -177,5 +199,6 @@ std::string LambdaDevice::getImei(void)
     }
     return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
+
 
 #endif

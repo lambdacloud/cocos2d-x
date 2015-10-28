@@ -52,6 +52,7 @@ namespace lambdacloud {
     {
     public:
     	static void init();
+        static std::string getOthersAppName(void);
         static std::string getApplicationPlatform(void);
         static std::string getCarrierName(void);
         static std::string getDeviceName(void);
@@ -59,6 +60,7 @@ namespace lambdacloud {
         static std::string getOsVersion(void);
         static std::string getScreenDimension(void);
         static std::string getImei(void);
+        
     };
 }
 

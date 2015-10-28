@@ -1,12 +1,11 @@
 #include "LambdacloudTest.h"
 #include "../testResource.h"
-#include "LambdaClient.h"
-#include "LambdaDevice.h"
 #include <map>
 #include <string>
 #include <vector>
 #include <ctime>
 #include <iostream>
+
 
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -38,10 +37,10 @@ LambdaCloudTest::LambdaCloudTest()
     addChild(menuRequest);
     
     // Set logsdk debug flag true
-    lambdacloud::LambdaClient::debugLogSdk(true);
+   // lambdacloud::LambdaClient::debugLogSdk(true);
 
     // Set log interval 10 seconds
-    lambdacloud::LambdaClient::setSendInterval(10);
+    //lambdacloud::LambdaClient::setSendInterval(10);
 
     // Get Device Info
     CCLabelTTF *labelGet = CCLabelTTF::create("Test Get Device Info", "Arial", 22);
@@ -73,13 +72,14 @@ LambdaCloudTest::~LambdaCloudTest()
 
 void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
 {
-    CCLog("LambdaCloudTest getDeviceName %s", lambdacloud::LambdaDevice::getDeviceName().c_str());
-    CCLog("LambdaCloudTest getCarrierName %s", lambdacloud::LambdaDevice::getCarrierName().c_str());
-    CCLOG("LambdaCloudTest getApplicationPlatform %s", lambdacloud::LambdaDevice::getApplicationPlatform().c_str());
-    CCLog("LambdaCloudTest getNetworkStatus %s", lambdacloud::LambdaDevice::getNetworkStatus().c_str());
-    CCLog("LambdaCloudTest getOsVersion %s", lambdacloud::LambdaDevice::getOsVersion().c_str());
-    CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
-    CCLog("LambdaCloudTest getImei %s", lambdacloud::LambdaDevice::getImei().c_str());
+//    CCLog("LambdaCloudTest getDeviceName %s", lambdacloud::LambdaDevice::getDeviceName().c_str());
+//    CCLog("LambdaCloudTest getCarrierName %s", lambdacloud::LambdaDevice::getCarrierName().c_str());
+//    CCLOG("LambdaCloudTest getApplicationPlatform %s", lambdacloud::LambdaDevice::getApplicationPlatform().c_str());
+//    CCLog("LambdaCloudTest getNetworkStatus %s", lambdacloud::LambdaDevice::getNetworkStatus().c_str());
+//    CCLog("LambdaCloudTest getOsVersion %s", lambdacloud::LambdaDevice::getOsVersion().c_str());
+//    CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
+//    CCLog("LambdaCloudTest getImei %s", lambdacloud::LambdaDevice::getImei().c_str());
+//    CCLog("LambdaCloudTest getOthersAppName %s",lambdacloud::LambdaDevice::getOthersAppName().c_str());
 
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
@@ -92,32 +92,32 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     std::map<std::string, std::string> props;
     props.insert(std::pair<std::string, std::string>("prop_1", "value_1"));
     props.insert(std::pair<std::string, std::string>("prop_2", "value_2"));
-    lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
-    std::string userId = "test_user";
-    std::string channelId = "test_channel";
-    lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), &props);
-    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", &props);
-    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), &props);
-    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", "test_sub_tag");
-    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", &props);
-    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", &props);
-    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", &props);
-    CCLog("LambdaCloudTest sendConsumeItemInfo done");
-    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", &props);
-    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", &props);
-    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
-    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
-    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
-    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
-    std::string version = lambdacloud::LambdaClient::getVersion();
-    CCLog("lambdacloud sdk version %s", version.c_str());
-
+//    lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+//    std::string userId = "test_user";
+//    std::string channelId = "test_channel";
+//    lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), &props);
+//    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", &props);
+//    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), &props);
+//    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", "test_sub_tag");
+//    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", &props);
+//    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", &props);
+//    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", &props);
+//    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", &props);
+//    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", &props);
+//    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", &props);
+//    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", &props);
+//    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", &props);
+//    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", &props);
+//    CCLog("LambdaCloudTest sendConsumeItemInfo done");
+//    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", &props);
+//    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", &props);
+//    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
+//    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
+//    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
+//    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
+//    std::string version = lambdacloud::LambdaClient::getVersion();
+//    CCLog("lambdacloud sdk version %s", version.c_str());
+//
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");
 }
@@ -128,22 +128,22 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
     try {
         std::string userid = "userid";
         std::stringstream ss;
-        std::string platform = lambdacloud::LambdaDevice::getApplicationPlatform();
-        std::string networkStatus = lambdacloud::LambdaDevice::getNetworkStatus();
-        std::string deviceName = lambdacloud::LambdaDevice::getDeviceName();
-        std::string carrierName = lambdacloud::LambdaDevice::getCarrierName();
-        std::string osVersion = lambdacloud::LambdaDevice::getOsVersion();
-        std::string screenDimension = lambdacloud::LambdaDevice::getScreenDimension();
-        std::string imei = lambdacloud::LambdaDevice::getImei();
+//        std::string platform = lambdacloud::LambdaDevice::getApplicationPlatform();
+//        std::string networkStatus = lambdacloud::LambdaDevice::getNetworkStatus();
+//        std::string deviceName = lambdacloud::LambdaDevice::getDeviceName();
+//        std::string carrierName = lambdacloud::LambdaDevice::getCarrierName();
+//        std::string osVersion = lambdacloud::LambdaDevice::getOsVersion();
+//        std::string screenDimension = lambdacloud::LambdaDevice::getScreenDimension();
+//        std::string imei = lambdacloud::LambdaDevice::getImei();
 
-        ss << "日志类型[LambdaCloud设备信息],时间[" << getISOTime() << "],用户[" << userid << "],操作系统["
-         << platform << "],网络状态[" << networkStatus << "],手机品牌[" << deviceName << "],运营商信息[" << carrierName << "],操作系统版本[" << osVersion << "],分辨率["
-         << screenDimension << "],imei[" << imei << "]";
-        std::string message(ss.str());
+//        ss << "日志类型[LambdaCloud设备信息],时间[" << getISOTime() << "],用户[" << userid << "],操作系统["
+//         << platform << "],网络状态[" << networkStatus << "],手机品牌[" << deviceName << "],运营商信息[" << carrierName << "],操作系统版本[" << osVersion << "],分辨率["
+//         << screenDimension << "],imei[" << imei << "]";
+//        std::string message(ss.str());
         
         // Send msg without tag
-        lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
-        lambdacloud::LambdaClient::writeLog(message.c_str());
+//        lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+//        lambdacloud::LambdaClient::writeLog(message.c_str());
     } catch (std::exception e) {
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
     }
