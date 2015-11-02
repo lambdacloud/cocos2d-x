@@ -117,6 +117,7 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
 //    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
 //    std::string version = lambdacloud::LambdaClient::getVersion();
 //    CCLog("lambdacloud sdk version %s", version.c_str());
+//    CCLog("HEHEDA");
 //
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");

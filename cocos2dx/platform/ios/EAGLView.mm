@@ -151,11 +151,11 @@ static EAGLView *view = 0;
         
         originalRect_ = self.frame;
         self.keyboardShowNotification = nil;
-		
-		if ([view respondsToSelector:@selector(setContentScaleFactor:)])
-		{
-			view.contentScaleFactor = [[UIScreen mainScreen] scale];
-		}
+        
+        if ([view respondsToSelector:@selector(setContentScaleFactor:)])
+        {
+            view.contentScaleFactor = [[UIScreen mainScreen] scale];
+        }
     }
         
     return self;
@@ -724,15 +724,6 @@ static EAGLView *view = 0;
     return nil;
 }
 
-UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrientation)
-{
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        statusBarOrientation = UIInterfaceOrientationPortrait;
-    }
-    return statusBarOrientation;
-}
-
 #pragma mark -
 #pragma mark UIKeyboard notification
 
@@ -752,7 +743,7 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
     CGSize viewSize = self.frame.size;
     CGFloat tmp;
     
-    switch (getFixedOrientation([[UIApplication sharedApplication] statusBarOrientation]))
+    switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationPortrait:
             begin.origin.y = viewSize.height - begin.origin.y - begin.size.height;
@@ -807,11 +798,16 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
     }
     
     float scaleX = cocos2d::CCEGLView::sharedOpenGLView()->getScaleX();
-	float scaleY = cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
+    float scaleY = cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
     
     
-    begin = CGRectApplyAffineTransform(begin, CGAffineTransformScale(CGAffineTransformIdentity, self.contentScaleFactor, self.contentScaleFactor));
-    end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, self.contentScaleFactor, self.contentScaleFactor));
+    if (self.contentScaleFactor == 2.0f)
+    {
+        // Convert to pixel coordinate
+        
+        begin = CGRectApplyAffineTransform(begin, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
+        end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
+    }
     
     float offestY = cocos2d::CCEGLView::sharedOpenGLView()->getViewPortRect().origin.y;
     CCLOG("offestY = %f", offestY);
@@ -868,21 +864,22 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
 -(void) doAnimationWhenKeyboardMoveWithDuration:(float)duration distance:(float)dis
 {
     [UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDuration:duration];
-	[UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationBeginsFromCurrentState:YES];
     
     //NSLog(@"[animation] dis = %f, scale = %f \n", dis, cocos2d::CCEGLView::sharedOpenGLView()->getScaleY());
     
     if (dis < 0.0f) dis = 0.0f;
 
-	dis *= cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
+    dis *= cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
     
-    if (self.contentScaleFactor != 0) {
-        dis /= self.contentScaleFactor;
+    if (self.contentScaleFactor == 2.0f)
+    {
+        dis /= 2.0f;
     }
     
-    switch (getFixedOrientation([[UIApplication sharedApplication] statusBarOrientation]))
+    switch ([[UIApplication sharedApplication] statusBarOrientation])
     {
         case UIInterfaceOrientationPortrait:
             self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
@@ -904,7 +901,7 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
             break;
     }
     
-	[UIView commitAnimations];
+    [UIView commitAnimations];
 }
 
 

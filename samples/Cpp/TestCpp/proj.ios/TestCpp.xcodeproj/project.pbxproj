@@ -418,9 +418,6 @@
 		6442E66D17297DB40008499D /* TextureAtlasEncryptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6442E66B17297DB40008499D /* TextureAtlasEncryptionTest.cpp */; };
 		A01B534F17DE7F7900A3D114 /* PerformanceAllocTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01B534D17DE7F7900A3D114 /* PerformanceAllocTest.cpp */; };
 		A059B9AD174D9B8E0078F84F /* ConfigurationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */; };
-		B3731D731A7254AB00B764E4 /* LambdaClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */; };
-		B3731D741A7254AB00B764E4 /* LambdaDeviceIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */; };
-		B3731D751A7254AB00B764E4 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */; };
 		B3E9F8B21A6E3DB000066711 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */; };
 		B3E9F8B41A6E3DBA00066711 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */; };
 		B3E9F8B81A6E3FFF00066711 /* LambdaCloudTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */; };
@@ -1331,12 +1328,6 @@
 		A01B534E17DE7F7900A3D114 /* PerformanceAllocTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceAllocTest.h; path = ../../Classes/PerformanceTest/PerformanceAllocTest.h; sourceTree = "<group>"; };
 		A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigurationTest.cpp; sourceTree = "<group>"; };
 		A059B9AC174D9B8E0078F84F /* ConfigurationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTest.h; sourceTree = "<group>"; };
-		B3731D6C1A7254AB00B764E4 /* LambdaClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaClient.h; sourceTree = "<group>"; };
-		B3731D6D1A7254AB00B764E4 /* LambdaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaDevice.h; sourceTree = "<group>"; };
-		B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaClient.cpp; sourceTree = "<group>"; };
-		B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LambdaDeviceIOSMac.mm; sourceTree = "<group>"; };
-		B3731D711A7254AB00B764E4 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
-		B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
 		B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaCloudTest.cpp; sourceTree = "<group>"; };
@@ -2795,8 +2786,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				B3731D6B1A7254AB00B764E4 /* include */,
-				B3731D6E1A7254AB00B764E4 /* ios */,
 				15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D8871682F7D5002FB0C5 /* Box2D */,
 				15A3D93A1682F7F9002FB0C5 /* chipmunk */,
@@ -3666,28 +3655,6 @@
 			path = ../Classes/ConfigurationTest;
 			sourceTree = "<group>";
 		};
-		B3731D6B1A7254AB00B764E4 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				B3731D6C1A7254AB00B764E4 /* LambdaClient.h */,
-				B3731D6D1A7254AB00B764E4 /* LambdaDevice.h */,
-			);
-			name = include;
-			path = ../../../../lambdacloud/include;
-			sourceTree = "<group>";
-		};
-		B3731D6E1A7254AB00B764E4 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */,
-				B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */,
-				B3731D711A7254AB00B764E4 /* ReachabilityIOSMac.h */,
-				B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */,
-			);
-			name = ios;
-			path = ../../../../lambdacloud/ios;
-			sourceTree = "<group>";
-		};
 		B3E9F8B51A6E3F7A00066711 /* LambdaCloudTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -3841,7 +3808,6 @@
 				15AA9D5C15B7EC460033D6C2 /* Bug-1174.cpp in Sources */,
 				15AA9D5D15B7EC460033D6C2 /* Bug-350.cpp in Sources */,
 				15AA9D5E15B7EC460033D6C2 /* Bug-422.cpp in Sources */,
-				B3731D751A7254AB00B764E4 /* ReachabilityIOSMac.m in Sources */,
 				15AA9D5F15B7EC460033D6C2 /* Bug-458.cpp in Sources */,
 				3729024D1867D36800B59D3A /* TriggerMng.cpp in Sources */,
 				15AA9D6015B7EC460033D6C2 /* QuestionContainerSprite.cpp in Sources */,
@@ -4088,7 +4054,6 @@
 				15A3DAEF1682F8A6002FB0C5 /* SimpleAudioEngine_objc.m in Sources */,
 				1A27573F1697CF2B00504026 /* CCEditBoxImplAndroid.cpp in Sources */,
 				50F8548018C581FB0019FBFB /* UISliderTest.cpp in Sources */,
-				B3731D731A7254AB00B764E4 /* LambdaClient.cpp in Sources */,
 				1AB2D71716B649C200D72C48 /* FileUtilsTest.cpp in Sources */,
 				1A75E95A16F84FDD00BA80BD /* TimelineCallbackTestLayer.cpp in Sources */,
 				1A9FE96B17277E9D00B21905 /* Animation.cpp in Sources */,
@@ -4126,7 +4091,6 @@
 				50F8548318C581FB0019FBFB /* UITextFieldTest_Editor.cpp in Sources */,
 				37CA1C1D17D87A3300A649D0 /* CCProcessBase.cpp in Sources */,
 				37CA1C1E17D87A3300A649D0 /* CCTween.cpp in Sources */,
-				B3731D741A7254AB00B764E4 /* LambdaDeviceIOSMac.mm in Sources */,
 				37CA1C1F17D87A3300A649D0 /* CCArmature.cpp in Sources */,
 				37CA1C2017D87A3300A649D0 /* CCBone.cpp in Sources */,
 				37CA1C2117D87A3300A649D0 /* CCDatas.cpp in Sources */,
