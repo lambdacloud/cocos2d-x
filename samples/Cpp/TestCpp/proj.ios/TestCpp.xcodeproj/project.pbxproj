@@ -434,27 +434,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0C1C39E81BE72A1E0070FAA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B3876C0C1A8CF38000BB5224;
-			remoteInfo = logsdk;
-		};
-		0C1C39EA1BE72A1E0070FAA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B3876C171A8CF38000BB5224;
-			remoteInfo = logsdkTests;
-		};
-		0C1C39EC1BE72A1E0070FAA7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0C1C39901BE6FFDD0070FAA7;
-			remoteInfo = liblogsdk;
-		};
 		15A3D8851682F7B3002FB0C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */;
@@ -485,7 +464,6 @@
 		0C1C39DA1BE7258B0070FAA7 /* libPods-OHHTTPStubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-OHHTTPStubs.a"; path = "../../../../../LambdacloudSDK/ios/src/xcode/Pods/build/Debug-iphoneos/libPods-OHHTTPStubs.a"; sourceTree = "<group>"; };
 		0C1C39DC1BE7258F0070FAA7 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "../../../../../LambdacloudSDK/ios/src/xcode/Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		0C1C39DF1BE7293A0070FAA7 /* liblogsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblogsdk.a; path = ../../../../logsdk/ios/lib/liblogsdk.a; sourceTree = "<group>"; };
-		0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = logsdk.xcodeproj; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk.xcodeproj; sourceTree = "<group>"; };
 		15384F611611B38A0021DC07 /* CCControlPotentiometerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlPotentiometerTest.cpp; sourceTree = "<group>"; };
 		15384F621611B38A0021DC07 /* CCControlPotentiometerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlPotentiometerTest.h; sourceTree = "<group>"; };
 		15384F641611B38A0021DC07 /* CCControlStepperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlStepperTest.cpp; sourceTree = "<group>"; };
@@ -1443,16 +1421,6 @@
 				0C1C39CC1BE705790070FAA7 /* DeviceInfo.h */,
 			);
 			name = liblogsdk;
-			sourceTree = "<group>";
-		};
-		0C1C39E21BE72A1E0070FAA7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0C1C39E91BE72A1E0070FAA7 /* liblogsdk.a */,
-				0C1C39EB1BE72A1E0070FAA7 /* logsdkTests.xctest */,
-				0C1C39ED1BE72A1E0070FAA7 /* libliblogsdk.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		15384F601611B38A0021DC07 /* CCControlPotentiometerTest */ = {
@@ -2854,7 +2822,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */,
 				0C1C39CB1BE705320070FAA7 /* liblogsdk */,
 				15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D8871682F7D5002FB0C5 /* Box2D */,
@@ -3800,10 +3767,6 @@
 					ProductGroup = 15A3D87F1682F7B3002FB0C5 /* Products */;
 					ProjectRef = 15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */;
 				},
-				{
-					ProductGroup = 0C1C39E21BE72A1E0070FAA7 /* Products */;
-					ProjectRef = 0C1C39E11BE72A1E0070FAA7 /* logsdk.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -3813,27 +3776,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0C1C39E91BE72A1E0070FAA7 /* liblogsdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = liblogsdk.a;
-			remoteRef = 0C1C39E81BE72A1E0070FAA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0C1C39EB1BE72A1E0070FAA7 /* logsdkTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = logsdkTests.xctest;
-			remoteRef = 0C1C39EA1BE72A1E0070FAA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0C1C39ED1BE72A1E0070FAA7 /* libliblogsdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libliblogsdk.a;
-			remoteRef = 0C1C39EC1BE72A1E0070FAA7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		15A3D8861682F7B3002FB0C5 /* libcocos2dx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
