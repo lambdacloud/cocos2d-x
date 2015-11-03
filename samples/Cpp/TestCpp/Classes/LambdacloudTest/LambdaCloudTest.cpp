@@ -61,6 +61,12 @@ LambdaCloudTest::LambdaCloudTest()
     itemPostLogin->setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - 3 * SPACE));
     menuRequest->addChild(itemPostLogin);
     
+    // Send Demo Test Logs
+    CCLabelTTF *labelPostLogin = CCLabelTTF::create("Test Send Demo Test Logs, 15 days x 1000 messages/day", "Arial", 22);
+    CCMenuItemLabel *itemDemo = CCMenuItemLabel::create(labelPostLogin, this, menu_selector(LambdaCloudTest::onMenuSendDemoTestLogsClicked));
+    itemDemo->setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - 4 * SPACE));
+    menuRequest->addChild(itemDemo);
+
     // Response Code Label
     m_labelStatusCode = CCLabelTTF::create("HTTP Status Code", "Marker Felt", 20);
     m_labelStatusCode->setPosition(ccp(winSize.width / 2,  winSize.height - MARGIN - 6 * SPACE));
@@ -95,26 +101,27 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
     std::string userId = "test_user";
     std::string channelId = "test_channel";
-    lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), &props);
-    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", &props);
-    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), &props);
-    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", "test_sub_tag");
-    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", &props);
-    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", &props);
-    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", &props);
-    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", &props);
-    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", &props);
+    std::string timestamp = getISOTime();
+    lambdacloud::LambdaClient::sendChannelInfo(userId.c_str(), channelId.c_str(), timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendLoginInfo(userId.c_str(), "test_server", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendLogoutInfo(userId.c_str(), timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendUserTag(userId.c_str(), "test_tag", timestamp.c_str(), "test_sub_tag");
+    lambdacloud::LambdaClient::sendLevelBeginInfo(userId.c_str(), "test_level", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendLevelCompleteInfo(userId.c_str(), "test_level", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendLevelFailInfo(userId.c_str(), "test_level", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendTaskBeginInfo(userId.c_str(), "test_task", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendTaskCompleteInfo(userId.c_str(), "test_task", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendTaskFailInfo(userId.c_str(), "test_task", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendGetItemInfo(userId.c_str(), "test_item", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendBuyItemInfo(userId.c_str(), "test_item", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendConsumeItemInfo(userId.c_str(), "test_item", timestamp.c_str(), &props);
     CCLog("LambdaCloudTest sendConsumeItemInfo done");
-    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", &props);
-    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", &props);
-    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), &props);
-    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
-    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
-    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
+    lambdacloud::LambdaClient::sendGainCoinInfo(userId.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendConsumeCoinInfo(userId.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendDeviceInfo(userId.c_str(), timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, timestamp.c_str(), &props);
     std::string version = lambdacloud::LambdaClient::getVersion();
     CCLog("lambdacloud sdk version %s", version.c_str());
 
@@ -148,6 +155,20 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
         CCLOGERROR("got exception when recording login info, detail is %s", e.what());
     }
 }
+
+/*
+ * 模拟10个玩家在15天里面的游戏日志，用于系统演练测试使用
+ * 1.
+ */
+void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
+{
+
+
+    // Give a hit
+    m_labelStatusCode->setString("sent...please check log to verify");
+
+}
+
 
 ////////////////////////////////////////////////////////
 //
