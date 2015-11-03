@@ -148,8 +148,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
 
         NSString *string = [[NSString alloc]initWithFormat:@"日志类型[LambdaCloud设备信息],时间[%@],用户[%@],操作系统[%@],操作系统版本[%@],设备名称[%@],网络状态[%@]", isoTime, userId ,operationInfo,systemOs,deviceInfo,networkStatus];
         NSLog(@"%@",string);
-
-        [LogAgent setToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
+        [LogSdkConfig SetLogSdkToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
         [LogAgent addLog:string];
 
     } catch (std::exception e) {
