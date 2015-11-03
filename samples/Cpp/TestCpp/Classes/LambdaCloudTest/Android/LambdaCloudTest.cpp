@@ -1,7 +1,5 @@
 #include "LambdacloudTest.h"
-#include "../testResource.h"
-#include "LambdaClient.h"
-#include "LambdaDevice.h"
+#include "../../testResource.h"
 #include <map>
 #include <string>
 #include <vector>
