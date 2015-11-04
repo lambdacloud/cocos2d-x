@@ -58,6 +58,26 @@ void LambdaClient::setSendInterval(int intervalInSecond)
     }
 }
 
+void LambdaClient::setMaxQueueSize(int queueSize)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "setMaxQueueSize", "(I)V"))
+        {
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, queueSize);
+            return;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while setting max queue size, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while setting max queue size, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while setting max queue size");
+    }
+
+}
+
 void LambdaClient::debugLogSdk(bool debug)
 {
     try
@@ -120,7 +140,8 @@ bool LambdaClient::writeLog(const char* log)
             jstring jLog = methodInfo.env->NewStringUTF(log);
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog);
             methodInfo.env->DeleteLocalRef(jLog);
-            return (bool)added;
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return (bool)added;;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
@@ -154,7 +175,8 @@ bool LambdaClient::writeLog(const char* log, const char* tags)
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog, jTags);
             methodInfo.env->DeleteLocalRef(jLog);
             methodInfo.env->DeleteLocalRef(jTags);
-            return (bool)added;
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return (bool)added;;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
@@ -187,6 +209,7 @@ bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, co
             methodInfo.env->DeleteLocalRef(jChannelID);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -220,6 +243,7 @@ bool LambdaClient::sendLoginInfo(const char* userID, const char* serverID, const
             methodInfo.env->DeleteLocalRef(jServerID);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -251,6 +275,7 @@ bool LambdaClient::sendLogoutInfo(const char* userID, const char* timestamp, std
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -284,6 +309,7 @@ bool LambdaClient::sendUserTag(const char* userID, const char* tag, const char* 
             methodInfo.env->DeleteLocalRef(jTag);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jSubTag);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -317,6 +343,7 @@ bool LambdaClient::sendLevelBeginInfo(const char* userID, const char* levelName,
             methodInfo.env->DeleteLocalRef(jLevelName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -350,6 +377,7 @@ bool LambdaClient::sendLevelCompleteInfo(const char* userID, const char* levelNa
             methodInfo.env->DeleteLocalRef(jLevelName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -383,6 +411,7 @@ bool LambdaClient::sendLevelFailInfo(const char* userID, const char* levelName, 
             methodInfo.env->DeleteLocalRef(jLevelName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -416,6 +445,7 @@ bool LambdaClient::sendTaskBeginInfo(const char* userID, const char* taskName, c
             methodInfo.env->DeleteLocalRef(jTaskName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -449,6 +479,7 @@ bool LambdaClient::sendTaskCompleteInfo(const char* userID, const char* taskName
             methodInfo.env->DeleteLocalRef(jTaskName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -482,6 +513,7 @@ bool LambdaClient::sendTaskFailInfo(const char* userID, const char* taskName, co
             methodInfo.env->DeleteLocalRef(jTaskName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -515,6 +547,7 @@ bool LambdaClient::sendGetItemInfo(const char* userID, const char* itemName, con
             methodInfo.env->DeleteLocalRef(jItemName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -548,6 +581,7 @@ bool LambdaClient::sendBuyItemInfo(const char* userID, const char* itemName, con
             methodInfo.env->DeleteLocalRef(jItemName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -581,6 +615,7 @@ bool LambdaClient::sendConsumeItemInfo(const char* userID, const char* itemName,
             methodInfo.env->DeleteLocalRef(jItemName);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -618,6 +653,7 @@ bool LambdaClient::sendGainCoinInfo(const char* userID, const char* coinType, lo
             methodInfo.env->DeleteLocalRef(jReason);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -655,6 +691,7 @@ bool LambdaClient::sendConsumeCoinInfo(const char* userID, const char* coinType,
             methodInfo.env->DeleteLocalRef(jReason);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -686,6 +723,7 @@ bool LambdaClient::sendDeviceInfo(const char* userID, const char* timestamp, std
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -728,6 +766,7 @@ bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* order
             methodInfo.env->DeleteLocalRef(jPaymentType);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -761,6 +800,7 @@ bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, c
             methodInfo.env->DeleteLocalRef(jLogType);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -801,6 +841,7 @@ bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelTy
             methodInfo.env->DeleteLocalRef(jDescription);
             methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {

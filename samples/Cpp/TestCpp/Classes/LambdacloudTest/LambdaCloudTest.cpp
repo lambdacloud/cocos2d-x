@@ -53,8 +53,8 @@ std::string getISOTime()
 }
 
 void sendLoginMessage(std::string userid, std::string userName, std::string server, std::string branch, std::string timestamp) {
-    int level = std::rand() * 20 + 1;
-    int coin = std::rand() * 100000;
+    int level = std::rand() % 20 + 1;
+    int coin = std::rand() % 100000;
     std::map<std::string, std::string> props;
     props.insert(std::pair<std::string, std::string>("user_name", userName));
     props.insert(std::pair<std::string, std::string>("imei", lambdacloud::LambdaDevice::getImei()));
@@ -74,9 +74,9 @@ void sendLogoutMessage(std::string userid, std::string timestamp) {
 }
 
 void sendTopupMessage(std::string userid, std::string timestamp) {
-	int price = std::rand() * 100;
+	int price = std::rand() % 100;
 	int diamond = price * 10;
-	int packageIndex = std::rand() * sizeof(packages)/sizeof(packages[0]);
+	int packageIndex = std::rand() % sizeof(packages)/sizeof(packages[0]);
 	std::map<std::string, std::string> props;
 	props.insert(std::pair<std::string, std::string>("packge_price", SSTR(price)));
 	props.insert(std::pair<std::string, std::string>("diamond_gained", SSTR(diamond)));
@@ -84,17 +84,17 @@ void sendTopupMessage(std::string userid, std::string timestamp) {
 }
 
 void sendDailyQuestMessage(std::string userid, std::string timestamp) {
-	int diamond = std::rand() * 100;
-	int questIndex = std::rand() * sizeof(quests)/sizeof(quests[0]);
+	int diamond = std::rand() % 100;
+	int questIndex = std::rand() % sizeof(quests)/sizeof(quests[0]);
 	std::map<std::string, std::string> props;
 	props.insert(std::pair<std::string, std::string>("diamond_gained", SSTR(diamond)));
 	lambdacloud::LambdaClient::sendTaskCompleteInfo(userid.c_str(), quests[questIndex].c_str(), timestamp.c_str(), &props);
 }
 
 void sendLevelSuccessMessage(std::string userid, std::string timestamp) {
-	int diamond = std::rand() * 100;
-	int roundIndex = std::rand() * sizeof(rounds)/sizeof(rounds[0]);
-	int chapterIndex = std::rand() * sizeof(chapters)/sizeof(chapters[0]);
+	int diamond = std::rand() % 100;
+	int roundIndex = std::rand() % sizeof(rounds)/sizeof(rounds[0]);
+	int chapterIndex = std::rand() % sizeof(chapters)/sizeof(chapters[0]);
 	std::map<std::string, std::string> props;
 	props.insert(std::pair<std::string, std::string>("diamond_gained", SSTR(diamond)));
 	props.insert(std::pair<std::string, std::string>("chapter_name", chapters[chapterIndex]));
@@ -103,16 +103,16 @@ void sendLevelSuccessMessage(std::string userid, std::string timestamp) {
 
 void sendLevelFailMessage(std::string userid, std::string timestamp) {;
 	std::map<std::string, std::string> props;
-	int roundIndex = std::rand() * sizeof(rounds)/sizeof(rounds[0]);
-	int chapterIndex = std::rand() * sizeof(chapters)/sizeof(chapters[0]);
+	int roundIndex = std::rand() % sizeof(rounds)/sizeof(rounds[0]);
+	int chapterIndex = std::rand() % sizeof(chapters)/sizeof(chapters[0]);
 	props.insert(std::pair<std::string, std::string>("chapter_name", chapters[chapterIndex]));
 	lambdacloud::LambdaClient::sendLevelFailInfo(userid.c_str(), rounds[roundIndex].c_str(), timestamp.c_str(), &props);
 }
 
 void sendBuyItemMessage(std::string userid, std::string timestamp) {
-	int coin = std::rand() * 10;
-	int number = std::rand() * 3;
-	int itemIndex = std::rand() * sizeof(equipments)/sizeof(equipments[0]);
+	int coin = std::rand() % 10;
+	int number = std::rand() % 3;
+	int itemIndex = std::rand() % sizeof(equipments)/sizeof(equipments[0]);
 	std::map<std::string, std::string> props;
 	props.insert(std::pair<std::string, std::string>("coin_consumed", SSTR(coin)));
 	props.insert(std::pair<std::string, std::string>("item_num", SSTR(number)));
@@ -120,9 +120,9 @@ void sendBuyItemMessage(std::string userid, std::string timestamp) {
 }
 
 void sendSellItemMessage(std::string userid, std::string timestamp) {
-	int coin = std::rand() * 10;
-	int number = std::rand() * 3;
-	int itemIndex = std::rand() * sizeof(equipments)/sizeof(equipments[0]);
+	int coin = std::rand() % 10;
+	int number = std::rand() % 3;
+	int itemIndex = std::rand() % sizeof(equipments)/sizeof(equipments[0]);
 	std::map<std::string, std::string> props;
 	props.insert(std::pair<std::string, std::string>("ldp_coin_gained", SSTR(coin)));
 	props.insert(std::pair<std::string, std::string>("ldp_item_name", equipments[itemIndex]));
@@ -130,7 +130,7 @@ void sendSellItemMessage(std::string userid, std::string timestamp) {
     lambdacloud::LambdaClient::sendCustomizedInfo(userid.c_str(), "ldp_item_sell", timestamp.c_str(), &props);
 }
 
-// 使用session id作为小时，使用inde作为分钟，这样可以有效地将
+// 使用session id作为小时，使用index作为分钟，这样可以有效地将
 std::string genTimestamp(int year, int month, int day, int session, int index) {
 	//2011-10-08T07:07:09+08:00
 	std::stringstream ss;
@@ -247,7 +247,7 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
     CCLog("LambdaCloudTest sendConsumeItemInfo done");
     lambdacloud::LambdaClient::sendGainCoinInfo(userid.c_str(), "test_coin_type", 100L, 900L, "complate_test_task", timestamp.c_str(), &props);
     lambdacloud::LambdaClient::sendConsumeCoinInfo(userid.c_str(), "test_coin_type", 200L, 700L, "complate_test_task", timestamp.c_str(), &props);
-    lambdacloud::LambdaClient::sendDeviceInfo(userid.c_str(), timestamp.c_str(), &props);
+    lambdacloud::LambdaClient::sendDeviceInfo(userid.c_str(), timestamp.c_str(), NULL);
     lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userid.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", timestamp.c_str(), &props);
     lambdacloud::LambdaClient::sendCustomizedInfo(userid.c_str(), "test_customized_event", timestamp.c_str(), &props);
     lambdacloud::LambdaClient::sendCustomizedFunnel(userid.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, timestamp.c_str(), &props);
@@ -293,6 +293,9 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
  */
 void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 {
+	lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+	lambdacloud::LambdaClient::setMaxQueueSize(20000);
+
 	std::srand(std::time(0));
 
 	// 创建一个用户索引表
@@ -300,6 +303,9 @@ void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 	for (int i=0; i<10; i++) {
 		userIndices[i] = i;
 	}
+
+	int debug = sizeof(packages)/sizeof(packages[0]);
+	CCLog("%d", debug);
 
 	// 遍历每天
 	for (int day=demo_start_day; day<demo_end_day; day++) {
@@ -319,60 +325,70 @@ void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 
 				// 登陆游戏
 				std::string timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
+				CCLog("timestamp %s", timestamp.c_str());
 				std::string userName = usernames[index];
 				std::string serverName = servernames[index];
 				std::string branchName = branches[index];
 				sendLoginMessage(userid, userName, serverName, branchName, timestamp);
+				CCLog("登陆游戏");
 
 				// 设备信息
 				timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 				sendDeviceMessage(userid, timestamp);
+				CCLog("设备信息");
 
 				// 零次或多次充值信息
-				int times = std::rand() * 3;
+				int times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendTopupMessage(userid, timestamp);
 				}
+				CCLog("零次或多次充值信息");
 
 				// 零次或多次完成任务
-				times = std::rand() * 3;
+				times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendDailyQuestMessage(userid, timestamp);
 				}
+				CCLog("零次或多次完成任务");
 
 				// 零次或多次完成关卡
-				times = std::rand() * 3;
+				times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendLevelSuccessMessage(userid, timestamp);
 				}
+				CCLog("零次或多次完成关卡");
 
 				// 零次或多次关卡失败
-				times = std::rand() * 3;
+				times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendLevelFailMessage(userid, timestamp);
 				}
+				CCLog("零次或多次关卡失败");
 
 				// 零次或多次购买道具
-				times = std::rand() * 3;
+				times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendBuyItemMessage(userid, timestamp);
 				}
+				CCLog("零次或多次购买道具");
 
 				// 零次或多次卖出道具
-				times = std::rand() * 3;
+				times = std::rand() % 3;
 				for (; times > 0; times--) {
 					timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 					sendSellItemMessage(userid, timestamp);
 				}
+				CCLog("零次或多次卖出道具");
 
 				// 退出信息
 				timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
 				sendLogoutMessage(userid, timestamp);
+				CCLog("退出信息");
 			}
 		}
 	}

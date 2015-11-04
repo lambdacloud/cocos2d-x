@@ -217,6 +217,7 @@ jobject LogSdkJniHelper::cMapToJMap(std::map<std::string, std::string>* map)
     LogSdkJniMethodInfo methodInfo;
     getMethodInfo(methodInfo, "java/util/HashMap", "<init>", "()V");
     jobject obj = methodInfo.env->NewObject(methodInfo.classID, methodInfo.methodID);
+    methodInfo.env->DeleteLocalRef(methodInfo.classID);
     
     getMethodInfo(methodInfo, "java/util/HashMap", "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
     std::map<std::string, std::string>::iterator it;
@@ -224,9 +225,12 @@ jobject LogSdkJniHelper::cMapToJMap(std::map<std::string, std::string>* map)
     {
         jstring key = methodInfo.env->NewStringUTF(it->first.c_str());
         jstring value = methodInfo.env->NewStringUTF(it->second.c_str());
-        methodInfo.env->CallObjectMethod(obj, methodInfo.methodID, key, value);
+        jobject returnObj = methodInfo.env->CallObjectMethod(obj, methodInfo.methodID, key, value);
         methodInfo.env->DeleteLocalRef(key);
         methodInfo.env->DeleteLocalRef(value);
+        methodInfo.env->DeleteLocalRef(returnObj);
     }
+    methodInfo.env->DeleteLocalRef(methodInfo.classID);
+    
     return obj;
 }
