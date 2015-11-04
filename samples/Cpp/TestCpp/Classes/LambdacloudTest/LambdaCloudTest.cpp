@@ -114,7 +114,7 @@ void sendBuyItemMessage(std::string userid, std::string timestamp) {
 	int number = std::rand() % 3;
 	int itemIndex = std::rand() % sizeof(equipments)/sizeof(equipments[0]);
 	std::map<std::string, std::string> props;
-	props.insert(std::pair<std::string, std::string>("coin_consumed", SSTR(coin)));
+	props.insert(std::pair<std::string, std::string>("ldp_coin_consumed", SSTR(coin)));
 	props.insert(std::pair<std::string, std::string>("item_num", SSTR(number)));
     lambdacloud::LambdaClient::sendBuyItemInfo(userid.c_str(), equipments[itemIndex].c_str(), timestamp.c_str(), &props);
 }
@@ -130,23 +130,43 @@ void sendSellItemMessage(std::string userid, std::string timestamp) {
     lambdacloud::LambdaClient::sendCustomizedInfo(userid.c_str(), "ldp_item_sell", timestamp.c_str(), &props);
 }
 
-// 使用session id作为小时，使用index作为分钟，这样可以有效地将
+// 使用session id作为小时，使用index作为分钟，这样可以有效地将回话分隔开
 std::string genTimestamp(int year, int month, int day, int session, int index) {
 	//2011-10-08T07:07:09+08:00
 	std::stringstream ss;
-	ss << year << "-" << month << "-" << day << "T" << session;
+
+	// 年
+	ss << year << "-";
+
+	// 月
 	if (month < 10)
 		ss << "0";
 	ss << month << "-";
+
+	// 日
 	if (day < 10)
 		ss << "0";
 	ss << day << "T";
+
+	// session 作为小时
 	if (session < 10)
-		ss << "0";
-	ss << session << ":";
+		ss << "0" << session;
+	else if (session < 23)
+		ss << session;
+	else
+		ss << "23";
+	ss << ":";
+
+	// index 作为分钟
 	if (index < 10)
-		ss << "0";
-	ss << index << "+08:00";
+		ss << "0" << index;
+	else if (index > 40)
+		ss << 40;
+	else
+		ss << index;
+
+	// 时区
+	ss << "+08:00";
     return ss.str();
 }
 
@@ -293,9 +313,11 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
  */
 void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 {
-	lambdacloud::LambdaClient::setToken("d029dfc9-c74f-4f31-b896-998f7d18fcfc");
+	// 配置token和参数
+	lambdacloud::LambdaClient::setToken("18317FF3-2E16-40B4-B4F7-69F352996255");
 	lambdacloud::LambdaClient::setMaxQueueSize(20000);
 
+	// 设置随机种子
 	std::srand(std::time(0));
 
 	// 创建一个用户索引表
@@ -303,9 +325,6 @@ void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 	for (int i=0; i<10; i++) {
 		userIndices[i] = i;
 	}
-
-	int debug = sizeof(packages)/sizeof(packages[0]);
-	CCLog("%d", debug);
 
 	// 遍历每天
 	for (int day=demo_start_day; day<demo_end_day; day++) {
@@ -325,7 +344,6 @@ void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 
 				// 登陆游戏
 				std::string timestamp = genTimestamp(demo_year, demo_month, day, session, logIndex++);
-				CCLog("timestamp %s", timestamp.c_str());
 				std::string userName = usernames[index];
 				std::string serverName = servernames[index];
 				std::string branchName = branches[index];
