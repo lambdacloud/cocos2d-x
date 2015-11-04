@@ -52,7 +52,7 @@ namespace lambdacloud {
     {
     public:
     	static void init();
-        static std::string getOthersAppName(void);
+        static std::string getAppList(void);
         static std::string getApplicationPlatform(void);
         static std::string getCarrierName(void);
         static std::string getDeviceName(void);

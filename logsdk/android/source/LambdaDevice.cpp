@@ -42,12 +42,12 @@
 USING_NS_CC;
 using namespace lambdacloud;
 
-std::string LambdaDevice::getOthersAppName(void)
+std::string LambdaDevice::getAppList(void)
 {
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getOthersAppName", "()Ljava/lang/String;"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getAppList", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
