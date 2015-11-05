@@ -166,7 +166,7 @@ std::string genTimestamp(int year, int month, int day, int session, int index) {
 		ss << index;
 
 	// 时区
-	ss << "+08:00";
+	ss << "Z";
     return ss.str();
 }
 
@@ -327,7 +327,7 @@ void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender)
 	}
 
 	// 遍历每天
-	for (int day=demo_start_day; day<demo_end_day; day++) {
+	for (int day=demo_start_day; day<=demo_end_day; day++) {
 		CCLog("遍历每天, %d", day);
 		// 随机混乱所有用户
 		std::random_shuffle(&userIndices[0], &userIndices[9]);
