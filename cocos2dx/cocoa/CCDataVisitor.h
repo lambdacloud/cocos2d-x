@@ -26,7 +26,15 @@
 #define __CCDATAVISITOR_H__
 
 #include "platform/CCPlatformMacros.h"
+#ifdef __cplusplus
 #include <string>
+#endif
+
+// same for objc, so your C and C++ sources compile with no error:
+#ifdef __OBJC__
+#include <Foundation/Foundation.h>
+#endif
+//#include <string>
 
 NS_CC_BEGIN
 
