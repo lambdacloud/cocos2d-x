@@ -1,7 +1,5 @@
 #include "LambdacloudTest.h"
-#include "../testResource.h"
-#include "LambdaClient.h"
-#include "LambdaDevice.h"
+#include "../../testResource.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -81,7 +79,7 @@ void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
    CCLog("LambdaCloudTest getOsVersion %s", lambdacloud::LambdaDevice::getOsVersion().c_str());
    CCLog("LambdaCloudTest getScreenDimension %s", lambdacloud::LambdaDevice::getScreenDimension().c_str());
    CCLog("LambdaCloudTest getImei %s", lambdacloud::LambdaDevice::getImei().c_str());
-   CCLog("LambdaCloudTest getAppList %s",lambdacloud::LambdaDevice::getAppList().c_str());
+   CCLog("LambdaCloudTest getOthersAppName %s",lambdacloud::LambdaDevice::getOthersAppName().c_str());
 
     // Give a hit
     m_labelStatusCode->setString("sent...please check log to verify");

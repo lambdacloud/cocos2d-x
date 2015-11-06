@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C1C39BC1BE702D50070FAA7 /* LambdaCloudTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C39BA1BE702D50070FAA7 /* LambdaCloudTest.cpp */; };
+		0C1C39D81BE70CA10070FAA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C39D71BE70CA10070FAA7 /* main.m */; };
+		0C1C39E01BE7293A0070FAA7 /* liblogsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1C39DF1BE7293A0070FAA7 /* liblogsdk.a */; };
 		15384F661611B38A0021DC07 /* CCControlPotentiometerTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15384F611611B38A0021DC07 /* CCControlPotentiometerTest.cpp */; };
 		15384F671611B38A0021DC07 /* CCControlStepperTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15384F641611B38A0021DC07 /* CCControlStepperTest.cpp */; };
 		159DFBC516070BB300555A2F /* AnimationsTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 159DFBC316070BB300555A2F /* AnimationsTestLayer.cpp */; };
@@ -252,7 +255,6 @@
 		1AF5AE8B1758421B009C997A /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF5AE8A1758421B009C997A /* libwebsockets.a */; };
 		1AF5AE8E1758426A009C997A /* WebSocketTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5AE8C1758426A009C997A /* WebSocketTest.cpp */; };
 		1D3623260D0F684500981E51 /* testsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* testsAppDelegate.mm */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -418,12 +420,8 @@
 		6442E66D17297DB40008499D /* TextureAtlasEncryptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6442E66B17297DB40008499D /* TextureAtlasEncryptionTest.cpp */; };
 		A01B534F17DE7F7900A3D114 /* PerformanceAllocTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A01B534D17DE7F7900A3D114 /* PerformanceAllocTest.cpp */; };
 		A059B9AD174D9B8E0078F84F /* ConfigurationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */; };
-		B3731D731A7254AB00B764E4 /* LambdaClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */; };
-		B3731D741A7254AB00B764E4 /* LambdaDeviceIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */; };
-		B3731D751A7254AB00B764E4 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */; };
 		B3E9F8B21A6E3DB000066711 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */; };
 		B3E9F8B41A6E3DBA00066711 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */; };
-		B3E9F8B81A6E3FFF00066711 /* LambdaCloudTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712461292920000B8313A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB212928DE900B8313A /* libxml2.dylib */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -436,6 +434,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0C309DF51BEAEC4600B1CAE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C309DEF1BEAEC4500B1CAE3 /* logsdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3876C0C1A8CF38000BB5224;
+			remoteInfo = logsdk;
+		};
+		0C309DF71BEAEC4600B1CAE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C309DEF1BEAEC4500B1CAE3 /* logsdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3876C171A8CF38000BB5224;
+			remoteInfo = logsdkTests;
+		};
 		15A3D8851682F7B3002FB0C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */;
@@ -453,6 +465,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C1C39BA1BE702D50070FAA7 /* LambdaCloudTest.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = LambdaCloudTest.cpp; sourceTree = "<group>"; };
+		0C1C39BB1BE702D50070FAA7 /* LambdaCloudTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaCloudTest.h; sourceTree = "<group>"; };
+		0C1C39CC1BE705790070FAA7 /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInfo.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/DeviceInfo.h; sourceTree = "<group>"; };
+		0C1C39CD1BE7058B0070FAA7 /* LogAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogAgent.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/LogAgent.h; sourceTree = "<group>"; };
+		0C1C39CE1BE7059F0070FAA7 /* LogRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogRequest.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/LogRequest.h; sourceTree = "<group>"; };
+		0C1C39CF1BE705B30070FAA7 /* LogSdkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogSdkConfig.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/LogSdkConfig.h; sourceTree = "<group>"; };
+		0C1C39D01BE705B30070FAA7 /* LogSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogSender.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/LogSender.h; sourceTree = "<group>"; };
+		0C1C39D11BE705B30070FAA7 /* LogSpout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogSpout.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/LogSpout.h; sourceTree = "<group>"; };
+		0C1C39D21BE705B30070FAA7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk/Reachability.h; sourceTree = "<group>"; };
+		0C1C39D71BE70CA10070FAA7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
+		0C1C39DA1BE7258B0070FAA7 /* libPods-OHHTTPStubs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-OHHTTPStubs.a"; path = "../../../../../LambdacloudSDK/ios/src/xcode/Pods/build/Debug-iphoneos/libPods-OHHTTPStubs.a"; sourceTree = "<group>"; };
+		0C1C39DC1BE7258F0070FAA7 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "../../../../../LambdacloudSDK/ios/src/xcode/Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		0C1C39DF1BE7293A0070FAA7 /* liblogsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblogsdk.a; path = ../../../../logsdk/ios/lib/liblogsdk.a; sourceTree = "<group>"; };
+		0C309DEF1BEAEC4500B1CAE3 /* logsdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = logsdk.xcodeproj; path = ../../../../../LambdacloudSDK/ios/src/xcode/logsdk.xcodeproj; sourceTree = "<group>"; };
 		15384F611611B38A0021DC07 /* CCControlPotentiometerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlPotentiometerTest.cpp; sourceTree = "<group>"; };
 		15384F621611B38A0021DC07 /* CCControlPotentiometerTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlPotentiometerTest.h; sourceTree = "<group>"; };
 		15384F641611B38A0021DC07 /* CCControlStepperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlStepperTest.cpp; sourceTree = "<group>"; };
@@ -1013,7 +1039,6 @@
 		1D6058910D05DD3D006BFB54 /* TestCpp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestCpp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* iphone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iphone_Prefix.pch; path = ../iphone_Prefix.pch; sourceTree = "<group>"; };
 		372902431867D36800B59D3A /* ObjectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectFactory.cpp; sourceTree = "<group>"; };
 		372902441867D36800B59D3A /* ObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectFactory.h; sourceTree = "<group>"; };
@@ -1331,16 +1356,8 @@
 		A01B534E17DE7F7900A3D114 /* PerformanceAllocTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceAllocTest.h; path = ../../Classes/PerformanceTest/PerformanceAllocTest.h; sourceTree = "<group>"; };
 		A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigurationTest.cpp; sourceTree = "<group>"; };
 		A059B9AC174D9B8E0078F84F /* ConfigurationTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTest.h; sourceTree = "<group>"; };
-		B3731D6C1A7254AB00B764E4 /* LambdaClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaClient.h; sourceTree = "<group>"; };
-		B3731D6D1A7254AB00B764E4 /* LambdaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaDevice.h; sourceTree = "<group>"; };
-		B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaClient.cpp; sourceTree = "<group>"; };
-		B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LambdaDeviceIOSMac.mm; sourceTree = "<group>"; };
-		B3731D711A7254AB00B764E4 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
-		B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
 		B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LambdaCloudTest.cpp; sourceTree = "<group>"; };
-		B3E9F8B71A6E3FFF00066711 /* LambdaCloudTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LambdaCloudTest.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB212928DE900B8313A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -1360,6 +1377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C1C39E01BE7293A0070FAA7 /* liblogsdk.a in Frameworks */,
 				B3E9F8B41A6E3DBA00066711 /* SystemConfiguration.framework in Frameworks */,
 				B3E9F8B21A6E3DB000066711 /* CoreTelephony.framework in Frameworks */,
 				15A3DA6A1682F886002FB0C5 /* libcocos2dx.a in Frameworks */,
@@ -1384,8 +1402,8 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				0C1C39D71BE70CA10070FAA7 /* main.m */,
 				D4F9F37B12E54555005CA6D2 /* Test-Info.plist */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
 				1D3623240D0F684500981E51 /* testsAppDelegate.h */,
 				32CA4F630368D1EE00C91783 /* iphone_Prefix.pch */,
 				1D3623250D0F684500981E51 /* testsAppDelegate.mm */,
@@ -1394,6 +1412,39 @@
 			);
 			name = ios;
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		0C1C39B91BE702D50070FAA7 /* Ios */ = {
+			isa = PBXGroup;
+			children = (
+				0C1C39BA1BE702D50070FAA7 /* LambdaCloudTest.cpp */,
+				0C1C39BB1BE702D50070FAA7 /* LambdaCloudTest.h */,
+			);
+			name = Ios;
+			path = ../LambdaCloudTest/Ios;
+			sourceTree = "<group>";
+		};
+		0C1C39CB1BE705320070FAA7 /* liblogsdk */ = {
+			isa = PBXGroup;
+			children = (
+				0C1C39CF1BE705B30070FAA7 /* LogSdkConfig.h */,
+				0C1C39D01BE705B30070FAA7 /* LogSender.h */,
+				0C1C39D11BE705B30070FAA7 /* LogSpout.h */,
+				0C1C39D21BE705B30070FAA7 /* Reachability.h */,
+				0C1C39CE1BE7059F0070FAA7 /* LogRequest.h */,
+				0C1C39CD1BE7058B0070FAA7 /* LogAgent.h */,
+				0C1C39CC1BE705790070FAA7 /* DeviceInfo.h */,
+			);
+			name = liblogsdk;
+			sourceTree = "<group>";
+		};
+		0C309DF01BEAEC4500B1CAE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0C309DF61BEAEC4600B1CAE3 /* liblogsdk.a */,
+				0C309DF81BEAEC4600B1CAE3 /* logsdkTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		15384F601611B38A0021DC07 /* CCControlPotentiometerTest */ = {
@@ -2795,8 +2846,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				B3731D6B1A7254AB00B764E4 /* include */,
-				B3731D6E1A7254AB00B764E4 /* ios */,
+				0C309DEF1BEAEC4500B1CAE3 /* logsdk.xcodeproj */,
+				0C1C39CB1BE705320070FAA7 /* liblogsdk */,
 				15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D8871682F7D5002FB0C5 /* Box2D */,
 				15A3D93A1682F7F9002FB0C5 /* chipmunk */,
@@ -2815,6 +2866,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C1C39DF1BE7293A0070FAA7 /* liblogsdk.a */,
+				0C1C39DC1BE7258F0070FAA7 /* libPods.a */,
+				0C1C39DA1BE7258B0070FAA7 /* libPods-OHHTTPStubs.a */,
 				B3E9F8B31A6E3DBA00066711 /* SystemConfiguration.framework */,
 				B3E9F8B11A6E3DB000066711 /* CoreTelephony.framework */,
 				1ACB3243164770DE00914215 /* libcurl.a */,
@@ -3666,33 +3720,10 @@
 			path = ../Classes/ConfigurationTest;
 			sourceTree = "<group>";
 		};
-		B3731D6B1A7254AB00B764E4 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				B3731D6C1A7254AB00B764E4 /* LambdaClient.h */,
-				B3731D6D1A7254AB00B764E4 /* LambdaDevice.h */,
-			);
-			name = include;
-			path = ../../../../lambdacloud/include;
-			sourceTree = "<group>";
-		};
-		B3731D6E1A7254AB00B764E4 /* ios */ = {
-			isa = PBXGroup;
-			children = (
-				B3731D6F1A7254AB00B764E4 /* LambdaClient.cpp */,
-				B3731D701A7254AB00B764E4 /* LambdaDeviceIOSMac.mm */,
-				B3731D711A7254AB00B764E4 /* ReachabilityIOSMac.h */,
-				B3731D721A7254AB00B764E4 /* ReachabilityIOSMac.m */,
-			);
-			name = ios;
-			path = ../../../../lambdacloud/ios;
-			sourceTree = "<group>";
-		};
 		B3E9F8B51A6E3F7A00066711 /* LambdaCloudTest */ = {
 			isa = PBXGroup;
 			children = (
-				B3E9F8B61A6E3FFF00066711 /* LambdaCloudTest.cpp */,
-				B3E9F8B71A6E3FFF00066711 /* LambdaCloudTest.h */,
+				0C1C39B91BE702D50070FAA7 /* Ios */,
 			);
 			name = LambdaCloudTest;
 			path = ../Classes/LambdacloudTest;
@@ -3738,6 +3769,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 2KK9NJD3BX;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TestCpp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3756,6 +3792,10 @@
 					ProductGroup = 15A3D87F1682F7B3002FB0C5 /* Products */;
 					ProjectRef = 15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */;
 				},
+				{
+					ProductGroup = 0C309DF01BEAEC4500B1CAE3 /* Products */;
+					ProjectRef = 0C309DEF1BEAEC4500B1CAE3 /* logsdk.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -3765,6 +3805,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0C309DF61BEAEC4600B1CAE3 /* liblogsdk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblogsdk.a;
+			remoteRef = 0C309DF51BEAEC4600B1CAE3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0C309DF81BEAEC4600B1CAE3 /* logsdkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = logsdkTests.xctest;
+			remoteRef = 0C309DF71BEAEC4600B1CAE3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		15A3D8861682F7B3002FB0C5 /* libcocos2dx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -3820,7 +3874,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F853F318C57E040019FBFB /* ListViewReader.cpp in Sources */,
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* testsAppDelegate.mm in Sources */,
 				BF3326F413690DA4007CAA22 /* RootViewController.mm in Sources */,
 				15AA9D5115B7EC460033D6C2 /* AccelerometerTest.cpp in Sources */,
@@ -3841,7 +3894,6 @@
 				15AA9D5C15B7EC460033D6C2 /* Bug-1174.cpp in Sources */,
 				15AA9D5D15B7EC460033D6C2 /* Bug-350.cpp in Sources */,
 				15AA9D5E15B7EC460033D6C2 /* Bug-422.cpp in Sources */,
-				B3731D751A7254AB00B764E4 /* ReachabilityIOSMac.m in Sources */,
 				15AA9D5F15B7EC460033D6C2 /* Bug-458.cpp in Sources */,
 				3729024D1867D36800B59D3A /* TriggerMng.cpp in Sources */,
 				15AA9D6015B7EC460033D6C2 /* QuestionContainerSprite.cpp in Sources */,
@@ -3945,6 +3997,7 @@
 				50E9E948182A355B00F6FDF1 /* SceneReader.cpp in Sources */,
 				15A3D90A1682F7D5002FB0C5 /* b2PolygonShape.cpp in Sources */,
 				15A3D90B1682F7D5002FB0C5 /* b2BlockAllocator.cpp in Sources */,
+				0C1C39D81BE70CA10070FAA7 /* main.m in Sources */,
 				15A3D90C1682F7D5002FB0C5 /* b2Draw.cpp in Sources */,
 				15A3D90D1682F7D5002FB0C5 /* b2Math.cpp in Sources */,
 				15A3D90E1682F7D5002FB0C5 /* b2Settings.cpp in Sources */,
@@ -4052,6 +4105,7 @@
 				15A3DA441682F826002FB0C5 /* CCNodeLoaderLibrary.cpp in Sources */,
 				15A3DA451682F826002FB0C5 /* CCParticleSystemQuadLoader.cpp in Sources */,
 				50F8547A18C581FB0019FBFB /* UIScene.cpp in Sources */,
+				0C1C39BC1BE702D50070FAA7 /* LambdaCloudTest.cpp in Sources */,
 				15A3DA461682F826002FB0C5 /* CCScale9SpriteLoader.cpp in Sources */,
 				15A3DA471682F826002FB0C5 /* CCScrollViewLoader.cpp in Sources */,
 				15A3DA481682F826002FB0C5 /* CCSpriteLoader.cpp in Sources */,
@@ -4088,7 +4142,6 @@
 				15A3DAEF1682F8A6002FB0C5 /* SimpleAudioEngine_objc.m in Sources */,
 				1A27573F1697CF2B00504026 /* CCEditBoxImplAndroid.cpp in Sources */,
 				50F8548018C581FB0019FBFB /* UISliderTest.cpp in Sources */,
-				B3731D731A7254AB00B764E4 /* LambdaClient.cpp in Sources */,
 				1AB2D71716B649C200D72C48 /* FileUtilsTest.cpp in Sources */,
 				1A75E95A16F84FDD00BA80BD /* TimelineCallbackTestLayer.cpp in Sources */,
 				1A9FE96B17277E9D00B21905 /* Animation.cpp in Sources */,
@@ -4126,7 +4179,6 @@
 				50F8548318C581FB0019FBFB /* UITextFieldTest_Editor.cpp in Sources */,
 				37CA1C1D17D87A3300A649D0 /* CCProcessBase.cpp in Sources */,
 				37CA1C1E17D87A3300A649D0 /* CCTween.cpp in Sources */,
-				B3731D741A7254AB00B764E4 /* LambdaDeviceIOSMac.mm in Sources */,
 				37CA1C1F17D87A3300A649D0 /* CCArmature.cpp in Sources */,
 				37CA1C2017D87A3300A649D0 /* CCBone.cpp in Sources */,
 				37CA1C2117D87A3300A649D0 /* CCDatas.cpp in Sources */,
@@ -4196,7 +4248,6 @@
 				37BB5BF517E89E9B002746B4 /* CCActionFrameEasing.cpp in Sources */,
 				37BB5BF617E89E9B002746B4 /* CCActionManager.cpp in Sources */,
 				37BB5BF717E89E9B002746B4 /* CCActionNode.cpp in Sources */,
-				B3E9F8B81A6E3FFF00066711 /* LambdaCloudTest.cpp in Sources */,
 				50FCEB5B18C6F174004AD434 /* CustomGUIScene.cpp in Sources */,
 				37BB5BF817E89E9B002746B4 /* CCActionObject.cpp in Sources */,
 				50F853EF18C57E040019FBFB /* LabelAtlasReader.cpp in Sources */,
@@ -4220,6 +4271,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -4253,7 +4305,9 @@
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../../external/libwebsockets/ios/lib\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = TestCpp;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4267,6 +4321,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4298,6 +4353,7 @@
 					"\"$(SRCROOT)/../../../../external/libwebsockets/ios/lib\"",
 				);
 				PRODUCT_NAME = TestCpp;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -4313,6 +4369,7 @@
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv6 armv7 i386";
 			};
