@@ -53,9 +53,9 @@ LambdaCloudTest::LambdaCloudTest()
     menuRequest->setPosition(CCPointZero);
     addChild(menuRequest);
 
-    // Send Demo Test Logs
-    CCLabelTTF *labelDemo = CCLabelTTF::create("Demo Test, 15days x 1000messages/day", "Arial", 22);
-    CCMenuItemLabel *itemDemo = CCMenuItemLabel::create(labelDemo, this, menu_selector(LambdaCloudTest::onMenuSendDemoTestLogsClicked));
+    // Send Stress Test Logs
+    CCLabelTTF *labelDemo = CCLabelTTF::create("Stress Test, 15days x 1000messages/day", "Arial", 22);
+    CCMenuItemLabel *itemDemo = CCMenuItemLabel::create(labelDemo, this, menu_selector(LambdaCloudTest::onMenuSendStressTestLogsClicked));
     itemDemo->setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - 4 * SPACE));
     menuRequest->addChild(itemDemo);
 
@@ -87,10 +87,10 @@ LambdaCloudTest::~LambdaCloudTest()
 {
 }
 
-void LambdaCloudTest::onMenuSendDemoTestLogsClicked(cocos2d::CCObject *sender){
+void LambdaCloudTest::onMenuSendStressTestLogsClicked(cocos2d::CCObject *sender){
     
     // 配置token和参数
-    [LogAgent setToken:@"18317FF3-2E16-40B4-B4F7-69F352996255"];
+    [LogAgent setToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
     [LogAgent SetMaxkQueueSize:20000];
     int num =0;
     NSInteger userId =100000;
