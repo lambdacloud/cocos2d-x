@@ -58,6 +58,26 @@ void LambdaClient::setSendInterval(int intervalInSecond)
     }
 }
 
+void LambdaClient::setMaxQueueSize(int queueSize)
+{
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "setMaxQueueSize", "(I)V"))
+        {
+            methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, queueSize);
+            return;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while setting max queue size, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while setting max queue size, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while setting max queue size");
+    }
+
+}
+
 void LambdaClient::debugLogSdk(bool debug)
 {
     try
@@ -120,7 +140,8 @@ bool LambdaClient::writeLog(const char* log)
             jstring jLog = methodInfo.env->NewStringUTF(log);
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog);
             methodInfo.env->DeleteLocalRef(jLog);
-            return (bool)added;
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return (bool)added;;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
@@ -154,7 +175,8 @@ bool LambdaClient::writeLog(const char* log, const char* tags)
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jLog, jTags);
             methodInfo.env->DeleteLocalRef(jLog);
             methodInfo.env->DeleteLocalRef(jTags);
-            return (bool)added;
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return (bool)added;;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaClient got an exception while writing log, detail is %s", ex.what());
@@ -165,7 +187,7 @@ bool LambdaClient::writeLog(const char* log, const char* tags)
     }
 }
 
-bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, std::map<std::string, std::string>* props)
+bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -176,15 +198,18 @@ bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, st
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendChannelInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendChannelInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jChannelID = methodInfo.env->NewStringUTF(channelID);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jChannelID, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jChannelID, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jChannelID);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -196,7 +221,7 @@ bool LambdaClient::sendChannelInfo(const char* userID, const char* channelID, st
     }
 }
 
-bool LambdaClient::sendLoginInfo(const char* userID, const char* serverID, std::map<std::string, std::string>* props)
+bool LambdaClient::sendLoginInfo(const char* userID, const char* serverID, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -207,15 +232,18 @@ bool LambdaClient::sendLoginInfo(const char* userID, const char* serverID, std::
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLoginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLoginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jServerID = methodInfo.env->NewStringUTF(serverID);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jServerID, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jServerID, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jServerID);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -227,7 +255,7 @@ bool LambdaClient::sendLoginInfo(const char* userID, const char* serverID, std::
     }
 }
 
-bool LambdaClient::sendLogoutInfo(const char* userID, std::map<std::string, std::string>* props)
+bool LambdaClient::sendLogoutInfo(const char* userID, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -238,13 +266,16 @@ bool LambdaClient::sendLogoutInfo(const char* userID, std::map<std::string, std:
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLogoutInfo", "(Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLogoutInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -256,7 +287,7 @@ bool LambdaClient::sendLogoutInfo(const char* userID, std::map<std::string, std:
     }
 }
 
-bool LambdaClient::sendUserTag(const char* userID, const char* tag, const char* subtag)
+bool LambdaClient::sendUserTag(const char* userID, const char* tag, const char* timestamp, const char* subtag)
 {
     if (NULL == userID)
     {
@@ -267,15 +298,18 @@ bool LambdaClient::sendUserTag(const char* userID, const char* tag, const char* 
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendUserTag", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendUserTag", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jTag = methodInfo.env->NewStringUTF(tag);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jstring jSubTag = methodInfo.env->NewStringUTF(subtag);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTag, jSubTag);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTag, jTimestamp, jSubTag);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTag);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jSubTag);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -287,7 +321,7 @@ bool LambdaClient::sendUserTag(const char* userID, const char* tag, const char* 
     }
 }
 
-bool LambdaClient::sendLevelBeginInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendLevelBeginInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -298,15 +332,18 @@ bool LambdaClient::sendLevelBeginInfo(const char* userID, const char* levelName,
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelBeginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelBeginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jLevelName = methodInfo.env->NewStringUTF(levelName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jLevelName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -318,7 +355,7 @@ bool LambdaClient::sendLevelBeginInfo(const char* userID, const char* levelName,
     }
 }
 
-bool LambdaClient::sendLevelCompleteInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendLevelCompleteInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -329,15 +366,18 @@ bool LambdaClient::sendLevelCompleteInfo(const char* userID, const char* levelNa
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelCompleteInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelCompleteInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jLevelName = methodInfo.env->NewStringUTF(levelName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jLevelName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -349,7 +389,7 @@ bool LambdaClient::sendLevelCompleteInfo(const char* userID, const char* levelNa
     }
 }
 
-bool LambdaClient::sendLevelFailInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendLevelFailInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -360,15 +400,18 @@ bool LambdaClient::sendLevelFailInfo(const char* userID, const char* levelName, 
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelFailInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendLevelFailInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jLevelName = methodInfo.env->NewStringUTF(levelName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLevelName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jLevelName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -380,7 +423,7 @@ bool LambdaClient::sendLevelFailInfo(const char* userID, const char* levelName, 
     }
 }
 
-bool LambdaClient::sendTaskBeginInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendTaskBeginInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -391,15 +434,18 @@ bool LambdaClient::sendTaskBeginInfo(const char* userID, const char* taskName, s
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskBeginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskBeginInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jTaskName = methodInfo.env->NewStringUTF(taskName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTaskName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -411,7 +457,7 @@ bool LambdaClient::sendTaskBeginInfo(const char* userID, const char* taskName, s
     }
 }
 
-bool LambdaClient::sendTaskCompleteInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendTaskCompleteInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -422,15 +468,18 @@ bool LambdaClient::sendTaskCompleteInfo(const char* userID, const char* taskName
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskCompleteInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskCompleteInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jTaskName = methodInfo.env->NewStringUTF(taskName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTaskName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -442,7 +491,7 @@ bool LambdaClient::sendTaskCompleteInfo(const char* userID, const char* taskName
     }
 }
 
-bool LambdaClient::sendTaskFailInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendTaskFailInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -453,15 +502,18 @@ bool LambdaClient::sendTaskFailInfo(const char* userID, const char* taskName, st
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskFailInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendTaskFailInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jTaskName = methodInfo.env->NewStringUTF(taskName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTaskName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jTaskName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -473,7 +525,7 @@ bool LambdaClient::sendTaskFailInfo(const char* userID, const char* taskName, st
     }
 }
 
-bool LambdaClient::sendGetItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendGetItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -484,15 +536,18 @@ bool LambdaClient::sendGetItemInfo(const char* userID, const char* itemName, std
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendGetItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendGetItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jItemName = methodInfo.env->NewStringUTF(itemName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jItemName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -504,7 +559,7 @@ bool LambdaClient::sendGetItemInfo(const char* userID, const char* itemName, std
     }
 }
 
-bool LambdaClient::sendBuyItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendBuyItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -515,15 +570,18 @@ bool LambdaClient::sendBuyItemInfo(const char* userID, const char* itemName, std
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendBuyItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendBuyItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jItemName = methodInfo.env->NewStringUTF(itemName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jItemName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -535,7 +593,7 @@ bool LambdaClient::sendBuyItemInfo(const char* userID, const char* itemName, std
     }
 }
 
-bool LambdaClient::sendConsumeItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props)
+bool LambdaClient::sendConsumeItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -546,15 +604,18 @@ bool LambdaClient::sendConsumeItemInfo(const char* userID, const char* itemName,
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendConsumeItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendConsumeItemInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jItemName = methodInfo.env->NewStringUTF(itemName);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jItemName, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jItemName);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -566,7 +627,7 @@ bool LambdaClient::sendConsumeItemInfo(const char* userID, const char* itemName,
     }
 }
 
-bool LambdaClient::sendGainCoinInfo(const char* userID, const char* coinType, long gain, long total, const char* reason, std::map<std::string, std::string>* props)
+bool LambdaClient::sendGainCoinInfo(const char* userID, const char* coinType, long gain, long total, const char* reason, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -577,19 +638,22 @@ bool LambdaClient::sendGainCoinInfo(const char* userID, const char* coinType, lo
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendGainCoinInfo", "(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendGainCoinInfo", "(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jCoinType = methodInfo.env->NewStringUTF(coinType);
             jlong jGain = gain;
             jlong jTotal = total;
             jstring jReason = methodInfo.env->NewStringUTF(reason);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jCoinType, jGain, jTotal, jReason, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jCoinType, jGain, jTotal, jReason, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jCoinType);
             methodInfo.env->DeleteLocalRef(jReason);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -601,7 +665,7 @@ bool LambdaClient::sendGainCoinInfo(const char* userID, const char* coinType, lo
     }
 }
 
-bool LambdaClient::sendConsumeCoinInfo(const char* userID, const char* coinType, long use, long total, const char* reason, std::map<std::string, std::string>* props)
+bool LambdaClient::sendConsumeCoinInfo(const char* userID, const char* coinType, long use, long total, const char* reason, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -612,19 +676,22 @@ bool LambdaClient::sendConsumeCoinInfo(const char* userID, const char* coinType,
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendConsumeCoinInfo", "(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendConsumeCoinInfo", "(Ljava/lang/String;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jCoinType = methodInfo.env->NewStringUTF(coinType);
             jlong jUse = use;
             jlong jTotal = total;
             jstring jReason = methodInfo.env->NewStringUTF(reason);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jCoinType, jUse, jTotal, jReason, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jCoinType, jUse, jTotal, jReason, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jCoinType);
             methodInfo.env->DeleteLocalRef(jReason);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -636,7 +703,7 @@ bool LambdaClient::sendConsumeCoinInfo(const char* userID, const char* coinType,
     }
 }
 
-bool LambdaClient::sendDeviceInfo(const char* userID, std::map<std::string, std::string>* props)
+bool LambdaClient::sendDeviceInfo(const char* userID, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -647,13 +714,16 @@ bool LambdaClient::sendDeviceInfo(const char* userID, std::map<std::string, std:
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendDeviceInfo", "(Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendDeviceInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -665,7 +735,7 @@ bool LambdaClient::sendDeviceInfo(const char* userID, std::map<std::string, std:
     }
 }
 
-bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, std::map<std::string, std::string>* props)
+bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -677,7 +747,7 @@ bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* order
     {
         LogSdkJniMethodInfo methodInfo;
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCurrencyPaymentInfo",
-                                                 "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+                                                 "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jOrderID = methodInfo.env->NewStringUTF(orderID);
@@ -685,15 +755,18 @@ bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* order
             jstring jAmount = methodInfo.env->NewStringUTF(amount);
             jstring jCurrencyType = methodInfo.env->NewStringUTF(currencyType);
             jstring jPaymentType = methodInfo.env->NewStringUTF(paymentType);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jOrderID, jIapID, jAmount, jCurrencyType, jPaymentType, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jOrderID, jIapID, jAmount, jCurrencyType, jPaymentType, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jOrderID);
             methodInfo.env->DeleteLocalRef(jIapID);
             methodInfo.env->DeleteLocalRef(jAmount);
             methodInfo.env->DeleteLocalRef(jCurrencyType);
             methodInfo.env->DeleteLocalRef(jPaymentType);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -705,7 +778,7 @@ bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* order
     }
 }
 
-bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, std::map<std::string, std::string>* props)
+bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -716,15 +789,18 @@ bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, s
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCustomizedInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCustomizedInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jLogType = methodInfo.env->NewStringUTF(logtype);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLogType, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jLogType, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jLogType);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -737,7 +813,7 @@ bool LambdaClient::sendCustomizedInfo(const char* userID, const char* logtype, s
 
 }
 
-bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, std::map<std::string, std::string>* props)
+bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, const char* timestamp, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)
     {
@@ -748,21 +824,24 @@ bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelTy
     try
     {
         LogSdkJniMethodInfo methodInfo;
-        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCustomizedFunnel", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendCustomizedFunnel", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jstring jFunnelType = methodInfo.env->NewStringUTF(funnelType);
             jstring jStepName = methodInfo.env->NewStringUTF(stepName);
             jstring jStepStatus = methodInfo.env->NewStringUTF(stepStatus);
             jstring jDescription = methodInfo.env->NewStringUTF(description);
+            jstring jTimestamp = methodInfo.env->NewStringUTF(timestamp);
             jobject jProps = LogSdkJniHelper::cMapToJMap(props);
-            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jFunnelType, jStepName, jStepStatus, jDescription, jProps);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jFunnelType, jStepName, jStepStatus, jDescription, jTimestamp, jProps);
             methodInfo.env->DeleteLocalRef(jUserID);
             methodInfo.env->DeleteLocalRef(jFunnelType);
             methodInfo.env->DeleteLocalRef(jStepName);
             methodInfo.env->DeleteLocalRef(jStepStatus);
             methodInfo.env->DeleteLocalRef(jDescription);
+            methodInfo.env->DeleteLocalRef(jTimestamp);
             methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
             return (bool)added;
         }
     } catch (const std::exception& ex) {
@@ -776,6 +855,6 @@ bool LambdaClient::sendCustomizedFunnel(const char* userID, const char* funnelTy
 
 std::string LambdaClient::getVersion()
 {
-    return "0.1.0";
+    return "0.1.0-demo";
 }
 

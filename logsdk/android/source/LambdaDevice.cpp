@@ -51,9 +51,10 @@ std::string LambdaDevice::getCarrierName(void)
                                        "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while reading carrier name for android device, detail is %s", ex.what());
@@ -75,8 +76,10 @@ std::string LambdaDevice::getNetworkStatus(void)
                         "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
         return LAMBDA_NETWORK_STATUS_NOT_REACHABLE;
     } catch (const std::exception& ex) {
@@ -102,8 +105,10 @@ std::string LambdaDevice::getDeviceName(void)
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getDeviceName", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while reading device name for android device, detail is %s", ex.what());
@@ -123,8 +128,10 @@ std::string LambdaDevice::getOsVersion(void)
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getOsVersion", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while reading os version for android device, detail is %s", ex.what());
@@ -144,8 +151,10 @@ std::string LambdaDevice::getScreenDimension(void)
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getScreenDimension", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while reading screen dimension for android device, detail is %s", ex.what());
@@ -165,8 +174,10 @@ std::string LambdaDevice::getImei(void)
         if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getImei", "()Ljava/lang/String;"))
         {
             jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
             methodInfo.env->DeleteLocalRef(methodInfo.classID);
-            return LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
         }
     } catch (const std::exception& ex) {
         LOGE("LambdaDevice got an exception while reading IMEI info for android device, detail is %s", ex.what());

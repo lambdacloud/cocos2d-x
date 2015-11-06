@@ -50,6 +50,12 @@ namespace lambdacloud {
          */
         static void setSendInterval(int intervalInSecond);
         
+        /** 设置最大等待发送数。SDK会先将要发送的日志缓存下来，然后周期性的发送。如果两次发送之间缓存的日志数超过了最大值，新进来的日志会被抛弃掉。
+            如果需要在短时间内记录大量的日志，建议适当调大此值。
+            默认值为100。
+         */
+        static void setMaxQueueSize(int queueSize);
+        
         /** Turn it on to output some debug info for lambdacloud sdk.
          */
         static void debugLogSdk(bool debug);
@@ -98,7 +104,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendChannelInfo(const char* userID, const char* channelID, std::map<std::string, std::string>* props);
+        static bool sendChannelInfo(const char* userID, const char* channelID, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send user login info.
          
@@ -113,7 +119,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendLoginInfo(const char* userID, const char* serverID, std::map<std::string, std::string>* props);
+        static bool sendLoginInfo(const char* userID, const char* serverID, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send user logout info.
          
@@ -125,7 +131,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendLogoutInfo(const char* userID, std::map<std::string, std::string>* props);
+        static bool sendLogoutInfo(const char* userID, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to mark user with tags.
          
@@ -142,7 +148,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendUserTag(const char* userID, const char* tag, const char* subtag);
+        static bool sendUserTag(const char* userID, const char* tag, const char* timestamp, const char* subtag);
         
         /** This is to send level begin info.
          
@@ -157,7 +163,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendLevelBeginInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendLevelBeginInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send level complete info.
          
@@ -172,7 +178,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendLevelCompleteInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendLevelCompleteInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send level fail info.
          
@@ -187,7 +193,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendLevelFailInfo(const char* userID, const char* levelName, std::map<std::string, std::string>* props);
+        static bool sendLevelFailInfo(const char* userID, const char* levelName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send task begin info.
          
@@ -202,7 +208,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendTaskBeginInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendTaskBeginInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send task complete info.
          
@@ -217,7 +223,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendTaskCompleteInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendTaskCompleteInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send task complete info.
          
@@ -232,7 +238,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendTaskFailInfo(const char* userID, const char* taskName, std::map<std::string, std::string>* props);
+        static bool sendTaskFailInfo(const char* userID, const char* taskName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send getting item info.
          
@@ -247,7 +253,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendGetItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendGetItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send buying item info.
          
@@ -262,7 +268,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendBuyItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendBuyItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send consuming item info.
          
@@ -277,7 +283,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendConsumeItemInfo(const char* userID, const char* itemName, std::map<std::string, std::string>* props);
+        static bool sendConsumeItemInfo(const char* userID, const char* itemName, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send gaining app coin info.
          
@@ -301,7 +307,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendGainCoinInfo(const char* userID, const char* coinType, long gain, long total, const char* reason, std::map<std::string, std::string>* props);
+        static bool sendGainCoinInfo(const char* userID, const char* coinType, long gain, long total, const char* reason, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send consuming app coin info.
          
@@ -325,7 +331,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendConsumeCoinInfo(const char* userID, const char* coinType, long use, long total, const char* reason, std::map<std::string, std::string>* props);
+        static bool sendConsumeCoinInfo(const char* userID, const char* coinType, long use, long total, const char* reason, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to collect and send some device info.
          
@@ -346,7 +352,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendDeviceInfo(const char* userID, std::map<std::string, std::string>* props);
+        static bool sendDeviceInfo(const char* userID, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send payment info of real money.
          
@@ -373,7 +379,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, std::map<std::string, std::string>* props);
+        static bool sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send any customized event.
          
@@ -388,7 +394,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
         */
-        static bool sendCustomizedInfo(const char* userID, const char* logtype, std::map<std::string, std::string>* props);
+        static bool sendCustomizedInfo(const char* userID, const char* logtype, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to send any customized funnel info for further analyze.
          
@@ -412,7 +418,7 @@ namespace lambdacloud {
          
          @return true, if everything is ok. Else false.
          */
-        static bool sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, std::map<std::string, std::string>* props);
+        static bool sendCustomizedFunnel(const char* userID, const char* funnelType, const char* stepName, const char* stepStatus, const char* description, const char* timestamp, std::map<std::string, std::string>* props);
         
         /** This is to get current version of lambdacloud sdk.
          
