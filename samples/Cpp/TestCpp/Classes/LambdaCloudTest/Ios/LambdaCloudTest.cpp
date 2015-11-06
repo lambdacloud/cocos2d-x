@@ -91,7 +91,7 @@ void LambdaCloudTest::onMenuSendStressTestLogsClicked(cocos2d::CCObject *sender)
     
     // 配置token和参数
     [LogAgent setToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
-    [LogAgent SetMaxkQueueSize:20000];
+    [LogAgent SetMaxQueueSize:20000];
     int num =0;
     NSInteger userId =100000;
     for (int session=0; session<10000; session++) {
