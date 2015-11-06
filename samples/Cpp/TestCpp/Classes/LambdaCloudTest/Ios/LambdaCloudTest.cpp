@@ -25,6 +25,8 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 
+
+
 std::string getISOTime()
 {
     time_t now;
@@ -50,11 +52,12 @@ LambdaCloudTest::LambdaCloudTest()
     CCMenu *menuRequest = CCMenu::create();
     menuRequest->setPosition(CCPointZero);
     addChild(menuRequest);
-    
-    // Set logsdk debug flag true
-   // lambdacloud::LambdaClient::debugLogSdk(true);
-    // Set log interval 10 seconds
-    //lambdacloud::LambdaClient::setSendInterval(10);
+
+    // Send Stress Test Logs
+    CCLabelTTF *labelDemo = CCLabelTTF::create("Stress Test, 15days x 1000messages/day", "Arial", 22);
+    CCMenuItemLabel *itemDemo = CCMenuItemLabel::create(labelDemo, this, menu_selector(LambdaCloudTest::onMenuSendStressTestLogsClicked));
+    itemDemo->setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - 4 * SPACE));
+    menuRequest->addChild(itemDemo);
 
     // Get Device Info
     CCLabelTTF *labelGet = CCLabelTTF::create("Test Get Device Info", "Arial", 22);
@@ -82,6 +85,37 @@ LambdaCloudTest::LambdaCloudTest()
 
 LambdaCloudTest::~LambdaCloudTest()
 {
+}
+
+void LambdaCloudTest::onMenuSendStressTestLogsClicked(cocos2d::CCObject *sender){
+    
+    // 配置token和参数
+    [LogAgent setToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
+    [LogAgent SetMaxQueueSize:20000];
+    int num =0;
+    NSInteger userId =100000;
+    for (int session=0; session<10000; session++) {
+        
+        try {
+            NSString *isoTime = [NSString stringWithUTF8String:getISOTime().c_str()];
+            // NSString *userId = [NSString stringWithUTF8String:userid.c_str()];
+           
+            NSString *networkStatus = [DeviceInfo getInternetConnectionStatus];
+            NSString *deviceInfo = [DeviceInfo getDeviceName];
+            NSString *operationInfo = [DeviceInfo getOperationInfo];
+            NSString *systemOs = [DeviceInfo getSystemOS];
+            
+            NSString *string = [[NSString alloc]initWithFormat:@"日志类型[LambdaCloud设备信息],时间[%@],用户[%d],操作系统[%@],操作系统版本[%@],设备名称[%@],网络状态[%@]", isoTime, ++userId ,operationInfo,systemOs,deviceInfo,networkStatus];
+            [LogAgent addLog:string];
+            NSLog(@"日志：%@",string);
+            CCLog("总数：%d",++num);
+            
+        } catch (std::exception e) {
+            CCLOGERROR("got exception when recording login info, detail is %s", e.what());
+        }
+    }
+    // Give a hit
+    m_labelStatusCode->setString("sent...please check log to verify");
 }
 
 void LambdaCloudTest::onMenuGetDeviceInfoClicked(cocos2d::CCObject *sender)
@@ -148,7 +182,7 @@ void LambdaCloudTest::onMenuSendLoginMessageClicked(cocos2d::CCObject *sender)
 
         NSString *string = [[NSString alloc]initWithFormat:@"日志类型[LambdaCloud设备信息],时间[%@],用户[%@],操作系统[%@],操作系统版本[%@],设备名称[%@],网络状态[%@]", isoTime, userId ,operationInfo,systemOs,deviceInfo,networkStatus];
         NSLog(@"%@",string);
-        [LogSdkConfig SetLogSdkToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
+        [LogAgent setToken:@"d029dfc9-c74f-4f31-b896-998f7d18fcfc"];
         [LogAgent addLog:string];
 
     } catch (std::exception e) {
