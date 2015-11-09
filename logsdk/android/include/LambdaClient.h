@@ -50,6 +50,12 @@ namespace lambdacloud {
          */
         static void setSendInterval(int intervalInSecond);
         
+        /** 设置最大等待发送数。SDK会先将要发送的日志缓存下来，然后周期性的发送。如果两次发送之间缓存的日志数超过了最大值，新进来的日志会被抛弃掉。
+            如果需要在短时间内记录大量的日志，建议适当调大此值。
+            默认值为100。
+         */
+        static void setMaxQueueSize(int queueSize);
+        
         /** Turn it on to output some debug info for lambdacloud sdk.
          */
         static void debugLogSdk(bool debug);
