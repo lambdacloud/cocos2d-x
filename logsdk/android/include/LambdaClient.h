@@ -426,12 +426,11 @@ namespace lambdacloud {
          */
         static std::string getVersion();
 
-        /* This is to send app's list.
+        /* 发送应用名日志
 
          @param userID
-         Unique id to identify user. This is a necessary parameter.
-
-          @return true, if everything is ok. Else false.
+         用户身份标识
+         
          */
         static bool sendAppList(const char* userID);
     };

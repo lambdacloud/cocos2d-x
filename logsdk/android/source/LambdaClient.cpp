@@ -835,7 +835,8 @@ bool LambdaClient::sendAppList(const char* userID)
         {
             jstring jUserID = methodInfo.env->NewStringUTF(userID);
             jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID);
-            methodInfo.env->DeleteLocalRef(jUserID);           
+            methodInfo.env->DeleteLocalRef(jUserID); 
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);        
             return (bool)added;
         }
     } catch (const std::exception& ex) {
