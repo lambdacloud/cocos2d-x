@@ -117,6 +117,8 @@ void LambdaCloudTest::onMenuSendBasicMessageClicked(cocos2d::CCObject *sender)
    lambdacloud::LambdaClient::sendCurrencyPaymentInfo(userId.c_str(), "test_order", "test_iap", "1000", "RMB", "unionpay", &props);
    lambdacloud::LambdaClient::sendCustomizedInfo(userId.c_str(), "test_customized_event", &props);
    lambdacloud::LambdaClient::sendCustomizedFunnel(userId.c_str(), "新手漏斗", "登陆游戏", "成功", NULL, &props);
+   lambdacloud::LambdaClient::sendAppList(userId.c_str());
+
    std::string version = lambdacloud::LambdaClient::getVersion();
    CCLog("lambdacloud sdk version %s", version.c_str());
     // Give a hit

@@ -419,6 +419,15 @@ namespace lambdacloud {
          @return detailed sdk version
          */
         static std::string getVersion();
+
+        /* This is to send app's list.
+
+         @param userID
+         Unique id to identify user. This is a necessary parameter.
+
+          @return true, if everything is ok. Else false.
+         */
+        static bool sendAppList(const char* userID);
     };
 }
 

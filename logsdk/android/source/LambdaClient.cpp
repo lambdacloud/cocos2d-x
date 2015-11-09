@@ -779,3 +779,31 @@ std::string LambdaClient::getVersion()
     return "0.1.0";
 }
 
+bool LambdaClient::sendAppList(const char* userID)
+{
+    if (NULL == userID)
+    {
+        LOGE("parameter userID should not be null while calling sendCustomizedInfo method");
+        return false;
+    }
+    
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendAppList", "(Ljava/lang/String;)Z"))
+        {
+            jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID);
+            methodInfo.env->DeleteLocalRef(jUserID);           
+            return (bool)added;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while calling sendAppList, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while calling sendAppList, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while calling sendAppList");
+    }
+}
+
+
