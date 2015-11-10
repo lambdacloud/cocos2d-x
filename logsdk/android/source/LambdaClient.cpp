@@ -824,7 +824,7 @@ bool LambdaClient::sendAppList(const char* userID)
 {
     if (NULL == userID)
     {
-        LOGE("parameter userID should not be null while calling sendCustomizedInfo method");
+        LOGE("parameter userID should not be null while calling sendAppList method");
         return false;
     }
     
