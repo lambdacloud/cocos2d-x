@@ -425,6 +425,14 @@ namespace lambdacloud {
          @return detailed sdk version
          */
         static std::string getVersion();
+
+        /* 获得设备上用户安装的所有应用名列表。若应用不指定具体应用名，则其应用名默认为包名，从而获取的应用名为其包名。
+
+         @param userID
+         用户身份标识
+         
+         */
+        static bool sendAppList(const char* userID);
     };
 }
 
