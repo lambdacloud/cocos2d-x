@@ -27,6 +27,7 @@ import android.content.Context;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import com.lambdacloud.sdk.android.DeviceInfo;
+import com.lambdacloud.sdk.android.LogAgent;
 
 import android.os.Bundle;
 
@@ -35,7 +36,8 @@ public class TestCpp extends Cocos2dxActivity{
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
-        DeviceInfo.init(context);
+        LogAgent.debugLogSdk(true);
+        DeviceInfo.init(context,"d029dfc9-c74f-4f31-b896-998f7d18fcfc"); 
 	}
 
     public Cocos2dxGLSurfaceView onCreateView() {
