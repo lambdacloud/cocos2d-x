@@ -31,13 +31,23 @@ extern NSString *const kHttpUrl;
 extern NSString *const kLogTag;
 extern NSInteger const kHttpTimeoutSec;
 extern NSInteger const kSpoutSleepTimeMS;
-extern NSInteger const kHttpStatusCode;
+extern NSInteger const kHttpStatusCodeSuccess;
+extern NSInteger const kHttpStatusCodeTokenIllegal;
+extern BOOL kDebug;
 extern NSInteger  kQueueSize;
+//method name
+extern NSString *const kGetInternetConnectionStatus;
+extern NSString *const kGetDeviceName;
+extern NSString *const kGetOperationInfo;
+extern NSString *const kGetSystemOs;
+extern NSString *const kGetLocationInfo;
+extern NSString *const kGetBatteryPower;
 
 @interface LogSdkConfig : NSObject
 
 + (NSString *)LogSdkToken;
 + (NSInteger)kQueueSize;
++ (BOOL)kDebug;
 + (void)SetLogSdkToken:(NSString *)token;
 
 @end

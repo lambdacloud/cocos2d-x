@@ -703,6 +703,38 @@ bool LambdaClient::sendDeviceInfo(const char* userID, std::map<std::string, std:
     }
 }
 
+bool LambdaClient::sendDeviceInfo(const char* userID, const char* methods, std::map<std::string, std::string>* props)
+{
+    if (NULL == userID)
+    {
+        LOGE("parameter userID should not be null while calling sendDeviceInfo method");
+        return false;
+    }
+    
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/LogAgent", "sendDeviceInfo", "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Z"))
+        {
+            jstring jUserID = methodInfo.env->NewStringUTF(userID);
+            jstring jmethods = methodInfo.env->NewStringUTF(methods); 
+            jobject jProps = LogSdkJniHelper::cMapToJMap(props);
+            jboolean added = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jUserID, jmethods, jProps);
+            methodInfo.env->DeleteLocalRef(jUserID);
+            methodInfo.env->DeleteLocalRef(jmethods);
+            methodInfo.env->DeleteLocalRef(jProps);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            return (bool)added;
+        }
+    } catch (const std::exception& ex) {
+        LOGE("LambdaClient got an exception while calling sendDeviceInfo, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaClient got a string exception while calling sendDeviceInfo, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaClient got an unknown exception while calling sendDeviceInfo");
+    }
+}
+
 bool LambdaClient::sendCurrencyPaymentInfo(const char* userID, const char* orderID, const char* iapID, const char* amount, const char* currencyType, const char* paymentType, std::map<std::string, std::string>* props)
 {
     if (NULL == userID)

@@ -211,5 +211,51 @@ std::string LambdaDevice::getImei(void)
     return LAMBDA_DEVICE_INFO_UNKNOWN;
 }
 
+ std::string  LambdaDevice::getLocation(void)
+ {
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getLocation", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID,methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
+        }
+    }catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading Location info for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading Location info for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading Location info for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+ }
+
+  std::string  LambdaDevice::getBatteryPower(void)
+ {
+    try
+    {
+        LogSdkJniMethodInfo methodInfo;
+        if (LogSdkJniHelper::getStaticMethodInfo(methodInfo, "com/lambdacloud/sdk/android/DeviceInfo", "getBatteryPower", "()Ljava/lang/String;"))
+        {
+            jstring jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID,methodInfo.methodID);
+            std::string str = LogSdkJniHelper::jstring2string(jstr);
+            methodInfo.env->DeleteLocalRef(methodInfo.classID);
+            methodInfo.env->DeleteLocalRef(jstr);
+            return str;
+        }
+    }catch (const std::exception& ex) {
+        LOGE("LambdaDevice got an exception while reading BatteryPower info for android device, detail is %s", ex.what());
+    } catch (const std::string& ex) {
+        LOGE("LambdaDevice got a string exception while reading BatteryPower info for android device, detail is %s", ex.c_str());
+    } catch (...) {
+        LOGE("LambdaDevice got an unknown exception while reading BatteryPower info for android device");
+    }
+    return LAMBDA_DEVICE_INFO_UNKNOWN;
+ }
+
 
 #endif

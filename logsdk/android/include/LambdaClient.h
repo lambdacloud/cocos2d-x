@@ -343,6 +343,8 @@ namespace lambdacloud {
          5. Detailed os version
          6. Screen demension, like 800x600
          7. EMEI to identify user device
+         8. Location info
+         9. BatteryPower
          
          @param userID
          Unique id to identify user. This is a necessary parameter.
@@ -353,6 +355,31 @@ namespace lambdacloud {
          @return true, if everything is ok. Else false.
          */
         static bool sendDeviceInfo(const char* userID, std::map<std::string, std::string>* props);
+        /** This is to collect and send some device info.
+         
+         Currently, we will try to collect the  device info what you want as follows: 
+         1. Platform info, like android or ios
+         2. Network status, is user connecting with wifi or wwan
+         3. Device brand name and model 
+         4. Operator name
+         5. Detailed os version
+         6. Screen demension, like 800x600
+         7. EMEI to identify user device
+         8. Location info
+         9. BatteryPower
+         
+         @param userID
+         Unique id to identify user. This is a necessary parameter.
+
+         @param methods
+         The method to get device info.
+         
+         @param props
+         Send any customized info through this map, null is also acceptable.
+         
+         @return true, if everything is ok. Else false.
+         */
+        static bool sendDeviceInfo(const char* userID, const char* methods, std::map<std::string, std::string>* props);
         
         /** This is to send payment info of real money.
          

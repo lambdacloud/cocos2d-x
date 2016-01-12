@@ -1,7 +1,7 @@
 #ifndef _TESTS_H_
 #define _TESTS_H_
 
-#include "LambdacloudTest/Ios/LambdaCloudTest.h"
+#include "LambdacloudTest/LambdaCloudTest.h"
 #include "ActionsTest/ActionsTest.h"
 #include "TransitionsTest/TransitionsTest.h"
 #include "ActionsProgressTest/ActionsProgressTest.h"
