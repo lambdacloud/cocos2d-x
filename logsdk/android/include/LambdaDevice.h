@@ -60,6 +60,8 @@ namespace lambdacloud {
         static std::string getOsVersion(void);
         static std::string getScreenDimension(void);
         static std::string getImei(void);
+        static std::string getLocation(void);
+        static std::string getBatteryPower(void);
         
     };
 }

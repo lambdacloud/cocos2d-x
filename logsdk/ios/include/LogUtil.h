@@ -27,24 +27,13 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const  kNetworkNotReachable;
-extern NSString *const  kNetworkReachableViaWifi;
-extern NSString *const  kNetworkReachableViaWwan;
-extern NSString *const  kUnknown;
-extern NSString *const  kIOS4OrEarlier;
-extern NSString *const  kIOS5;
-extern NSString *const  kIOS6;
-extern NSString *const  kIOS7;
-extern NSString *const  kIOS8;
-extern NSString *const  kIOS9;
 
-@interface DeviceInfo : NSObject
 
-+ (NSString *)getInternetConnectionStatus;
-+ (NSString *)getDeviceName;
-+ (NSString *)getOperationInfo;
-+ (NSString *)getSystemOS;
-+ (NSString *)getBatteryPower;
-+ (void)getLocation:(NSString *)userId;
+@interface LogUtil : NSObject
+
++ (void)debug:(NSString *)tag message:(NSString *)message;
++ (NSString *)getBasicInfo:(NSString *)logType userId:(NSString *)userId;
++ (NSString *)getTimeStamp;
++ (NSString *)dic2str:(NSMutableDictionary *)properties;
 
 @end
